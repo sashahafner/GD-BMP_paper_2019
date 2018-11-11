@@ -12,7 +12,7 @@ source('clean.R')
 source('biogas.R')
 
 # Apply grav2 (GD) method to get xCH4
-source('grav2.R')
+source('gd_calcs.R')
 
 # Compare estimates graphically
 source('plots.R')
