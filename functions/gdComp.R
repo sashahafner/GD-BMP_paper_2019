@@ -10,18 +10,18 @@ gdComp <- function(
   temp, # Temperature in C
   pres, # Pressure of biogas in atm
   massloss, # Mass loss in reactor
-  vol.b, # Volume of biogas
+  vol.b, # Volume of biogas in reactor
   vol.hs, # Volume headspace of reactor
   unit.temp = getOption('unit.temp', 'C') # Option unit for temperature
   unit.pres = getOption('unit.pres', 'atm') # Option unit for pressure
   
-  # Set relative humidity
+  # Set relative humidity - assumme 100 % humidity. Could be made as an argument..
   rh <- 1
   
-  # Set molar volume to 22300 mL/mol
+  # Set molar volume to 22300 mL/mol since difference between CO2 and CH4 is not that high
   v.b <- 22300
   
-  # set density of N2 (g/ml)
+  # Set density of N2 (g/ml)
   d.N2 <- 0.0012504
   
 ) {
