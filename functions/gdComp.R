@@ -12,8 +12,8 @@ gdComp <- function(
   massloss, # Mass loss in reactor
   vol.b, # Volume of biogas
   vol.hs, # Volume headspace of reactor
-  unit.temp = getOption('unit.temp', 'C')
-  unit.pres = getOption('unit.pres', 'atm')
+  unit.temp = getOption('unit.temp', 'C') # Option unit for temperature
+  unit.pres = getOption('unit.pres', 'atm') # Option unit for pressure
   
 ) {
   
