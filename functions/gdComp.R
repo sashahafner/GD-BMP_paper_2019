@@ -4,7 +4,7 @@
 
 # By Jacob R. Mortensen
 
-#Parameters:
+# Set arguments:
 
 gdComp <- function(
   temp, # Temperature in C
@@ -16,12 +16,15 @@ gdComp <- function(
   unit.pres = getOption('unit.pres', 'atm') # Option unit for pressure
   
   # Set relative humidity - assumme 100 % humidity. Could be made as an argument..
+  
   rh <- 1
   
   # Set molar volume to 22300 mL/mol since difference between CO2 and CH4 is not that high
+  
   v.b <- 22300
   
   # Set density of N2 (g/ml)
+  
   d.N2 <- 0.0012504
   
 ) {
@@ -49,6 +52,7 @@ gdComp <- function(
 # Calculating mass loss including N2 fraction (del.mb)
 
   del.mb <- massloss - (vol.hs * d.N2)
+  
 # Biogas Density calculation (d.b)
   
   d.b <- ((-del.mb) / (-vol.b - vol.hs)) - m.H2O
