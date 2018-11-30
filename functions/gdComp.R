@@ -10,6 +10,7 @@ gdComp <- function(
   temp, # Temperature in K
   pres, # Pressure of biogas in KPa
   massloss, # Mass loss in reactor
+  vol.b, # Volume of biogas
   vol.hs, # Volume headspace of reactor
   unit.temp = getOption('unit.temp', 'C')
   unit.pres = getOption('unit.pres', 'atm')
@@ -27,3 +28,9 @@ gdComp <- function(
 
   pres.pa <- unitConvert(x = pres, unit = unit.pres, to = 'kPa')
   temp.k <- unitConvert(x = temp, unit = unit.temp, to = 'K')
+  
+# Calculate water vapor mass
+  
+# Biogas Density calculation
+  
+# Molefraction of CH4 in biogas
