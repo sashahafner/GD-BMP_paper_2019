@@ -20,3 +20,10 @@ vv
 # Test gdComp() (expect 0.65)
 args(gdComp)
 gdComp(1, vv, temp = 20, pres = 1) 
+
+# Vectorized call
+mm <- 0.5 + 0:10/5
+vv <- 1000
+xx <- gdComp(mm, vv, temp = 20, pres = 1) 
+xx
+plot(mm, xx)
