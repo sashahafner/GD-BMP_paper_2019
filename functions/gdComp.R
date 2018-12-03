@@ -1,70 +1,76 @@
 # Function for calculating biogas composition from gas density
-
 # Closed form function for xCH4
+# Jacob R. Mortensen
 
-# By Jacob R. Mortensen
-
-# Set arguments:
+# NTS: do we need two pres arguments, for grav calcs and (mH2O) and vol std?
 
 gdComp <- function(
-  temp, # Temperature in C
-  pres, # Pressure of biogas in atm
-  massloss, # Mass loss in reactor
-  vol.b, # Volume of biogas in reactor
-  vol.hs, # Volume headspace of reactor
-  unit.temp = getOption('unit.temp', 'C') # Option unit for temperature
-  unit.pres = getOption('unit.pres', 'atm') # Option unit for pressure
-  
-  # Set relative humidity - assumme 100 % humidity. Could be made as an argument..
-  
-  rh <- 1
-  
-  # Set molar volume to 22300 mL/mol since difference between CO2 and CH4 is not that high
-  
-  v.b <- 22300
-  
-  # Set density of N2 (g/ml)
-  
-  d.N2 <- 0.0012504
-  
+  mass,     # Mass loss in reactor
+  vol.b,    # Measured volume of biogas removed from bottle (mL)
+  temp,     # Temperature in unit.pres
+  pres,     # Pressure of biogas in unit.pres
+  vol.hs = NULL,   # Headspace volume in bottle (mL)
+  headcomp = 'N2', 
+  temp.init = NULL,
+  pres.init = NULL,
+  unit.temp = getOption('unit.temp', 'C'),   # Optional unit for temperature
+  unit.pres = getOption('unit.pres', 'atm')  # Optional unit for pressure
 ) {
   
-# Check arguments:
-  
-  checkArgClassValue(massloss, c('integer', 'numeric'), expected.range = c(0, Inf))
-  checkArgClassValue(pres, c('integer', 'numeric')
-  checkArgClassValue(temp, c('integer', 'numeric')
-  checkArgClassValue(vol.hs, c('integer', 'numeric')
+  # Check arguments~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # NTS: are all included?
+  checkArgClassValue(mass, c('integer', 'numeric'), expected.range = c(0, Inf))
+  checkArgClassValue(pres, c('integer', 'numeric'))
+  checkArgClassValue(temp, c('integer', 'numeric'))
+  checkArgClassValue(vol.hs, c('integer', 'numeric', 'NULL'))
   checkArgClassValue(unit.temp, c('character'))
   checkArgClassValue(unit.pres, c('character'))
-  
-# Unit conversion
 
+  # Unit conversion
+  # NTS: are these needed? Can't we just use stdVol() with input arguments as in cumBg()? This applies to other functions as well. . .
   pres.pa <- unitConvert(x = pres, unit = unit.pres, to = 'Pa')
   temp.k <- unitConvert(x = temp, unit = unit.temp, to = 'K')
-  
-# Calculate water vapor mass
-  
+  if(!is.null(temp.init)) temp.init.k <- unitConvert(x = temp.init, unit = unit.temp, to = 'K')
+  if(!is.null(pres.init)) pres.init.pa <- unitConvert(x = pres.init, unit = unit.pres, to = 'Pa')
+    
+  # Set constants~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # Set relative humidity - assumme 100 % humidity. Could be made as an argument..
+  rh <- 1
+    
+  # Set biogas molar volume to 22300 mL/mol since difference between CO2 and CH4 is small
+  mvBg <- 22300
+    
+  # Set density of N2 (g/ml) at 1 atm and 0C
+  dN2 <- 0.0012504
+     
+  # Main calculations~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # Calculate water vapor mass
   pH2O <- rh*watVap(temp.k = temp.k)
+  mH2O <- (molMass('H2O')*pH2O)/((pres.pa - pH2O)*mvBg)
   
-  mH2O <- (molMass('H2O')*pH2O)/((pres.pa - pH2O)*v.b)
-  
-# Calculating mass loss including N2 fraction (del.mb)
+  # Correct mass loss and measured volume for N2 
+  # Note: assumes all N2 has been removed and headspace contains only biogas at fixed composition under same temperature and pressure as vol.b
+  if(!is.null(vol.hs)) {
+    message('Headspace correction included. . . (needs work)')
 
-  del.mb <- massloss - (vol.hs * d.N2)
+    vol.N2 <- stdVol(vol.hs, temp = temp.init.k, pres = pres.init.pa, rh = 0, temp.std = 273.15, pres.std = 101325, unit.pres = 'Pa', unit.temp = 'K', std.message = FALSE)
+    mass <- mass - (vol.N2 * dN2)
+
+    vol.b <- vol.b - vol.hs
+  }
+
+  # Standardize measured biogas volume
+  # NTS: should add pres.std temp.stp arguments, I think
+  vBg <- stdVol(vol.b, temp = temp.k, pres = pres.pa, rh = rh, temp.std = 273.15, pres.std = 101325, unit.pres = 'Pa', unit.temp = 'K', std.message = FALSE)
   
-# Biogas Density calculation (d.b)
+  # Dry biogas density
+  db <- mass/vBg - mH2O
   
-  d.b <- ((-del.mb) / (-vol.b - vol.hs)) - m.H2O
+  # Molar mass of biogas
+  mmb <- db * mvBg
   
-# Molarmass of biogas
-  
-  mm.b <- d.b * v.b
-  
-# Molefraction of CH4 in biogas
-  
-  xCH4 <- (molMass('CO2') - mm.b) / (molMass('CO2') - molMass('CH4'))
+  # Mole fraction of CH4 in biogas
+  xCH4 <- (molMass('CO2') - mmb) / (molMass('CO2') - molMass('CH4'))
  
-  
   return(xCH4) 
 }
