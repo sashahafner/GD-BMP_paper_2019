@@ -13,16 +13,23 @@ gdComp <- function(
   headcomp = 'N2', 
   temp.init = NULL,
   pres.init = NULL,
+  temp.std = NULL,
+  pres.std = NULL,
   unit.temp = getOption('unit.temp', 'C'),   # Optional unit for temperature
   unit.pres = getOption('unit.pres', 'atm')  # Optional unit for pressure
 ) {
   
   # Check arguments~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  # NTS: are all included?
+  # NTS: are all included? (I think so)
   checkArgClassValue(mass, c('integer', 'numeric'), expected.range = c(0, Inf))
-  checkArgClassValue(pres, c('integer', 'numeric'))
+  checkArgClassValue(vol.b, c('integer', 'numeric'))
   checkArgClassValue(temp, c('integer', 'numeric'))
+  checkArgClassValue(pres, c('integer', 'numeric'))
   checkArgClassValue(vol.hs, c('integer', 'numeric', 'NULL'))
+  checkArgClassValue(temp.init, c('integer', 'numeric', 'NULL'))
+  checkArgClassValue(pres.init, c('integer', 'numeric', 'NULL'))
+  checkArgClassValue(temp.std, c('integer', 'numeric', 'NULL'))
+  checkArgClassValue(pres.std, c('integer', 'numeric', 'NULL'))
   checkArgClassValue(unit.temp, c('character'))
   checkArgClassValue(unit.pres, c('character'))
 
