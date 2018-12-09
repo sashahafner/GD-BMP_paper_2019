@@ -13,8 +13,6 @@ gdComp <- function(
   headcomp = 'N2', 
   temp.init = NULL,
   pres.init = NULL,
-  temp.std = NULL,
-  pres.std = NULL,
   unit.temp = getOption('unit.temp', 'C'),   # Optional unit for temperature
   unit.pres = getOption('unit.pres', 'atm')  # Optional unit for pressure
 ) {
@@ -67,7 +65,6 @@ gdComp <- function(
   }
 
   # Standardize measured biogas volume
-  # NTS: should add pres.std temp.stp arguments, I think
   vBg <- stdVol(vol.b, temp = temp.k, pres = pres.pa, rh = rh, temp.std = 273.15, pres.std = 101325, unit.pres = 'Pa', unit.temp = 'K', std.message = FALSE)
   
   # Dry biogas density
