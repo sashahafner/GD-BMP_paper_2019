@@ -1,6 +1,7 @@
 # Function for calculating biogas composition from gas density
 # Closed form function for xCH4
 # Jacob R. Mortensen
+# 10.dec
 
 # NTS: do we need two pres arguments, for grav calcs and (mH2O) and vol std?
 
