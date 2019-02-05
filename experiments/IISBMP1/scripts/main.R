@@ -27,14 +27,6 @@ source('grav2b.R')
 source('BMP.R')
 source('BMP_grav2.R')
 
-head(g2dat)
-
-ggplot(bg2, aes(ctime, xCH4.ggd, colour = id, group = id)) + geom_line()
-ggplot(bg2, aes(ctime, xCH4.v, colour = id, group = id)) + geom_line()
-ggplot(bg2, aes(ctime, cvCH4.g2, colour = substrate, group = id)) + geom_line()
-ggplot(bg2, aes(ctime, cvCH4.v, colour = substrate, group = id)) + geom_line()
-
-head(bgg22)
 
 source('merge.R')
 source('export_cbg.R')
@@ -43,21 +35,3 @@ source('plots.R')
 source('bmp_plots.R')
 source('table1.R')
 
-head(bmp2vao, 2)
-d <- subset(bmp2vao, descrip == 'Cellulose')
-d <- subset(bmp2vao, descrip == 'CB')
-ggplot(data = d, aes(ctime, cvCH4, colour = id)) + geom_line() + geom_point()
-
-head(sleak.tot)
-leak.totd <- subset(leak.tot, detect == 1)
-leak.totn <- subset(leak.tot, detect == 0)
-sort(leak.totd$pct.leak)
-sort(leak.totn$pct.leak)
-
-leak.tot$cvCH4
-
-    print(ggplot(data = bmp1ma, aes(ctime, cvCH4, group = id, colour = descrip)) + geom_line() + geom_point())
-
-head(bmp1ma)
-
-head(leak.int)
