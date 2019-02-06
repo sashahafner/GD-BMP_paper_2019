@@ -11,6 +11,8 @@ source('load.R')
 # Clean data
 source('clean.R')
 
-# Calculate biogas production
-# source('biogas.R')
+# Calculate biogas production - DOES NOT WORK YET!
+source('biogas.R')
 
+# Apply grav2 (GD) method to get xCH4
+# source('gd_calcs.R')

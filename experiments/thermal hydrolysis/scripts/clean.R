@@ -2,16 +2,13 @@
 
 # Extra - Can be deleted later on
 summary(meas)
-mode(meas)
-class(meas)
-str(meas)
 head(meas)
 
 # Dfsumm function is used to get an overview
 source("../functions/dfsumm.R")
-dfsumm(meas)
-dfsumm(setup)
-dfsumm(comp)
+#dfsumm(meas)
+#dfsumm(setup)
+#dfsumm(comp)
 
 # ----
 # Make id a factor instead of a character
@@ -25,6 +22,7 @@ comp$xCH4 <- as.numeric(comp$xCH4)
 
 # Changing time formats in comp to numeric
 comp$time <- as.numeric(comp$time)
+comp$date <- as.numeric(comp$date)
 
 # Addition of leading zeros to time and date coloumn
 comp$time <- sprintf("%04i", comp$time)
@@ -36,6 +34,8 @@ meas$date <- sprintf("%08i", meas$date)
 comp$id <- substr(comp$id, 1, 2)
 meas$id <- substr(meas$id, 1, 2)
 setup$id <- substr(setup$id, 1, 2)
+
+
 
 
 #Extra stuff
