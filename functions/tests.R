@@ -10,7 +10,7 @@ watVap <- biogas:::watVap
 
 # Check total biogas volume for 1 g mass loss with xCH4 = 0.65
 args(mass2vol)
-vv <- mass2vol(1, xCH4 = 0.65, temp = 20, pres = 1, value = 'all')[1, 1]
+vv <- mass2vol(0.1, xCH4 = 0.65, temp = 20, pres = 1, value = 'all')[1, 1]
 vv
 
 # Convert to non-standardized volume
@@ -19,7 +19,7 @@ vv
 
 # Test gdComp() (expect 0.65)
 args(gdComp)
-gdComp(1, vv, temp = 20, pres = 1) 
+gdComp(0.1, vv, temp = 20, pres = 1) 
 
 # Vectorized call
 mm <- 0.5 + 0:10/5
