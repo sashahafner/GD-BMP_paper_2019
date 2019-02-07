@@ -16,3 +16,6 @@ source('biogas.R')
 
 # Apply grav2 (GD) method to get xCH4
 # source('gd_calcs.R')
+
+# Create data plots
+source('plots.R')

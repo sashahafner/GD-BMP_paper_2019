@@ -2,7 +2,7 @@
 
 library(readxl)
 library(biogas)
-library(plyr) 
+library(dplyr) 
 library(ggplot2)
 library(lubridate)
 
