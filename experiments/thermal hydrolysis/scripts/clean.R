@@ -35,9 +35,13 @@ meas$time <- sprintf("%04i", meas$time)
 meas$date <- sprintf("%08i", meas$date)
 
 # Discard all rows with water controls (have NAs)
-biogas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
-biogas <- droplevels(subset(biogas, !date %in% c("14022017")))
+#biogas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
+#biogas <- droplevels(subset(biogas, !date %in% c("14022017")))
 
+water <- subset(meas, !id %in% c("W1", "W2", "W3"))
+
+meas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
+meas <- droplevels(subset(meas, !date %in% c("14022017")))
 
 # Make a date/time column for measured table and composition table
 meas$date.time <- paste0(meas$date, meas$time)

@@ -4,9 +4,15 @@
 options(unit.pres = 'kPa')
 
 # Delete all water samples and samples from the first sampling
-biogas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
-biogas <- droplevels(subset(biogas, !date %in% c("14022017")))
+#biogas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
+#biogas <- droplevels(subset(biogas, !date %in% c("14022017")))
 
+water <- subset(meas, !id %in% c("W1", "W2", "W3"))
+
+meas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
+meas <- droplevels(subset(meas, !date %in% c("14022017")))
+
+# Remember to change the biogas further on to meas if correct
 
 # Manometric biogas calculation
 cbg.man <- cumBg(biogas, dat.type = 'pres', comp = comp, temp = 35,
@@ -64,7 +70,14 @@ cbg.grav$grav.subs.type <- substr(cbg.grav$id, 1, 2)
 cbg.vol$vol.subs.type <- substr(cbg.vol$id, 1, 2)
 cbg.man$man.subs.type <- substr(cbg.man$id, 1, 2)
 
+# Add method column in each corrected result
+cbg.man.corr$method <- "manometric"
+cbg.vol.corr$method <- "volumetric"
+cbg.grav.corr$method <- "gravimetric"
 
+# Make result table from all three methods
+cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr)
+  
 
 # Merge man and grav dataset to use for optimize function
 #cbg <- merge(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, by = c('descrip', 'date.time', 'mean'), 
@@ -86,3 +99,7 @@ cbg.man$man.subs.type <- substr(cbg.man$id, 1, 2)
 # cbg$cvCH4.diff <- cbg$cvCH4.man - cbg$cvCH4.grav
 
 
+# ANOVA
+mod.BMP <- aov(mean ~ descrip*method, data = cbg.all)
+summary(mod.BMP)
+mod.BMP

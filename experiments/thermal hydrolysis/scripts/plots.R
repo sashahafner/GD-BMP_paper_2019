@@ -25,3 +25,24 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = man.subs.type, group = id )) +
   theme_bw() + 
   theme(text = element_text(size = 10))
 
+# EVENTUALLY SAVE SOME OF THE IMPORTANT PLOTS BY SAVING COMMAND!
+
+# Plot mean data for each substrate (with ino and substrate correction) 
+
+ggplot(cbg.all, aes(method, mean, colour = descrip)) + 
+         geom_point() + geom_line() + 
+         labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
+         theme_bw() + 
+         theme(text = element_text(size = 10))
+
+# Gravimetric and volumetric are similar
+
+ggplot(cbg.all, aes(descrip, mean, colour = method)) + 
+  geom_point() + geom_line() + 
+  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+
+
+# Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
+
