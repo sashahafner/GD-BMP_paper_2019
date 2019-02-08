@@ -5,6 +5,11 @@
 
 # NTS: do we need two pres arguments, for grav calcs and (mH2O) and vol std?
 
+checkArgClassValue <- biogas:::checkArgClassValue
+unitConvert <- biogas:::unitConvert
+watVap <- biogas:::watVap
+
+
 gdComp <- function(
   mass,     # Mass loss in reactor
   vol.b,    # Measured volume of biogas removed from bottle (mL)
@@ -27,8 +32,6 @@ gdComp <- function(
   checkArgClassValue(vol.hs, c('integer', 'numeric', 'NULL'))
   checkArgClassValue(temp.init, c('integer', 'numeric', 'NULL'))
   checkArgClassValue(pres.init, c('integer', 'numeric', 'NULL'))
-  checkArgClassValue(temp.std, c('integer', 'numeric', 'NULL'))
-  checkArgClassValue(pres.std, c('integer', 'numeric', 'NULL'))
   checkArgClassValue(unit.temp, c('character'))
   checkArgClassValue(unit.pres, c('character'))
 
