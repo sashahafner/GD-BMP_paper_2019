@@ -60,8 +60,6 @@ cbg.vol.corr <- summBg(cbg.grav, setup, id.name = "id",
 biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
 cbg.gd <- as.data.frame(mutate(group_by(biogas, id), cvol = cumsum(vol), cmassloss = mass.final[1]-mass.final))
 
-head(cbg.grav, 3)
-
 # Make a GD data frame
 cbg.gd$xCH4 <- gdComp(cbg.gd$cmassloss, cbg.gd$cvol, temp = 20, pres = 101.325)
 
@@ -97,6 +95,16 @@ cbg.gd.corr$method <- "GD"
 # Make result table from all three methods
 cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
   
+
+# Bind by column instead
+colnames(cbg.grav.corr) <- paste(colnames(cbg.grav.corr), "grav", sep = "_")
+colnames(cbg.vol.corr) <- paste(colnames(cbg.vol.corr), "vol", sep = "_")
+colnames(cbg.man.corr) <- paste(colnames(cbg.man.corr), "man", sep = "_")
+colnames(cbg.gd.corr) <- paste(colnames(cbg.gd.corr), "gd", sep = "_")
+
+cbg.all.c <- cbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
+
+
 
 # Merge man and grav dataset to use for optimize function
 #cbg <- merge(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, by = c('descrip', 'date.time', 'mean'), 
