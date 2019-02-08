@@ -3,15 +3,6 @@
 # Set biogas options
 options(unit.pres = 'kPa')
 
-# Delete all water samples and samples from the first sampling
-#biogas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
-#biogas <- droplevels(subset(biogas, !date %in% c("14022017")))
-
-water <- subset(meas, !id %in% c("W1", "W2", "W3"))
-
-meas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
-meas <- droplevels(subset(meas, !date %in% c("14022017")))
-
 # Remember to change the biogas further on to meas if correct
 
 # Manometric biogas calculation
@@ -65,18 +56,46 @@ cbg.vol.corr <- summBg(cbg.grav, setup, id.name = "id",
                        inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
                        when = "end", extrap = TRUE)
 
+
+biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
+cbg.gd <- as.data.frame(mutate(group_by(biogas, id), cvol = cumsum(vol), cmassloss = mass.final[1]-mass.final))
+
+head(cbg.grav, 3)
+
+# Make a GD data frame
+cbg.gd$xCH4 <- gdComp(cbg.gd$cmassloss, cbg.gd$cvol, temp = 20, pres = 101.325)
+
+
+# volumetric less sensitive to comp.therefore, use this one with GD. Can also try others afterwards. 
+## But when using dat.type = 'vol' - wont it affect the results which method is used? 
+cbg.gd <- cumBg(cbg.gd, dat.type = 'vol', temp = 35, pres = 101.325,
+                 data.struct = 'longcombo',
+                 id.name = 'id', time.name = 'elapsed.time',
+                 dat.name = 'vol', comp.name = 'xCH4',
+                 headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
+                 showt0 = FALSE, temp.init = 20,
+                 addt0 = FALSE, extrap = TRUE) 
+
+cbg.gd.corr <- summBg(cbg.gd, setup, id.name = "id", 
+                       time.name = 'elapsed.time', descrip.name = 'descrip', 
+                       inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                       when = "end", extrap = TRUE)
+
+
 # To make the plot possible grouped by substrate type and ISR and not triplicates a substring is constructud
 cbg.grav$grav.subs.type <- substr(cbg.grav$id, 1, 2)
 cbg.vol$vol.subs.type <- substr(cbg.vol$id, 1, 2)
 cbg.man$man.subs.type <- substr(cbg.man$id, 1, 2)
+cbg.gd$gd.subs.type <- substr(cbg.gd$id, 1, 2)
 
 # Add method column in each corrected result
 cbg.man.corr$method <- "manometric"
 cbg.vol.corr$method <- "volumetric"
 cbg.grav.corr$method <- "gravimetric"
+cbg.gd.corr$method <- "GD"
 
 # Make result table from all three methods
-cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr)
+cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
   
 
 # Merge man and grav dataset to use for optimize function
@@ -100,6 +119,6 @@ cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr)
 
 
 # ANOVA
-mod.BMP <- aov(mean ~ descrip*method, data = cbg.all)
-summary(mod.BMP)
-mod.BMP
+# mod.BMP <- aov(mean ~ descrip*method, data = cbg.all)
+# summary(mod.BMP)
+# mod.BMP

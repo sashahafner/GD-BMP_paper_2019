@@ -26,22 +26,12 @@ comp$time <- as.numeric(comp$time)
 comp$date <- as.numeric(comp$date)
 meas$time <- as.numeric(meas$time)
 meas$date <- as.numeric(meas$date)
-# Use date/time formats instead? 
 
 # Addition of leading zeros to time and date coloumn
 comp$time <- sprintf("%04i", comp$time)
 comp$date <- sprintf("%08i", comp$date)
 meas$time <- sprintf("%04i", meas$time)
 meas$date <- sprintf("%08i", meas$date)
-
-# Discard all rows with water controls (have NAs)
-#biogas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
-#biogas <- droplevels(subset(biogas, !date %in% c("14022017")))
-
-water <- subset(meas, !id %in% c("W1", "W2", "W3"))
-
-meas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
-meas <- droplevels(subset(meas, !date %in% c("14022017")))
 
 # Make a date/time column for measured table and composition table
 meas$date.time <- paste0(meas$date, meas$time)
@@ -50,6 +40,12 @@ sum(is.na(meas$date.time))   # Fail in of 48 rows due to NAs
 
 comp$date.time <- paste0(comp$date, comp$time)
 comp$date.time <- dmy_hm(comp$date.time)
+
+######
+# Discard all rows with water controls (have NAs)
+# Delete all water samples and samples from the first sampling
+water <- subset(meas, id %in% c("W1", "W2", "W3"))
+meas <- droplevels(subset(meas, !id %in% c("W1", "W2", "W3")))
 
 # Make a cummulative date.time column
 meas.start.time <- summarise(group_by(meas, id), start.time = min(date.time))
@@ -61,13 +57,5 @@ comp <- merge(comp, comp.start.time, by = c("id"))
 comp$elapsed.time <- as.numeric((comp$date.time - comp$start.time)/(24*60*60))
 
 
-#Extra stuff
-# Round time
-# comp$time.d <- round(comp$time.d, digits = 1)
-# mass$time.d <- round(meas$time.d, digits = 1)
-# pres$time.d <- round(pres$time.d, digits = 1)
-
-# Mass data has one more obs (17 d) than other sheets
-# Drop it here
-# mass <- subset(mass, time.d < 14)
+biogas <- meas
 
