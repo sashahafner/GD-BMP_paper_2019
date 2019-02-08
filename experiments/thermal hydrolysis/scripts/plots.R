@@ -27,6 +27,15 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = man.subs.type, group = id )) +
 
 # EVENTUALLY SAVE SOME OF THE IMPORTANT PLOTS BY SAVING COMMAND!
 
+# Plot of data before corrected for inoculum (man)
+ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = gd.subs.type, group = id )) +
+  geom_point() +
+  geom_line() + 
+  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+
+
 # Plot mean data for each substrate (with ino and substrate correction) 
 
 ggplot(cbg.all, aes(method, mean, colour = descrip)) + 
