@@ -51,7 +51,7 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 35, pres = 101.32
                   showt0 = FALSE, temp.init = 20,
                   addt0 = FALSE, extrap = TRUE) 
 
-cbg.vol.corr <- summBg(cbg.grav, setup, id.name = "id", 
+cbg.vol.corr <- summBg(cbg.vol, setup, id.name = "id", 
                        time.name = 'elapsed.time', descrip.name = 'descrip', 
                        inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
                        when = "end", extrap = TRUE)
@@ -66,7 +66,7 @@ cbg.gd$xCH4 <- gdComp(cbg.gd$cmassloss, cbg.gd$cvol, temp = 20, pres = 101.325)
 
 # volumetric less sensitive to comp.therefore, use this one with GD. Can also try others afterwards. 
 ## But when using dat.type = 'vol' - wont it affect the results which method is used? 
-cbg.gd <- cumBg(cbg.gd, dat.type = 'vol', temp = 35, pres = 101.325,
+cbg.gd <- cumBg(cbg.gd, dat.type = 'vol', temp = 20, pres = 101.325,
                  data.struct = 'longcombo',
                  id.name = 'id', time.name = 'elapsed.time',
                  dat.name = 'vol', comp.name = 'xCH4',
@@ -104,6 +104,11 @@ colnames(cbg.gd.corr) <- paste(colnames(cbg.gd.corr), "gd", sep = "_")
 
 cbg.all.c <- cbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
 
+# Leaks are a problem we need to deal with
+# Just to see it (need to move this code, to leaks.R?)
+leaks <- mutate(group_by(biogas, id), leak.m = c(NA, mass.final[-length(mass.final)] - mass.init[-1]))
+plot(sort((leaks$leak.m)))
+abline(0, 0)
 
 
 # Merge man and grav dataset to use for optimize function
