@@ -55,9 +55,7 @@ hist(cbg.all$mean)
 table.Tukey <- TukeyHSD(mod.cbg, "method", conf.level = 0.95)
 
 png("../plots/Tukey.png", height = 1080/2, width = 1940/3)
-
 par(mar = c(3, 9, 0.4, 2.1))
 plot(table.Tukey, las = 1, col = "blue", cex.axis = 1.1, font = 1)
-
 dev.off()
 

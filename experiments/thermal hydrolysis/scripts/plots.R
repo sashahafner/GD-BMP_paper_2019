@@ -66,5 +66,23 @@ ggplot(cbg.all, aes(descrip, mean, colour = method)) +
   theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP_reverse.png')
 
-# Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
+# Extra: Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
 
+
+# ----------------------
+
+# Plots for method comparison directly
+plot(cbg.all.c$mean_gd, cbg.all.c$mean_grav)         # Seems to be no relation to grav
+plot(cbg.all.c$mean_gd, cbg.all.c$mean_man)          # Looks okay similar to man
+plot(cbg.all.c$mean_gd, cbg.all.c$mean_vol)          # Looks okay similar to vol
+
+plot(cbg.all.c$mean_vol, cbg.all.c$mean_man)
+plot(cbg.all.c$mean_vol, cbg.all.c$mean_grav)
+
+plot(cbg.all.c$mean_man, cbg.all.c$mean_grav)
+
+
+# plot(cbg.all.c$mean_vol, cbg.all.c$mean_man)
+# mod1 = lm(mean_vol~mean_man, data = cbg.all.c)
+# modsum = summary(mod1)
+# abline(mod1)
