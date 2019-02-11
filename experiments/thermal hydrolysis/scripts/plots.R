@@ -48,16 +48,19 @@ ggsave('../plots/GD_biogas.png')
 
 ggplot(cbg.all, aes(method, mean, colour = descrip)) + 
          geom_point() + geom_line(aes(group = descrip)) + 
+         geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+         position=position_dodge(0.05)) + 
          labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
          theme_bw() + 
          theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP.png')
 
-# Gravimetric and volumetric are similar
 
 # Plot with reverse of method/descrip
 ggplot(cbg.all, aes(descrip, mean, colour = method)) +
   geom_point() + geom_line(aes(group = method)) +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
