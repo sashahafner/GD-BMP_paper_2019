@@ -1,6 +1,9 @@
 
 # Rearrange and organization of calculated biogas data prior to analysis 
 
+
+#----------------
+
 # Bind by rows
 # To make the plot possible grouped by substrate type and ISR and not triplicates a substring is constructud
 cbg.grav$grav.subs.type <- substr(cbg.grav$id, 1, 2)
@@ -18,6 +21,8 @@ cbg.gd.corr$method <- "GD"
 cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
 
 
+#----------------
+
 # Bind by column instead
 colnames(cbg.grav.corr) <- paste(colnames(cbg.grav.corr), "grav", sep = "_")
 colnames(cbg.vol.corr) <- paste(colnames(cbg.vol.corr), "vol", sep = "_")
@@ -26,6 +31,8 @@ colnames(cbg.gd.corr) <- paste(colnames(cbg.gd.corr), "gd", sep = "_")
 
 cbg.all.c <- cbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
 
+
+#----------------
 # Leaks are a problem we need to deal with
 # Just to see it (need to move this code, to leaks.R?)
 leaks <- mutate(group_by(biogas, id), leak.m = c(NA, mass.final[-length(mass.final)] - mass.init[-1]))
