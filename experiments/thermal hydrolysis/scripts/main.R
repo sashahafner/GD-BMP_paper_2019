@@ -16,6 +16,9 @@ source('clean.R')
 # Calculate biogas production - DOES NOT WORK YET!
 source('biogas.R')
 
+# Clean data prior to analysis
+source('dataorganization.R')
+
 # Compare methods numerically
 source('numeric_comparison.R')
 

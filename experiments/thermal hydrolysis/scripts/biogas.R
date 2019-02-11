@@ -1,4 +1,5 @@
-# cumBg() calls
+
+# cumBg() calls and gdComp
 
 # Set biogas options
 options(unit.pres = 'kPa')
@@ -80,58 +81,5 @@ cbg.gd.corr <- summBg(cbg.gd, setup, id.name = "id",
                        when = "end", extrap = TRUE)
 
 
-# To make the plot possible grouped by substrate type and ISR and not triplicates a substring is constructud
-cbg.grav$grav.subs.type <- substr(cbg.grav$id, 1, 2)
-cbg.vol$vol.subs.type <- substr(cbg.vol$id, 1, 2)
-cbg.man$man.subs.type <- substr(cbg.man$id, 1, 2)
-cbg.gd$gd.subs.type <- substr(cbg.gd$id, 1, 2)
-
-# Add method column in each corrected result
-cbg.man.corr$method <- "manometric"
-cbg.vol.corr$method <- "volumetric"
-cbg.grav.corr$method <- "gravimetric"
-cbg.gd.corr$method <- "GD"
-
-# Make result table from all three methods
-cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
-  
-
-# Bind by column instead
-colnames(cbg.grav.corr) <- paste(colnames(cbg.grav.corr), "grav", sep = "_")
-colnames(cbg.vol.corr) <- paste(colnames(cbg.vol.corr), "vol", sep = "_")
-colnames(cbg.man.corr) <- paste(colnames(cbg.man.corr), "man", sep = "_")
-colnames(cbg.gd.corr) <- paste(colnames(cbg.gd.corr), "gd", sep = "_")
-
-cbg.all.c <- cbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
-
-# Leaks are a problem we need to deal with
-# Just to see it (need to move this code, to leaks.R?)
-leaks <- mutate(group_by(biogas, id), leak.m = c(NA, mass.final[-length(mass.final)] - mass.init[-1]))
-plot(sort((leaks$leak.m)))
-abline(0, 0)
 
 
-# Merge man and grav dataset to use for optimize function
-#cbg <- merge(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, by = c('descrip', 'date.time', 'mean'), 
-#            suffixes = c('.man', '.grav', '.vol'))
-
-# # Some observations missing for grav data dropped above
-# # Recalc vCH4 vBg for man (also grav to be safe, but should not be needed)
-# cbg <- ddply(cbg, 'id', mutate,
-#              vBg.grav = diff(c(0, cvBg.grav)),
-#              vCH4.grav = diff(c(0, cvCH4.grav)),
-#              vBg.man = diff(c(0, cvBg.man)),
-#              vCH4.man = diff(c(0, cvCH4.man))
-# )
-# 
-# # Calculate difference
-# cbg$vBg.diff <- cbg$vBg.man - cbg$vBg.grav
-# cbg$vCH4.diff <- cbg$vCH4.man - cbg$vCH4.grav
-# cbg$cvBg.diff <- cbg$cvBg.man - cbg$cvBg.grav
-# cbg$cvCH4.diff <- cbg$cvCH4.man - cbg$cvCH4.grav
-
-
-# ANOVA
-# mod.BMP <- aov(mean ~ descrip*method, data = cbg.all)
-# summary(mod.BMP)
-# mod.BMP
