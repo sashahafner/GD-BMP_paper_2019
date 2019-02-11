@@ -6,13 +6,17 @@ all(cbg.all.c$elapsed.time_man == cbg.all.c$elapsed.time_grav)
 all(cbg.all.c$elapsed.time_man == cbg.all.c$elapsed.time_vol)
 all(cbg.all.c$elapsed.time_man == cbg.all.c$elapsed.time_gd)
 
+
 # Check if all n columns are identical
 all(cbg.all.c$n_man == cbg.all.c$n_man)
 all(cbg.all.c$n_man == cbg.all.c$n_vol)
 all(cbg.all.c$n_man == cbg.all.c$n_gd)
 
-cbg.all.c <- subset(cbg.all.c, select = -c(elapsed.time_grav, elapsed.time_vol, elapsed.time_gd, 
-                                           descrip_grav, descrip_vol, descrip_gd, 
+cbg.all.c$descrip <- cbg.all.c$descrip_man
+cbg.all.c$elapsed.time <- cbg.all.c$elapsed.time_man
+
+cbg.all.c <- subset(cbg.all.c, select = -c(elapsed.time_man, elapsed.time_grav, elapsed.time_vol, elapsed.time_gd, 
+                                           descrip_man, descrip_grav, descrip_vol, descrip_gd, 
                                            method_man, method_grav, method_vol, method_gd, 
                                            n_man, n_grav, n_vol, n_gd))
 
