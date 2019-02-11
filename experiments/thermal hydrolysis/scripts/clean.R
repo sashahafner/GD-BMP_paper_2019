@@ -5,14 +5,6 @@
 summary(meas)
 head(meas)
 
-# Dfsumm function is used to get an overview
-source("../functions/dfsumm.R")
-#dfsumm(meas)
-#dfsumm(setup)
-#dfsumm(comp)
-
-# ----
-
 # Make id a factor instead of a character
 comp$id <- factor(comp$id)
 meas$id <- factor(meas$id)
