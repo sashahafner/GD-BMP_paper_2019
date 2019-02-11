@@ -2,7 +2,7 @@
 
 # Camilla G. Justesen
 # Load Functions
-source('../../../functions/gdComp.R')
+source('functions.R')
 
 # Load packages
 source('packages.R')
@@ -19,7 +19,7 @@ source('biogas.R')
 # Compare methods numerically
 source('numeric_comparison.R')
 
-# Apply grav2 (GD) method to get xCH4 - both include mass2vol and closed form
+# Apply grav2 (GD) method to get xCH4 - both include mass2vol and closed form (DELETE)
 # source('gd_calcs.R')
 
 # Graphical comparison of methods
