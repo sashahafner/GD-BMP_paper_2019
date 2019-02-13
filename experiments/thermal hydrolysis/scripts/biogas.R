@@ -26,6 +26,18 @@ BMP.man <- summBg(cbg.man, setup, id.name = "id",
                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
                   when = when.BMP, extrap = TRUE)
 
+# o for "obs" = one value for each bottle
+BMPo.man <- summBg(cbg.man, setup, id.name = "id", 
+                  time.name = 'elapsed.time', descrip.name = 'descrip', 
+                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                  when = when.BMP, extrap = TRUE, show.obs = TRUE)
+
+# yld for yield
+yld.man <- summBg(cbg.man, setup, id.name = "id", 
+                  time.name = 'elapsed.time', descrip.name = 'descrip', 
+                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                  when = 'meas', extrap = TRUE)
+
 # Gravimetric biogas calculation
 cbg.grav <- cumBg(biogas, dat.type = 'mass', comp = comp, temp = 30, pres = 150,
                   id.name = 'id', time.name = 'elapsed.time',

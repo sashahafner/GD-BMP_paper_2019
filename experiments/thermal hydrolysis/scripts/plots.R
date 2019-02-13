@@ -1,5 +1,16 @@
 # Plots
 
+# Some other possibilities . . .
+cbg.all$pid <- interaction(cbg.all$id, cbg.all$method)
+ggplot(cbg.all, aes(elapsed.time, cvCH4, group = pid)) +
+  geom_line(aes(colour = method)) +
+  facet_wrap(~ descrip)
+ggsave('../plots/cum_CH4.png')
+
+# More interesting with yld
+
+
+
 # Plot of data before corrected for inoculum (grav)
 ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = grav.subs.type, group = id )) +
   geom_point() +

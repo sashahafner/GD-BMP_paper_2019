@@ -17,7 +17,7 @@ source('clean.R')
 source('biogas.R')
 
 # Clean data prior to analysis
-source('dataorganization.R')
+source('merge.R')
 
 # Compare methods numerically
 source('numeric_comparison.R')

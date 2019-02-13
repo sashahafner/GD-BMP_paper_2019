@@ -1,10 +1,22 @@
-
 # Rearrange and organization of calculated biogas data prior to analysis 
 
 
 #----------------
 
 # Bind by rows
+cbg.vol$method <- 'vol'
+cbg.man$method <- 'man'
+cbg.grav$method <- 'grav'
+cbg.gd$method <- 'gd'
+cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd)
+
+# Add substrate type and other needed variables with merge of some columns from setup (Camilla)
+cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
+
+
+# Can do similar with yld, BMPo, BMP results. . . (Camilla)
+
+cbg.all <- rbind(
 # To make the plot possible grouped by substrate type and ISR and not triplicates a substring is constructud
 cbg.grav$grav.subs.type <- substr(cbg.grav$id, 1, 2)
 cbg.vol$vol.subs.type <- substr(cbg.vol$id, 1, 2)
@@ -24,6 +36,7 @@ BMP.all <- rbind(BMP.man, BMP.grav, BMP.vol, BMP.gd)
 #----------------
 
 # Bind by column instead
+# Better to do reshape or spread() operation I think
 colnames(BMP.grav) <- paste(colnames(BMP.grav), "grav", sep = "_")
 colnames(BMP.vol) <- paste(colnames(BMP.vol), "vol", sep = "_")
 colnames(BMP.man) <- paste(colnames(BMP.man), "man", sep = "_")
