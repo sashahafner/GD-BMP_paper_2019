@@ -1,7 +1,7 @@
 # Runs complete analysis of thermal hydrolysis data
-
 # Camilla G. Justesen
-# Load Functions
+
+# Load functions
 source('functions.R')
 
 # Load packages
@@ -13,7 +13,7 @@ source('load.R')
 # Clean data
 source('clean.R')
 
-# Calculate biogas production - DOES NOT WORK YET!
+# Calculate biogas production
 source('biogas.R')
 
 # Clean data prior to analysis
