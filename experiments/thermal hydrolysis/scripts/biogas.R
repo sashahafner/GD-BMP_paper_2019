@@ -1,61 +1,60 @@
-
 # cumBg() calls and gdComp
+# NTS: is extrapolation for BMP really needed?
 
 # Set biogas options
 options(unit.pres = 'kPa')
 
-# Remember to change the biogas further on to meas if correct
+# Set BMP duration for all calls
+when.BMP <- 30
 
 # Manometric biogas calculation
 cbg.man <- cumBg(biogas, dat.type = 'pres', comp = comp, temp = 35,
-                 data.struct = 'long',
                  id.name = 'id', time.name = 'elapsed.time',
                  dat.name = 'pres.init', comp.name = 'xCH4',
                  temp.init = 20,
                  pres.resid = 'pres.resid', pres.init = 0, pres.amb = 101.325,
                  headspace = setup, vol.hs.name = 'vol.hs',
-                 addt0 = FALSE, extrap = TRUE,
+                 extrap = TRUE,
                  absolute = FALSE)
 
 # Should the pres.init = 'pres.init' instead of the numeric value? 
-# check if the temperature and pressure is recorded or should be adjusted
+# No
+# NTS: check if the temperature and pressure is recorded or should be adjusted
 
-cbg.man.corr <- summBg(cbg.man, setup, id.name = "id", 
-                       time.name = 'elapsed.time', descrip.name = 'descrip', 
-                       inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                       when = "end", extrap = TRUE)
+BMP.man <- summBg(cbg.man, setup, id.name = "id", 
+                  time.name = 'elapsed.time', descrip.name = 'descrip', 
+                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                  when = when.BMP, extrap = TRUE)
 
 # Gravimetric biogas calculation
-cbg.grav <- cumBg(biogas, dat.type = 'mass', comp = comp, temp = 35, pres = 150,
-                  data.struct = 'long',
+cbg.grav <- cumBg(biogas, dat.type = 'mass', comp = comp, temp = 30, pres = 150,
                   id.name = 'id', time.name = 'elapsed.time',
                   dat.name = 'mass.final', comp.name = 'xCH4',
                   headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                  showt0 = FALSE, temp.init = 20,
-                  addt0 = FALSE, extrap = TRUE)
+                  temp.init = 20,
+                  extrap = TRUE)
 
-# Check temp, pres etc. is correct 
+# NTS: Check temp, pres etc. is correct 
 # dat.name for this calculation - is it the difference or just the final mass?
+# Final mass
 
-cbg.grav.corr <- summBg(cbg.grav, setup, id.name = "id", 
-                       time.name = 'elapsed.time', descrip.name = 'descrip', 
-                       inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                       when = "end", extrap = TRUE)
+BMP.grav <- summBg(cbg.grav, setup, id.name = "id", 
+                   time.name = 'elapsed.time', descrip.name = 'descrip', 
+                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                   when = when.BMP, extrap = TRUE)
 
 
 # Volumetric biogas calculation
-cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 35, pres = 101.325,
-                  data.struct = 'long',
-                  id.name = 'id', time.name = 'elapsed.time',
-                  dat.name = 'vol', comp.name = 'xCH4',
-                  headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                  showt0 = FALSE, temp.init = 20,
-                  addt0 = FALSE, extrap = TRUE) 
+cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 20, pres = 101.325,
+                 id.name = 'id', time.name = 'elapsed.time',
+                 dat.name = 'vol', comp.name = 'xCH4',
+                 headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
+                 extrap = TRUE) 
 
-cbg.vol.corr <- summBg(cbg.vol, setup, id.name = "id", 
-                       time.name = 'elapsed.time', descrip.name = 'descrip', 
-                       inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                       when = "end", extrap = TRUE)
+BMP.vol <- summBg(cbg.vol, setup, id.name = "id", 
+                  time.name = 'elapsed.time', descrip.name = 'descrip', 
+                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                  when = when.BMP, extrap = TRUE)
 
 
 biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
@@ -75,11 +74,7 @@ cbg.gd <- cumBg(cbg.gd, dat.type = 'vol', temp = 20, pres = 101.325,
                  showt0 = FALSE, temp.init = 20,
                  addt0 = FALSE, extrap = TRUE) 
 
-cbg.gd.corr <- summBg(cbg.gd, setup, id.name = "id", 
-                       time.name = 'elapsed.time', descrip.name = 'descrip', 
-                       inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                       when = "end", extrap = TRUE)
-
-
-
-
+BMP.gd <- summBg(cbg.gd, setup, id.name = "id", 
+                 time.name = 'elapsed.time', descrip.name = 'descrip', 
+                 inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                 when = when.BMP, extrap = TRUE)
