@@ -55,6 +55,18 @@ BMP.grav <- summBg(cbg.grav, setup, id.name = "id",
                    inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
                    when = when.BMP, extrap = TRUE)
 
+# o for "obs" = one value for each bottle
+BMPo.grav <- summBg(cbg.grav, setup, id.name = "id", 
+                   time.name = 'elapsed.time', descrip.name = 'descrip', 
+                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                   when = when.BMP, extrap = TRUE, show.obs = TRUE)
+
+# yld for yield
+yld.grav <- summBg(cbg.grav, setup, id.name = "id", 
+                  time.name = 'elapsed.time', descrip.name = 'descrip', 
+                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                  when = 'meas', extrap = TRUE)
+
 
 # Volumetric biogas calculation
 cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 20, pres = 101.325,
@@ -67,6 +79,19 @@ BMP.vol <- summBg(cbg.vol, setup, id.name = "id",
                   time.name = 'elapsed.time', descrip.name = 'descrip', 
                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
                   when = when.BMP, extrap = TRUE)
+
+
+# o for "obs" = one value for each bottle
+BMPo.vol <- summBg(cbg.vol, setup, id.name = "id", 
+                   time.name = 'elapsed.time', descrip.name = 'descrip', 
+                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                   when = when.BMP, extrap = TRUE, show.obs = TRUE)
+
+# yld for yield
+yld.vol <- summBg(cbg.vol, setup, id.name = "id", 
+                  time.name = 'elapsed.time', descrip.name = 'descrip', 
+                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                  when = 'meas', extrap = TRUE)
 
 
 biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
@@ -90,3 +115,15 @@ BMP.gd <- summBg(cbg.gd, setup, id.name = "id",
                  time.name = 'elapsed.time', descrip.name = 'descrip', 
                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
                  when = when.BMP, extrap = TRUE)
+
+# o for "obs" = one value for each bottle
+BMPo.gd <- summBg(cbg.gd, setup, id.name = "id", 
+                   time.name = 'elapsed.time', descrip.name = 'descrip', 
+                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                   when = when.BMP, extrap = TRUE, show.obs = TRUE)
+
+# yld for yield
+yld.gd <- summBg(cbg.gd, setup, id.name = "id", 
+                  time.name = 'elapsed.time', descrip.name = 'descrip', 
+                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
+                  when = 'meas', extrap = TRUE)
