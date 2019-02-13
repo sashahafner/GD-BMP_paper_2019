@@ -22,8 +22,6 @@ source('dataorganization.R')
 # Compare methods numerically
 source('numeric_comparison.R')
 
-# Apply grav2 (GD) method to get xCH4 - both include mass2vol and closed form (DELETE)
-# source('gd_calcs.R')
-
 # Graphical comparison of methods
 source('plots.R')
+

@@ -46,7 +46,7 @@ ggsave('../plots/GD_biogas.png')
 
 # Plot mean data for each substrate (with ino and substrate correction) 
 
-ggplot(cbg.all, aes(method, mean, colour = descrip)) + 
+ggplot(BMP.all, aes(method, mean, colour = descrip)) + 
          geom_point() + geom_line(aes(group = descrip)) + 
          geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
          position=position_dodge(0.05)) + 
@@ -57,7 +57,7 @@ ggsave('../plots/method_comparison_BMP.png')
 
 
 # Plot with reverse of method/descrip
-ggplot(cbg.all, aes(descrip, mean, colour = method)) +
+ggplot(BMP.all, aes(descrip, mean, colour = method)) +
   geom_point() + geom_line(aes(group = method)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
@@ -72,17 +72,17 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 # ----------------------
 
 # Plots for method comparison directly
-plot(cbg.all.c$mean_gd, cbg.all.c$mean_grav)         # Seems to be no relation to grav
-plot(cbg.all.c$mean_gd, cbg.all.c$mean_man)          # Looks okay similar to man
-plot(cbg.all.c$mean_gd, cbg.all.c$mean_vol)          # Looks okay similar to vol
+plot(BMP.all.c$mean_gd, BMP.all.c$mean_grav)         # Seems to be no relation to grav
+plot(BMP.all.c$mean_gd, BMP.all.c$mean_man)          # Looks okay similar to man
+plot(BMP.all.c$mean_gd, BMP.all.c$mean_vol)          # Looks okay similar to vol
 
-plot(cbg.all.c$mean_vol, cbg.all.c$mean_man)
-plot(cbg.all.c$mean_vol, cbg.all.c$mean_grav)
+plot(BMP.all.c$mean_vol, BMP.all.c$mean_man)
+plot(BMP.all.c$mean_vol, BMP.all.c$mean_grav)
 
-plot(cbg.all.c$mean_man, cbg.all.c$mean_grav)
+plot(BMP.all.c$mean_man, BMP.all.c$mean_grav)
 
 
-# plot(cbg.all.c$mean_vol, cbg.all.c$mean_man)
-# mod1 = lm(mean_vol~mean_man, data = cbg.all.c)
+# plot(BMP.all.c$mean_vol, BMP.all.c$mean_man)
+# mod1 = lm(mean_vol~mean_man, data = BMP.all.c)
 # modsum = summary(mod1)
 # abline(mod1)

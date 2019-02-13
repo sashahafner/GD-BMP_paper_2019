@@ -2,38 +2,38 @@
 # Numerical comparison of results
 
 # Check if all elapsed time columns are identical
-all(cbg.all.c$elapsed.time_man == cbg.all.c$elapsed.time_grav)
-all(cbg.all.c$elapsed.time_man == cbg.all.c$elapsed.time_vol)
-all(cbg.all.c$elapsed.time_man == cbg.all.c$elapsed.time_gd)
+all(BMP.all.c$elapsed.time_man == BMP.all.c$elapsed.time_grav)
+all(BMP.all.c$elapsed.time_man == BMP.all.c$elapsed.time_vol)
+all(BMP.all.c$elapsed.time_man == BMP.all.c$elapsed.time_gd)
 
 
 # Check if all n columns are identical
-all(cbg.all.c$n_man == cbg.all.c$n_man)
-all(cbg.all.c$n_man == cbg.all.c$n_vol)
-all(cbg.all.c$n_man == cbg.all.c$n_gd)
+all(BMP.all.c$n_man == BMP.all.c$n_man)
+all(BMP.all.c$n_man == BMP.all.c$n_vol)
+all(BMP.all.c$n_man == BMP.all.c$n_gd)
 
-cbg.all.c$descrip <- cbg.all.c$descrip_man
-cbg.all.c$elapsed.time <- cbg.all.c$elapsed.time_man
+BMP.all.c$descrip <- BMP.all.c$descrip_man
+BMP.all.c$elapsed.time <- BMP.all.c$elapsed.time_man
 
-cbg.all.c <- subset(cbg.all.c, select = -c(elapsed.time_man, elapsed.time_grav, elapsed.time_vol, elapsed.time_gd, 
+BMP.all.c <- subset(BMP.all.c, select = -c(elapsed.time_man, elapsed.time_grav, elapsed.time_vol, elapsed.time_gd, 
                                            descrip_man, descrip_grav, descrip_vol, descrip_gd, 
                                            method_man, method_grav, method_vol, method_gd, 
                                            n_man, n_grav, n_vol, n_gd))
 
  
 # Calculate difference (compared to manometric method) - WHICH ONE TO COMPARE ALL TOO? man? gd?
-cbg.all.c$man.grav.diff <- cbg.all.c$mean_man - cbg.all.c$mean_grav
-cbg.all.c$man.vol.diff <- cbg.all.c$mean_man - cbg.all.c$mean_vol
-cbg.all.c$man.gd.diff <- cbg.all.c$mean_man - cbg.all.c$mean_gd
+BMP.all.c$man.grav.diff <- BMP.all.c$mean_man - BMP.all.c$mean_grav
+BMP.all.c$man.vol.diff <- BMP.all.c$mean_man - BMP.all.c$mean_vol
+BMP.all.c$man.gd.diff <- BMP.all.c$mean_man - BMP.all.c$mean_gd
 
-cbg.diff <- subset(cbg.all.c, select = c(descrip, man.grav.diff, man.vol.diff, man.gd.diff))
+cbg.diff <- subset(BMP.all.c, select = c(descrip, man.grav.diff, man.vol.diff, man.gd.diff))
 
 
 # -----------------
 
 # Try using ANOVA
 
-mod.cbg <- aov(mean ~ descrip+method, data = cbg.all)
+mod.cbg <- aov(mean ~ descrip+method, data = BMP.all)
 summary(mod.cbg)
 
 # Check for assumptions for ANOVA
@@ -46,7 +46,7 @@ plot(mod.cbg,5)
 plot(mod.cbg,6)
 dev.off()
 
-hist(cbg.all$mean)
+hist(BMP.all$mean)
 
 # Not quite a normal distributed data set
 # If we end up using an ANOVA some kind of transformation may be needed. 

@@ -12,24 +12,24 @@ cbg.man$man.subs.type <- substr(cbg.man$id, 1, 2)
 cbg.gd$gd.subs.type <- substr(cbg.gd$id, 1, 2)
 
 # Add method column in each corrected result
-cbg.man.corr$method <- "manometric"
-cbg.vol.corr$method <- "volumetric"
-cbg.grav.corr$method <- "gravimetric"
-cbg.gd.corr$method <- "GD"
+BMP.man$method <- "manometric"
+BMP.vol$method <- "volumetric"
+BMP.grav$method <- "gravimetric"
+BMP.gd$method <- "GD"
 
 # Make result table from all three methods
-cbg.all <- rbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
+BMP.all <- rbind(BMP.man, BMP.grav, BMP.vol, BMP.gd)
 
 
 #----------------
 
 # Bind by column instead
-colnames(cbg.grav.corr) <- paste(colnames(cbg.grav.corr), "grav", sep = "_")
-colnames(cbg.vol.corr) <- paste(colnames(cbg.vol.corr), "vol", sep = "_")
-colnames(cbg.man.corr) <- paste(colnames(cbg.man.corr), "man", sep = "_")
-colnames(cbg.gd.corr) <- paste(colnames(cbg.gd.corr), "gd", sep = "_")
+colnames(BMP.grav) <- paste(colnames(BMP.grav), "grav", sep = "_")
+colnames(BMP.vol) <- paste(colnames(BMP.vol), "vol", sep = "_")
+colnames(BMP.man) <- paste(colnames(BMP.man), "man", sep = "_")
+colnames(BMP.gd) <- paste(colnames(BMP.gd), "gd", sep = "_")
 
-cbg.all.c <- cbind(cbg.man.corr, cbg.grav.corr, cbg.vol.corr, cbg.gd.corr)
+BMP.all.c <- cbind(BMP.man, BMP.grav, BMP.vol, BMP.gd)
 
 
 #----------------
