@@ -25,3 +25,7 @@ source('numeric_comparison.R')
 # Graphical comparison of methods
 source('plots.R')
 
+
+
+remove.packages('biogas')
+devtools::install_github('sashahafner/biogas', ref = 'dev')

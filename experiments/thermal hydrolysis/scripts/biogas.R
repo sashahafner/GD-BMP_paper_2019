@@ -21,23 +21,6 @@ cbg.man <- cumBg(biogas, dat.type = 'pres', comp = comp, temp = 35,
 # No
 # NTS: check if the temperature and pressure is recorded or should be adjusted
 
-BMP.man <- summBg(cbg.man, setup, id.name = "id", 
-                  time.name = 'elapsed.time', descrip.name = 'descrip', 
-                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                  when = when.BMP, extrap = TRUE)
-
-# o for "obs" = one value for each bottle
-BMPo.man <- summBg(cbg.man, setup, id.name = "id", 
-                  time.name = 'elapsed.time', descrip.name = 'descrip', 
-                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                  when = when.BMP, extrap = TRUE, show.obs = TRUE)
-
-# yld for yield
-yld.man <- summBg(cbg.man, setup, id.name = "id", 
-                  time.name = 'elapsed.time', descrip.name = 'descrip', 
-                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                  when = 'meas', extrap = TRUE)
-
 # Gravimetric biogas calculation
 cbg.grav <- cumBg(biogas, dat.type = 'mass', comp = comp, temp = 30, pres = 150,
                   id.name = 'id', time.name = 'elapsed.time',
@@ -50,24 +33,6 @@ cbg.grav <- cumBg(biogas, dat.type = 'mass', comp = comp, temp = 30, pres = 150,
 # dat.name for this calculation - is it the difference or just the final mass?
 # Final mass
 
-BMP.grav <- summBg(cbg.grav, setup, id.name = "id", 
-                   time.name = 'elapsed.time', descrip.name = 'descrip', 
-                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                   when = when.BMP, extrap = TRUE)
-
-# o for "obs" = one value for each bottle
-BMPo.grav <- summBg(cbg.grav, setup, id.name = "id", 
-                   time.name = 'elapsed.time', descrip.name = 'descrip', 
-                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                   when = when.BMP, extrap = TRUE, show.obs = TRUE)
-
-# yld for yield
-yld.grav <- summBg(cbg.grav, setup, id.name = "id", 
-                  time.name = 'elapsed.time', descrip.name = 'descrip', 
-                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                  when = 'meas', extrap = TRUE)
-
-
 # Volumetric biogas calculation
 cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 20, pres = 101.325,
                  id.name = 'id', time.name = 'elapsed.time',
@@ -75,23 +40,7 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 20, pres = 101.32
                  headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                  extrap = TRUE) 
 
-BMP.vol <- summBg(cbg.vol, setup, id.name = "id", 
-                  time.name = 'elapsed.time', descrip.name = 'descrip', 
-                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                  when = when.BMP, extrap = TRUE)
 
-
-# o for "obs" = one value for each bottle
-BMPo.vol <- summBg(cbg.vol, setup, id.name = "id", 
-                   time.name = 'elapsed.time', descrip.name = 'descrip', 
-                   inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                   when = when.BMP, extrap = TRUE, show.obs = TRUE)
-
-# yld for yield
-yld.vol <- summBg(cbg.vol, setup, id.name = "id", 
-                  time.name = 'elapsed.time', descrip.name = 'descrip', 
-                  inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs", 
-                  when = 'meas', extrap = TRUE)
 
 
 biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
