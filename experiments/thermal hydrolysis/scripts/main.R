@@ -26,6 +26,5 @@ source('numeric_comparison.R')
 source('plots.R')
 
 
-
-remove.packages('biogas')
-devtools::install_github('sashahafner/biogas', ref = 'dev')
+# library(devtools)
+# install_github('sashahafner/biogas', ref = 'dev')

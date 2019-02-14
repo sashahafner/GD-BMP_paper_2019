@@ -57,7 +57,7 @@ ggsave('../plots/GD_biogas.png')
 
 # Plot mean data for each substrate (with ino and substrate correction) 
 
-ggplot(BMP.all, aes(method, mean, colour = descrip)) + 
+ggplot(BMP, aes(method, mean, colour = descrip)) + 
          geom_point() + geom_line(aes(group = descrip)) + 
          geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
          position=position_dodge(0.05)) + 
@@ -68,7 +68,7 @@ ggsave('../plots/method_comparison_BMP.png')
 
 
 # Plot with reverse of method/descrip
-ggplot(BMP.all, aes(descrip, mean, colour = method)) +
+ggplot(BMP, aes(descrip, mean, colour = method)) +
   geom_point() + geom_line(aes(group = method)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
