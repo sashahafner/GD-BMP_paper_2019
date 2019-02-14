@@ -1,14 +1,10 @@
+# Loads packages
 
-# Packages
-library(gdata)
+library(readxl)
 library(biogas)
-library(lubridate)
+library(dplyr)
 library(ggplot2)
-library(plyr)
-library(xtable)
+library(lubridate)
 
-## Latest (not on CRAN) biogas package
-#files <- list.files('~/Dropbox/biogas_package/biogas/R', full.names = TRUE)
-#for(i in files) source(i)
-
+# Check which packages is actually used later
 

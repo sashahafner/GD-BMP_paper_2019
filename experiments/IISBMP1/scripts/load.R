@@ -1,8 +1,6 @@
+# Reads in data
 
-
-# Read in all data
-setup <- read.xls('../data/biogas_and_setup.xlsx', sheet = 1, skip = 1)
-vpm <- read.xls('../data/biogas_and_setup.xlsx', sheet = 2, skip = 1)
-comp <- read.csv('../data/comp.csv')
-
-
+fp <- '../data/biogas_and_setup.xlsx'
+setup <- as.data.frame(read_xlsx(fp, sheet = 1, skip = 1))
+biogas  <- as.data.frame(read_xlsx(fp, sheet = 2, skip = 1))
+comp <- as.data.frame(read.csv('../data/comp.csv'))

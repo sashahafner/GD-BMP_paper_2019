@@ -1,37 +1,27 @@
-# Works up biogas production data
-# S. Hafner
-# Modified:
-# Note: Get GC data from SDU GC, copy to GC data/data files and run /GC data/main.R to get and export GC data before running this script
+# Runs complete analysis of IISBMP1 data
+# Camilla G. Justesen
 
-options(width = 65)
+# Load functions
+source('functions.R')
+
+# Load packages
 source('packages.R')
+
+# Load data 
 source('load.R')
-source('comp.R')
-source('export_vpmx.R')
-source('water.R')
+
+# Clean data
 source('clean.R')
-source('time.R')
-source('subsets.R')
-source('check.R')
-source('cumBg.R')
-source('leak_calcs.R')
-sink('../output/leak_output.txt')
-  source('leak_output.R', echo = TRUE)
-sink()
-#source('leak_plots.R')
-#source('leak_BMP.R')
-source('leak_corr.R')
-#source('grav2.R')
-source('grav2b.R')
-#source('cumBg_grav2.R')
-source('BMP.R')
-source('BMP_grav2.R')
 
+# Calculate biogas production
+source('biogas.R')
 
+# Clean data prior to analysis
 source('merge.R')
-source('export_cbg.R')
-source('OBA.R')
+
+# Compare methods numerically
+source('numeric_comparison.R')
+
+# Graphical comparison of methods
 source('plots.R')
-source('bmp_plots.R')
-source('table1.R')
 
