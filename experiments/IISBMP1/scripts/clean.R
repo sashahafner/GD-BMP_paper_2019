@@ -22,7 +22,6 @@ biogas <- droplevels(subset(biogas, !grepl('^W', id)))
 biogas$mass.init <- as.numeric(biogas$mass.init)
 biogas$date <- as.numeric(biogas$date)
 
-
 # Add leading zeros
 biogas$date <- sprintf('%08i', biogas$date)
 
@@ -41,8 +40,21 @@ biogas$date.time <- dmy_hm(paste0(biogas$date, biogas$time))
 sum(is.na(biogas$date.time))  
 
 # Make a cummulative date.time column
-biogas <- as.data.frame(mutate(group_by(biogas, id), start.time = min(date.time)))
+biogas <- as.data.frame(mutate(group_by(biogas, exper, id), start.time = min(date.time)))
 biogas$elapsed.time <- as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days'))
+
+# Check times
+print(sort(unique(biogas$elapsed.time)))
+
+# Making a column with id + exper for comparison
+biogas$id.exper <- paste0(biogas$id, "-E", biogas$exper)
+setup$id.exper <- paste0(setup$id, "-E", setup$exper)
+
+head(biogas$id.exper)
+head(setup$id.exper)
+
+
+
 
 
 # This is properbly not needed. 
@@ -50,4 +62,8 @@ biogas$elapsed.time <- as.numeric(difftime(biogas$date.time, biogas$start.time, 
 starts <- summarise(group_by(biogas, id), start.time = min(date.time))
 comp <- merge(comp, starts, by = "id")
 comp$elapsed.time <- as.numeric(difftime(comp$date.time, comp$start.time, units = 'days'))
+
+
+# MAke a subset for each expriment eventually
+# sort out time problem
 
