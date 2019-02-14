@@ -55,11 +55,6 @@ yld.all <- rbind(BMP.man, BMP.grav, BMP.vol, BMP.gd)
 
 
 #----------------
-
-# LOOK AT THIS ON THURSDAY CAMILLA
-
-
-
 # Bind by column instead
 # Better to do reshape or spread() operation I think
 colnames(BMP.grav) <- paste(colnames(BMP.grav), "grav", sep = "_")
@@ -69,7 +64,7 @@ colnames(BMP.gd) <- paste(colnames(BMP.gd), "gd", sep = "_")
 
 BMP.all.c <- cbind(BMP.man, BMP.grav, BMP.vol, BMP.gd)
 
-
+# Maybe do this for other cases too. 
 
 
 #----------------
