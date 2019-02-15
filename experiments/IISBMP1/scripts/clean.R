@@ -64,6 +64,6 @@ comp <- merge(comp, starts, by = "id")
 comp$elapsed.time <- as.numeric(difftime(comp$date.time, comp$start.time, units = 'days'))
 
 
-# MAke a subset for each expriment eventually
+# Make a subset for each expriment eventually
 # sort out time problem
 
