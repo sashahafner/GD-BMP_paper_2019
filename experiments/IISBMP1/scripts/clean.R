@@ -19,15 +19,15 @@ biogas <- droplevels(subset(biogas, !grepl('^W', id)))
 # write.csv(water, '../output/water.csv', row.names = FALSE)
 
 # Change from characters to numeric
-biogas$mass.init <- as.numeric(biogas$mass.init)
-biogas$date <- as.numeric(biogas$date)
+#biogas$mass.init <- as.numeric(biogas$mass.init)
+#biogas$date <- as.numeric(biogas$date)
 
 # Add leading zeros
 biogas$date <- sprintf('%08i', biogas$date)
 
 #Cannot add leading zeros to time column - maybe due to some irregular numbers like 6,5
-biogas$time1 <- as.numeric(biogas$time)
-biogas$time1 <- sprintf('%04i', biogas$time)   
+#biogas$time <- as.numeric(biogas$time)
+biogas$time <- sprintf('%04i', biogas$time)   
 
 
 #-----------
