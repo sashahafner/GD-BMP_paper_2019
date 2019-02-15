@@ -6,3 +6,6 @@ source('../../../functions/dfsumm.R')
 
 # gd_comp function for calculation by gd method
 source('../../../functions/gdComp.R')
+
+# Leakage function
+source('../../../functions/leakage.R')

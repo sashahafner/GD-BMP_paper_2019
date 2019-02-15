@@ -16,6 +16,9 @@ source('clean.R')
 # Calculate biogas production
 source('biogas.R')
 
+# Calculate leakage from biogas bottles
+source('leak.R')
+
 # Clean data prior to analysis
 source('merge.R')
 
