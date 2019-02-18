@@ -7,6 +7,7 @@ cbg.vol$method <- 'vol'
 cbg.man$method <- 'man'
 cbg.grav$method <- 'grav'
 cbg.gd$method <- 'gd'
+
 cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd)
 
 # Cannot use rbind() because the number of columns do not match, why is it possible to use rbindf()?
@@ -17,21 +18,23 @@ cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 #----------------
 # Bind by column instead
-# Better to do reshape or spread() operation I think
-# colnames(BMP.grav) <- paste(colnames(BMP.grav), "grav", sep = "_")
-# colnames(BMP.vol) <- paste(colnames(BMP.vol), "vol", sep = "_")
-# colnames(BMP.man) <- paste(colnames(BMP.man), "man", sep = "_")
-# colnames(BMP.gd) <- paste(colnames(BMP.gd), "gd", sep = "_")
-# 
-# BMP.all.c <- cbind(BMP.man, BMP.grav, BMP.vol, BMP.gd)
-
-# Maybe do this for other cases too. 
-
-# library(tidyr)
-# BMP.c <- spread(BMP, method)
-
-reshape(BMP, varying = "method", direction = "wide") 
+reshaped.BMP <- reshape(data = BMP, 
+              idvar = c('descrip', 'elapsed.time', 'n'), 
+              timevar = 'method',
+              direction = 'wide') 
 names(BMP)
+names(reshaped.BMP)
+
+# For yield
+reshaped.yld <- reshape(data = yld, 
+                        idvar = c('descrip', 'elapsed.time', 'n'), 
+                        timevar = 'method',
+                        direction = 'wide') 
+names(BMP)
+names(reshaped.yld)
+
+# For BMPo
+
 
 #----------------
 # Leaks are a problem we need to deal with

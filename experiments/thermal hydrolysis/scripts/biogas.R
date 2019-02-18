@@ -68,8 +68,6 @@ BMP <- summBg(cbg.list, setup, id.name = "id",
 # Note the set.name argument. The code above would give you a new column (1st one) in the output with the name "method". 
 # You will then be able to cut some code from merge.R as well.
 
-
-# The last two methods
 # o for "obs" = one value for each bottle
 #BMPo <- ... show.obs = TRUE)
 BMPo <- summBg(cbg.list, setup, id.name = "id",
