@@ -24,14 +24,14 @@ massLoss <- function(
     which.id <- which(dat[, id.name]==i)
     n.id <- length(which.id)
 
-    dat[which.id, 'mass.tot']  <- c(0, diff(dat[which.id, m.post.name]))
+    dat[which.id, 'mass.tot']  <- c(0, -diff(dat[which.id, m.post.name]))
     dat[which.id, 'mass.vent'] <- dat[which.id, mass.pre.name] - dat[which.id, mass.post.name]
     dat[which.id, 'mass.leak'] <- c(0, dat[which.id, mass.post.name][-n.id] - dat[which.id, mass.pre.name][-1])
 
     # Calculation of cummulative mass loss due to leakage and by venting
-    dat[which.id, 'cum.tot'] <- cumsum(dat[which.id, 'mass.tot'])
-    dat[which.id, 'cum.leak'] <- cumsum(dat[which.id, 'mass.leak'])
-    dat[which.id, 'cum.vent'] <- cumsum(dat[which.id, 'mass.vent'])
+    dat[which.id, 'cmass.tot'] <- cumsum(dat[which.id, 'mass.tot'])
+    dat[which.id, 'cmass.leak'] <- cumsum(dat[which.id, 'mass.leak'])
+    dat[which.id, 'cmass.vent'] <- cumsum(dat[which.id, 'mass.vent'])
 
   }
 
