@@ -8,4 +8,4 @@ source('../../../functions/dfsumm.R')
 source('../../../functions/gdComp.R')
 
 # Leakage function
-source('../../../functions/leakage.R')
+source('../../../functions/massLoss.R')

@@ -1,8 +1,9 @@
 # Calculate leakage from biogas bottles
 
 #source('functions.R')
-leaks <- leakBg(biogas, 
+leaks <- massLoss(biogas, 
                 time.name = 'elapsed.time', 
-                m.init.name = 'mass.init', m.final.name = 'mass.final',
+                m.pre.name = 'mass.init', m.post.name = 'mass.final',
                 id.name = 'id')
 
+write.csv(leaks, '../output/leaks.csv', row.names = FALSE)
