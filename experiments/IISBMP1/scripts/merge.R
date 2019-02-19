@@ -26,27 +26,26 @@ cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 #biogas.BMP1 <- biogas.BMP1[ , c('method', 'id', 'descrip', 'elapsed.time', 'mean', 'sd', 'se', 'n', 'id.exper')]
 
-reshaped.BMP <- reshape(data = biogas.BMP, 
-              idvar = c('id.exper', 'elapsed.time', 'n'), 
+
+# Reshaping into column structures instead
+
+reshaped.BMP <- reshape(data = BMP, 
+              idvar = c('descrip', 'exper', 'elapsed.time', 'n'), 
               timevar = 'method',
               direction = 'wide') 
 names(BMP)
 names(reshaped.BMP)
 
+# For BMPo
+reshaped.BMPo <- reshape(data = BMPo, 
+                        idvar = c('id', 'exper', 'elapsed.time', 'n'), 
+                        timevar = 'method',
+                        direction = 'wide') 
+
 # For yield
 reshaped.yld <- reshape(data = yld, 
-                        idvar = c('descrip', 'elapsed.time', 'n'), 
+                        idvar = c('descrip','exper', 'elapsed.time', 'n'), 
                         timevar = 'method',
                         direction = 'wide') 
 names(BMP)
 names(reshaped.yld)
-
-# For BMPo
-
-
-#----------------
-# Leaks are a problem we need to deal with
-# Just to see it (need to move this code, to leaks.R?)
-leaks <- mutate(group_by(biogas, id), leak.m = c(NA, mass.final[-length(mass.final)] - mass.init[-1]))
-plot(sort((leaks$leak.m)))
-abline(0, 0)

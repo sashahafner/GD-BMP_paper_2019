@@ -9,10 +9,8 @@ ggsave('../plots/cum_CH4.png')
 
 # More interesting with yld
 
-
-
-# Plot of data before corrected for inoculum (grav)
-ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = grav.subs.type, group = id )) +
+# Plot of data before corrected for inoculum (grav) - maybe change coloring for descrip (need to add descrip column)
+ggplot(cbg.grav.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
   geom_point() +
   geom_line() + 
   ggtitle("Gravimetric") +
@@ -22,7 +20,7 @@ ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = grav.subs.type, group = id ))
 ggsave('../plots/gravimetric_biogas.png')
 
 # Plot of data before corrected for inoculum (vol)
-ggplot(cbg.vol, aes(elapsed.time, cvCH4, colour = vol.subs.type, group = id )) +
+ggplot(cbg.vol.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
   geom_point() +
   geom_line() + 
   ggtitle("Volumetric") +
@@ -32,7 +30,7 @@ ggplot(cbg.vol, aes(elapsed.time, cvCH4, colour = vol.subs.type, group = id )) +
 ggsave('../plots/volumetric_biogas.png')
 
 # Plot of data before corrected for inoculum (man)
-ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = man.subs.type, group = id )) +
+ggplot(cbg.man.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
   geom_point() +
   geom_line() + 
   ggtitle("Manometric") +
@@ -42,7 +40,7 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = man.subs.type, group = id )) +
 ggsave('../plots/manometric_biogas.png')
 
 # Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = gd.subs.type, group = id )) +
+ggplot(cbg.gd.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
   geom_point() +
   geom_line() + 
   ggtitle("GD Method") +
@@ -52,12 +50,14 @@ ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = gd.subs.type, group = id )) +
 ggsave('../plots/GD_biogas.png')
 
 
+# All plots above are made for experiment 1, not 2 
+
 
 # ----------------------
 
 # Plot mean data for each substrate (with ino and substrate correction) 
 
-ggplot(BMP, aes(method, mean, colour = descrip)) + 
+ggplot(BMP1, aes(method, mean, colour = descrip)) + 
          geom_point() + geom_line(aes(group = descrip)) + 
          geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
          position=position_dodge(0.05)) + 
@@ -67,8 +67,18 @@ ggplot(BMP, aes(method, mean, colour = descrip)) +
 ggsave('../plots/method_comparison_BMP.png')
 
 
-# Plot with reverse of method/descrip
-ggplot(BMP, aes(descrip, mean, colour = method)) +
+# Plot with reverse of method/descrip [1]
+ggplot(BMP1, aes(descrip, mean, colour = method)) +
+  geom_point() + geom_line(aes(group = method)) +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) +
+  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  theme_bw() +
+  theme(text = element_text(size = 10))
+ggsave('../plots/method_comparison_BMP_reverse.png')
+
+# Plot with reverse of method/descrip [2]
+ggplot(BMP2, aes(descrip, mean, colour = method)) +
   geom_point() + geom_line(aes(group = method)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
@@ -83,17 +93,12 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 # ----------------------
 
 # Plots for method comparison directly
-plot(BMP.all.c$mean_gd, BMP.all.c$mean_grav)         # Seems to be no relation to grav
-plot(BMP.all.c$mean_gd, BMP.all.c$mean_man)          # Looks okay similar to man
-plot(BMP.all.c$mean_gd, BMP.all.c$mean_vol)          # Looks okay similar to vol
-
-plot(BMP.all.c$mean_vol, BMP.all.c$mean_man)
-plot(BMP.all.c$mean_vol, BMP.all.c$mean_grav)
-
-plot(BMP.all.c$mean_man, BMP.all.c$mean_grav)
+plot(reshaped.BMP$mean.gd, reshaped.BMP$mean.grav)
+plot(reshaped.BMP$mean.gd, reshaped.BMP$mean.vol)
+plot(reshaped.BMP$mean.gd, reshaped.BMP$mean.man)
 
 
-# plot(BMP.all.c$mean_vol, BMP.all.c$mean_man)
-# mod1 = lm(mean_vol~mean_man, data = BMP.all.c)
-# modsum = summary(mod1)
-# abline(mod1)
+plot(reshaped.BMP$mean.grav, reshaped.BMP$mean.man)
+plot(reshaped.BMP$mean.grav, reshaped.BMP$mean.vol)
+
+plot(reshaped.BMP$mean.man, reshaped.BMP$mean.vol)
