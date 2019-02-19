@@ -4,28 +4,29 @@
 #comp$id <- factor(comp$id)
 biogas$id <- factor(biogas$id)
 setup$id <- factor(setup$id)
+setup1$id <- factor(setup1$id)
+setup2$id <- factor(setup2$id)
 biogas$exper <- factor(biogas$exper)
 setup$exper <- factor(setup$exper)
+setup1$exper <- factor(setup1$exper)
+setup2$exper <- factor(setup2$exper)
 
 # Clean comp data
 ## Delete extra columns
 comp <- comp[, c('exper', 'id', 'date', 'inject.date.time', 'xCH4', 'xCH4.oa')]
-write.csv(comp, '../output/comp.csv', row.names = FALSE)
 
 # Clean biogas data
 # Discard all rows with water controls (have NAs)
 water <- subset(biogas, grepl('W', biogas$id))
 biogas <- droplevels(subset(biogas, !grepl('^W', id)))
-write.csv(water, '../output/water.csv', row.names = FALSE)
 
-# Change from characters to numeric - DELETE? 
+# Change from characters to numeric 
 biogas$mass.init <- as.numeric(biogas$mass.init)
 #biogas$date <- as.numeric(biogas$date)
 
 # Add leading zeros
 biogas$date <- sprintf('%08i', biogas$date)
 biogas$time <- sprintf('%04i', biogas$time)   
-write.csv(biogas, '../output/biogas.csv', row.names = FALSE)
 
 #-----------
 # Merge composition data with biogas data by id and date
@@ -46,9 +47,13 @@ print(sort(unique(biogas$elapsed.time)))
 # Making a column with id + exper for comparison
 biogas$id.exper <- paste0(biogas$id, "-E", biogas$exper)
 setup$id.exper <- paste0(setup$id, "-E", setup$exper)
+setup1$id.exper <- paste0(setup1$id, "-E", setup1$exper)
+setup2$id.exper <- paste0(setup2$id, "-E", setup2$exper)
 
-head(biogas$id.exper)
-head(setup$id.exper)
+
+#head(biogas$id.exper)
+#head(setup$id.exper)
+
 
 # Comp data set - Is this relevant if it is merged correctly into the biogas frame??
 # Use start time from biogas for all calculations (min date.time in comp is not trial start)

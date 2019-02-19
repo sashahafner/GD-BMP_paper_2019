@@ -10,11 +10,20 @@ source('packages.R')
 # Load data 
 source('load.R')
 
+# Subsetting to get rid of missing values
+source('subset.R')
+
 # Clean data
 source('clean.R')
 
+# Export raw data 
+source('export.R')
+
 # Calculate biogas production
 source('biogas.R')
+
+# Calculate BMP, yld and BMPo
+source('BMP.R')
 
 # Calculate leakage from biogas bottles
 source('leak.R')
@@ -23,8 +32,8 @@ source('leak.R')
 source('merge.R')
 
 # Compare methods numerically
-source('numeric_comparison.R')
+# source('numeric_comparison.R')
 
 # Graphical comparison of methods
-source('plots.R')
+#source('plots.R')
 
