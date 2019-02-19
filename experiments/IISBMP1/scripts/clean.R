@@ -47,8 +47,9 @@ print(sort(unique(biogas$elapsed.time)))
 biogas$id.exper <- paste0(biogas$id, "-E", biogas$exper)
 setup$id.exper <- paste0(setup$id, "-E", setup$exper)
 
-head(biogas$id.exper)
-head(setup$id.exper)
+#head(biogas$id.exper)
+#head(setup$id.exper)
+
 
 # Comp data set - Is this relevant if it is merged correctly into the biogas frame??
 # Use start time from biogas for all calculations (min date.time in comp is not trial start)
