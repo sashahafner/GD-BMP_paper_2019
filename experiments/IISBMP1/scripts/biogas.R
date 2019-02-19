@@ -4,19 +4,14 @@
 # Set biogas options
 options(unit.pres = 'bar', pres.std = 1.01325)
 
-# NB: Sasha calculates for biogas for each experiment individually, why not do it from one dataset? 
 
-# Set BMP duration for all calls
-when.BMP <- 30
-
-# Only use experiment 1 (remeber to change to biogas1 when removing the NAs too)
-# biogas1 <- biogas[biogas$exper == 1, ]
+# Calculation of cumulative biogas based on both experiments at the same time 
 
 # Manometric biogas calculation
 which(is.na(biogas$pres.init))
-biogas.man <- biogas[!is.na(biogas$pres.init), ]
+# biogas.man <- biogas[!is.na(biogas$pres.init), ]
 
-cbg.man <- cumBg(biogas.man, dat.type = 'pres', temp = 35,
+cbg.man <- cumBg(biogas, dat.type = 'pres', temp = 35,
                  data.struct = 'longcombo',
                  id.name = 'id.exper', time.name = 'elapsed.time',
                  dat.name = 'pres.init', comp.name = 'xCH4',
@@ -46,8 +41,7 @@ cbg.grav <- cumBg(biogas.grav, dat.type = 'mass',
 # Volumetric biogas calculation
 which(is.na(biogas$vol))
 
-biogas.vol <- biogas[!is.na(biogas$vol), ]
-cbg.vol <- cumBg(biogas.vol, dat.type = 'vol', 
+cbg.vol <- cumBg(biogas, dat.type = 'vol', 
                  temp = 20, pres = 1.01325,
                  data.struct = 'longcombo',
                  id.name = 'id.exper', time.name = 'elapsed.time',
@@ -78,24 +72,3 @@ cbg.gd <- cumBg(cbg.gd, dat.type = 'vol',
                  showt0 = FALSE, temp.init = 20,
                  addt0 = FALSE, extrap = TRUE) 
 
-
-cbg.list <- list(vol = cbg.vol, man = cbg.man, grav = cbg.grav, gd = cbg.gd) 
-BMP <- summBg(cbg.list, setup, id.name = "id.exper",
-              time.name = 'elapsed.time', descrip.name = 'descrip',
-              inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-              when = when.BMP, extrap = TRUE, set.name = 'method')
-# As there is only one value in 5 of the id.exper interpolation is not possile. 
-
-# o for "obs" = one value for each bottle
-#BMPo <- ... show.obs = TRUE)
-BMPo <- summBg(cbg.list, setup, id.name = "id.exper",
-               time.name = 'elapsed.time', descrip.name = 'descrip',
-               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-               when = when.BMP, extrap = TRUE, set.name = 'method', show.obs = TRUE)
-
-# yld for yield
-#yld <- ... when = 'meas')
-yld <- summBg(cbg.list, setup, id.name = "id.exper",
-              time.name = 'elapsed.time', descrip.name = 'descrip',
-              inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-              when = 'meas', extrap = TRUE, set.name = 'method')
