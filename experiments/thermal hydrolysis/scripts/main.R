@@ -16,6 +16,9 @@ source('clean.R')
 # Calculate biogas production
 source('biogas.R')
 
+# Calculate BMP, yld and BMPo
+source('BMP.R')
+
 # Calculate leakage from biogas bottles
 source('leak.R')
 
@@ -23,7 +26,7 @@ source('leak.R')
 source('merge.R')
 
 # Compare methods numerically
-source('numeric_comparison.R')
+# source('numeric_comparison.R')
 
 # Graphical comparison of methods
 source('plots.R')

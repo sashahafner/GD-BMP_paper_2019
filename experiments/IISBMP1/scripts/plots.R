@@ -7,7 +7,12 @@ ggplot(cbg.all, aes(elapsed.time, cvCH4, group = pid)) +
   facet_wrap(~ descrip)
 ggsave('../plots/cum_CH4.png')
 
-# More interesting with yld
+# # More interesting with yld
+# yld$pid <- interaction(yld$descrip, yld$method)
+# ggplot(yld, aes(elapsed.time, mean, group = pid)) +
+#   geom_line(aes(colour = method)) +
+#   facet_wrap(~ descrip)
+# ggsave('../plots/yld.interaction.png')
 
 # Plot of data before corrected for inoculum (grav) - maybe change coloring for descrip (need to add descrip column)
 ggplot(cbg.grav.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +

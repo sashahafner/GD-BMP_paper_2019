@@ -2,15 +2,15 @@
 # Numerical comparison of results
 
 # Check if all elapsed time columns are identical
-all(BMP.all.c$elapsed.time_man == BMP.all.c$elapsed.time_grav)
-all(BMP.all.c$elapsed.time_man == BMP.all.c$elapsed.time_vol)
-all(BMP.all.c$elapsed.time_man == BMP.all.c$elapsed.time_gd)
-
-
-# Check if all n columns are identical
-all(BMP.all.c$n_man == BMP.all.c$n_man)
-all(BMP.all.c$n_man == BMP.all.c$n_vol)
-all(BMP.all.c$n_man == BMP.all.c$n_gd)
+# all(BMP.all$elapsed.time.man == BMP.all$elapsed.time_grav)
+# all(BMP.all$elapsed.time_man == BMP.all$elapsed.time_vol)
+# all(BMP.all.c$elapsed.time_man == BMP.all.c$elapsed.time_gd)
+# 
+# 
+# # Check if all n columns are identical
+# all(BMP.all.c$n_man == BMP.all.c$n_man)
+# all(BMP.all.c$n_man == BMP.all.c$n_vol)
+# all(BMP.all.c$n_man == BMP.all.c$n_gd)
 
 BMP.all.c$descrip <- BMP.all.c$descrip_man
 BMP.all.c$elapsed.time <- BMP.all.c$elapsed.time_man

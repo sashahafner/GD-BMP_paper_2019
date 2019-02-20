@@ -2,7 +2,7 @@
 
 #----------------
 
-# Bind by rows
+# Bind by rows (cummulative biogas)
 cbg.vol$method <- 'vol'
 cbg.man$method <- 'man'
 cbg.grav$method <- 'grav'
@@ -17,8 +17,8 @@ cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 
 #----------------
-# Bind by column instead
-reshaped.BMP <- reshape(data = BMP, 
+# Bind BMPs in columns (original tables are row-binded (yld, BMP,BMPo))
+BMP.all <- reshape(data = BMP, 
               idvar = c('descrip', 'elapsed.time', 'n'), 
               timevar = 'method',
               direction = 'wide') 
@@ -26,7 +26,7 @@ names(BMP)
 names(reshaped.BMP)
 
 # For yield
-reshaped.yld <- reshape(data = yld, 
+yld.all <- reshape(data = yld, 
                         idvar = c('descrip', 'elapsed.time', 'n'), 
                         timevar = 'method',
                         direction = 'wide') 
@@ -34,7 +34,10 @@ names(BMP)
 names(reshaped.yld)
 
 # For BMPo
-
+BMPo.all <- reshape(data = BMPo, 
+                   idvar = c('id', 'elapsed.time', 'n'), 
+                   timevar = 'method',
+                   direction = 'wide') 
 
 #----------------
 # Leaks are a problem we need to deal with

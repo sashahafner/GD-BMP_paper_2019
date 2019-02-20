@@ -8,11 +8,15 @@ ggplot(cbg.all, aes(elapsed.time, cvCH4, group = pid)) +
 ggsave('../plots/cum_CH4.png')
 
 # More interesting with yld
-
+yld$pid <- interaction(yld$descrip, yld$method)
+ggplot(yld, aes(elapsed.time, mean, group = pid)) +
+  geom_line(aes(colour = method)) +
+  facet_wrap(~ descrip)
+ggsave('../plots/yld.interaction.png')
 
 
 # Plot of data before corrected for inoculum (grav)
-ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = grav.subs.type, group = id )) +
+ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("Gravimetric") +
@@ -22,7 +26,7 @@ ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = grav.subs.type, group = id ))
 ggsave('../plots/gravimetric_biogas.png')
 
 # Plot of data before corrected for inoculum (vol)
-ggplot(cbg.vol, aes(elapsed.time, cvCH4, colour = vol.subs.type, group = id )) +
+ggplot(cbg.vol, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("Volumetric") +
@@ -32,7 +36,7 @@ ggplot(cbg.vol, aes(elapsed.time, cvCH4, colour = vol.subs.type, group = id )) +
 ggsave('../plots/volumetric_biogas.png')
 
 # Plot of data before corrected for inoculum (man)
-ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = man.subs.type, group = id )) +
+ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("Manometric") +
@@ -42,7 +46,7 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = man.subs.type, group = id )) +
 ggsave('../plots/manometric_biogas.png')
 
 # Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = gd.subs.type, group = id )) +
+ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("GD Method") +
@@ -83,17 +87,11 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 # ----------------------
 
 # Plots for method comparison directly
-plot(BMP.all.c$mean_gd, BMP.all.c$mean_grav)         # Seems to be no relation to grav
-plot(BMP.all.c$mean_gd, BMP.all.c$mean_man)          # Looks okay similar to man
-plot(BMP.all.c$mean_gd, BMP.all.c$mean_vol)          # Looks okay similar to vol
+plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
+plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
+plot(BMP.all$mean.gd, BMP.all$mean.vol)          # Looks okay similar to vol
 
-plot(BMP.all.c$mean_vol, BMP.all.c$mean_man)
-plot(BMP.all.c$mean_vol, BMP.all.c$mean_grav)
+plot(BMP.all$mean.vol, BMP.all$mean.man)
+plot(BMP.all$mean.vol, BMP.all$mean.grav)
 
-plot(BMP.all.c$mean_man, BMP.all.c$mean_grav)
-
-
-# plot(BMP.all.c$mean_vol, BMP.all.c$mean_man)
-# mod1 = lm(mean_vol~mean_man, data = BMP.all.c)
-# modsum = summary(mod1)
-# abline(mod1)
+plot(BMP.all$mean.man, BMP.all$mean.grav)
