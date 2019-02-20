@@ -4,7 +4,7 @@ max(biogas$elapsed.time)
 when.BMP <- 27
 # Needs to be 27 as there is no measurements above 30
 
-cbg.list <- list(man = cbg.man, grav = cbg.grav) 
+cbg.list <- list(gd = cbg.gd) 
 BMP <- summBg(cbg.list, setup, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',
               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",

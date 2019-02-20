@@ -19,7 +19,7 @@ ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("Gravimetric") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/gravimetric_biogas.png')
@@ -30,7 +30,7 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("Manometric") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/manometric_biogas.png')
