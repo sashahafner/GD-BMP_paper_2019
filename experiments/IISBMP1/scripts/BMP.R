@@ -57,7 +57,6 @@ yld2 <- summBg(cbg.list.2, setup2, id.name = "id",
 
 
 # Merge data for each three result into one data frame for exper1+exper2
-
 # Add column to each set to have experiment given in data frame
 BMP1$exper <- 1
 BMP2$exper <- 2

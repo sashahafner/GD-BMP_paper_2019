@@ -29,23 +29,23 @@ cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 # Reshaping into column structures instead
 
-reshaped.BMP <- reshape(data = BMP, 
+BMP.all <- reshape(data = BMP, 
               idvar = c('descrip', 'exper', 'elapsed.time', 'n'), 
               timevar = 'method',
               direction = 'wide') 
 names(BMP)
-names(reshaped.BMP)
+names(BMP.all)
 
 # For BMPo
-reshaped.BMPo <- reshape(data = BMPo, 
+BMPo.all <- reshape(data = BMPo, 
                         idvar = c('id', 'exper', 'elapsed.time', 'n'), 
                         timevar = 'method',
                         direction = 'wide') 
 
 # For yield
-reshaped.yld <- reshape(data = yld, 
+yld.all <- reshape(data = yld, 
                         idvar = c('descrip','exper', 'elapsed.time', 'n'), 
                         timevar = 'method',
                         direction = 'wide') 
-names(BMP)
-names(reshaped.yld)
+names(yld)
+names(yld.all)
