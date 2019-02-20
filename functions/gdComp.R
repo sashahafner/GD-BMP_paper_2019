@@ -1,18 +1,17 @@
 # Function for calculating biogas composition from gas density
 # Closed form function for xCH4
 # Jacob R. Mortensen
-# 10.dec
 
 # NTS: do we need two pres arguments, for grav calcs and (mH2O) and vol std?
 
+# NTS: temporary. Get hidden biogas package functions
 checkArgClassValue <- biogas:::checkArgClassValue
 unitConvert <- biogas:::unitConvert
 watVap <- biogas:::watVap
 
-
 gdComp <- function(
   mass,     # Mass loss in reactor
-  vol.b,    # Measured volume of biogas removed from bottle (mL)
+  vol,      # Standardized (dry, 1 atm, 0C) biogas volume
   temp,     # Temperature in unit.pres
   pres,     # Pressure of biogas in unit.pres
   vol.hs = NULL,   # Headspace volume in bottle (mL)
@@ -26,7 +25,7 @@ gdComp <- function(
   # Check arguments~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # NTS: are all included? (I think so)
   checkArgClassValue(mass, c('integer', 'numeric'), expected.range = c(0, Inf))
-  checkArgClassValue(vol.b, c('integer', 'numeric'))
+  checkArgClassValue(vol, c('integer', 'numeric'))
   checkArgClassValue(temp, c('integer', 'numeric'))
   checkArgClassValue(pres, c('integer', 'numeric'))
   checkArgClassValue(vol.hs, c('integer', 'numeric', 'NULL'))
@@ -58,21 +57,18 @@ gdComp <- function(
   mH2O <- (molMass('H2O')*pH2O)/((pres.pa - pH2O)*mvBg)
   
   # Correct mass loss and measured volume for N2 
-  # Note: assumes all N2 has been removed and headspace contains only biogas at fixed composition under same temperature and pressure as vol.b
+  # Note: assumes all N2 has been removed and headspace contains only biogas at fixed composition under same temperature and pressure as vol
   if(!is.null(vol.hs)) {
     message('Headspace correction included. . . (needs work)')
 
     vol.N2 <- stdVol(vol.hs, temp = temp.init.k, pres = pres.init.pa, rh = 0, temp.std = 273.15, pres.std = 101325, unit.pres = 'Pa', unit.temp = 'K', std.message = FALSE)
     mass <- mass - (vol.N2 * dN2)
 
-    vol.b <- vol.b - vol.hs
+    vol <- vol - vol.hs
   }
 
-  # Standardize measured biogas volume
-  vBg <- stdVol(vol.b, temp = temp.k, pres = pres.pa, rh = rh, temp.std = 273.15, pres.std = 101325, unit.pres = 'Pa', unit.temp = 'K', std.message = FALSE)
-  
   # Dry biogas density
-  db <- mass/vBg - mH2O
+  db <- mass/vol - mH2O
   
   # Molar mass of biogas
   mmb <- db * mvBg
