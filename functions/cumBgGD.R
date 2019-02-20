@@ -1,8 +1,8 @@
 cumBgGD <- function(
   # Main arguments
   dat,
-  # Only vol and grav mix. If using man, get vol from man first and use dry = TRUE
-  #dat.type = 'vol',
+  # Only vol and grav mix presently. If using manometric method, get vol from man first and use dry = TRUE
+  #vol.type = 'vol',
   temp,
   pres,
   # Only interval data
@@ -54,45 +54,7 @@ cumBgGD <- function(
     rh <- 0
   }
 
-  ## dat (volume or mass)
-  #if(data.struct %in% c('long', 'longcombo')) {
-  #  if(any(missing.col <- !c(id.name, time.name, dat.name) %in% names(dat))){
-  #    stop('Specified columns in dat data frame (', deparse(substitute(dat)), ') not found: ', paste(c(id.name, time.name, dat.name)[missing.col], collapse = ', '), '.')
-  #  } 
-  #} else if(data.struct == 'wide') {
-  #  if(any(missing.col <- !c(time.name, dat.name) %in% names(dat))){
-  #    stop('Specified columns in dat data frame (', deparse(substitute(dat)), ') not found: ', paste(c(time.name, dat.name)[missing.col], collapse = ', '), '.')
-  #  } 
-  #}
-
-  ## Check for headspace argument if it is needed
-  #if(is.null(headspace) & !is.null(headcomp)) stop('Headspace correction to be applied but headspace argument is not provided.')
-
-  ## Check for other input errors
-  #if(!is.null(id.name) & id.name %in% names(dat)) {
-  #  if(any(is.na(dat[, id.name]))) {
-  #    w <- which(is.na(dat[, id.name]))
-  #    stop('Missing values in id.name column! See rows ', paste(w, collapse = ', '), '.')
-  #  }
-  #}
-
-  ### For dat (vol, etc) missing values are OK if they are cumulative (NTS: why OK if cumulative? Interpolated?)
-  ### Applies to wide data
-  ### But now wide data excepted totally
-  ##if(!is.null(dat.name)) {
-  ##  if(any(is.na(dat[, dat.name])) & interval & data.struct != 'wide') {
-  ##    w <- which(is.na(dat[, dat.name]))
-  ##    stop('Missing values in dat.name column! See rows ', paste(w, collapse = ', '), '.')
-  ##  }
-  ##}
-
-  #if(!is.null(time.name)) {
-  #  if(any(is.na(dat[, time.name]))) {
-  #    w <- which(is.na(dat[, time.name]))
-  #    stop('Missing values in time.name column! See rows ', paste(w, collapse = ', '), '.')
-  #  }
-  #}
-
+  # NTS: Add checks from cumBg()
 
   # Create standardized binary variable that indicates when vBg has been standardized
   standardized <- FALSE
@@ -137,6 +99,8 @@ cumBgGD <- function(
   dat[, comp.name] <- gdComp(mass = dat[, which.massloss], vol.b = dat[, vol.name], temp = dat[, temp], 
                              pres = dat[, pres], unit.temp = unit.temp, unit.pres = unit.pres)
 
+  # Proceed with either vol or grav method
+  # NTS: This should ultimately be done in a separate function, also called by cumBg() or cumBgVol()
   # Volumetric
   # Function will work with vol and add columns
   if(tolower(cmethod) %in% c('vol', 'volume')) {
@@ -167,29 +131,11 @@ cumBgGD <- function(
     # Set dt to NA for first observations for each reactor
     dt[c(TRUE, dat[, id.name][-1] != dat[, id.name][-nrow(dat)])] <- NA 
 
-    ## May already have cumulative production, if so move it to cvCH4, and calculate vCH4 down below
-    #if(!interval) {
-    #  dat$cvBg <- dat$vBg
-    #  dat$cvCH4 <- dat$vCH4
-    #}
-    
-    # Calculate cumulative production or interval production (depending on interval argument)
-    # And calculate rates
-    #if(interval) {
-      for(i in unique(dat[, id.name])) {
-        dat[dat[, id.name]==i, 'cvBg'] <- cumsum(dat[dat[, id.name]==i, 'vBg' ])
-        dat[dat[, id.name]==i, 'cvCH4'] <- cumsum(dat[dat[, id.name]==i, 'vCH4'])
-      } 
-    #}
-
-    ## For cumulative results, calculate interval production from cvCH4 (down here because it may have headspace CH4 added if cmethod = total) so cannot be combined with cvCH4 calcs above
-    ## vBg could be moved up, but that means more code
-    #if(!interval) {
-    #  for(i in unique(dat[, id.name])) {
-    #    dat[dat[, id.name]==i, 'vBg'] <- diff(c(0, dat[dat[, id.name]==i, 'cvBg' ]))
-    #    dat[dat[, id.name]==i, 'vCH4'] <- diff(c(0, dat[dat[, id.name]==i, 'cvCH4']))
-    #  }
-    #}
+    # Calculate cumulative production 
+    for(i in unique(dat[, id.name])) {
+      dat[dat[, id.name]==i, 'cvBg'] <- cumsum(dat[dat[, id.name]==i, 'vBg' ])
+      dat[dat[, id.name]==i, 'cvCH4'] <- cumsum(dat[dat[, id.name]==i, 'vCH4'])
+    } 
 
     # Calculate rates for all cases 
     for(i in unique(dat[, id.name])) {
@@ -248,22 +194,12 @@ cumBgGD <- function(
 
   } else if(cmethod == 'grav') {
     # Gravimetric
+    # NTS: we need to make a separate function to do this.
     # Work with mass
     message('Working with mass data (applying gravimetric approach).')
 
     # In this section main data frame is saved to `dat`, and name of response (mass) to `mass.name`
     dat <- dat
-
-    # Calculate mass loss
-    mass <- mass[order(mass[, id.name], mass[, time.name]), ]
-    # starts data frame is binary, used to track first observation for each reactor, considered the start
-    starts <- mass[, c(id.name, time.name)]
-    starts$start <- FALSE
-    for(i in unique(mass[, id.name])) {
-      mass[mass[, id.name]==i, 'massloss'] <- c(0, -diff(mass[mass[, id.name]==i, mass.name]))
-      mass[mass[, id.name]==i, 'cmassloss'] <- cumsum(mass[mass[, id.name]==i, 'massloss'])
-      starts[starts[, id.name]==i, 'start'][1] <- TRUE
-    }
 
     # Calculate biogas production
     if(any(dat[, 'massloss'] < 0)) {
@@ -272,11 +208,13 @@ cumBgGD <- function(
     }
 
     dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'massloss'], xCH4 = dat[, comp.name], temp = dat[, temp], pres = dat[, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
+
     if(!is.null(headspace)) {
       # Apply initial headspace correction only for times 1 and 2 (i.e., one mass loss measurement per reactor)
       which1and2 <- sort(c(which(starts$start), which(starts$start) + 1) )
       dat[which1and2, c('vBg', 'vCH4')] <- mass2vol(mass = dat$massloss[which1and2], xCH4 = dat[which1and2, comp.name], temp = dat[which1and2, temp], pres = dat[which1and2, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', headspace = dat[which1and2, vol.hs.name], headcomp = 'N2', temp.init = temp.init, std.message = FALSE)[, c('vBg', 'vCH4')]
     }
+
     # Set time zero volumes to zero--necessary because xCH4 is always missing
     dat[dat$massloss==0, c('vBg', 'vCH4')] <- 0
 
