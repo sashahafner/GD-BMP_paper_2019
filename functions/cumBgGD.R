@@ -16,7 +16,8 @@ cumBgGD <- function(
   m.pre.name,
   m.post.name,
   comp.name = 'xCH4',  # Name of column *added*
-  which.mass = 'mass.vent', # Which type of mass loss to use in calculations (mass.tot, mass.vent, cmass.tot, cmass.vent)
+  vented.mass = TRUE, # Which type of mass loss to use in calculations for xCH4 (vented or total) 
+  averaging = 'int',  # Interval, cumulative, or final?
   # Additional arguments . .  . needed?
   temp.init = NULL,
   pres.init = NULL,
@@ -27,7 +28,7 @@ cumBgGD <- function(
   # Calculation method and other settings
   # cmethod doesn't really apply
   #cmethod = 'removed',
-  cmethod = 'vol', # vol or grav. Return warning if vol and venting mass loss is used (or leakage is present)
+  vmethod = 'vol', # vol or grav or both. Return warning if vol and venting mass loss is used (or leakage is present)
   imethod = 'linear',
   extrap = FALSE,
   addt0 = TRUE,
@@ -46,6 +47,43 @@ cumBgGD <- function(
 ){
 
   # Check arguments
+  # NTS: add
+
+
+  # Sort out which mass and volume results to use
+  averaging <- substr(averaging, 1, 3)
+
+  if(averaging == 'int') {
+
+    std.vol.name <- 'vBg'
+
+    if(vented.mass) {
+      mass.name <- 'mass.vent'
+    } else {
+      mass.name <- 'mass.tot'
+    } 
+
+  } else if(averaging == 'fin') {
+
+    std.vol.name <- 'vBg'
+
+    if(vented.mass) {
+      mass.name <- 'mass.vent'
+    } else {
+      mass.name <- 'mass.tot'
+    } 
+
+  } else if(averaging == 'cum') {
+
+    std.vol.name <- 'cvBg'
+
+    if(vented.mass) {
+      mass.name <- 'cmass.vent'
+    } else {
+      mass.name <- 'cmass.tot'
+    } 
+
+  }
 
   # Hard-wire rh for now at least
   if(!dry) {
@@ -91,19 +129,37 @@ cumBgGD <- function(
   dat <- massLoss(dat, time.name = time.name, m.pre.name = m.pre.name, m.post.name = m.post.name, id.name = id.name)
 
   # Standardize measured biogas volume
+  # NTS: These are overwritten below. Might improve.
   dat$vBg <- stdVol(dat[, vol.name], temp = dat[, temp], pres = dat[, pres], rh = rh, pres.std = pres.std, 
                     temp.std = temp.std, unit.temp = unit.temp, unit.pres = unit.pres, 
                     std.message = std.message)
 
+  # Calculate cumulative production 
+  dat <- dat[order(dat[, id.name], dat[, time.name]), ]
+  for(i in unique(dat[, id.name])) {
+    dat[dat[, id.name]==i, 'cvBg'] <- cumsum(dat[dat[, id.name]==i, 'vBg' ])
+  } 
+
   # Get biogas composition
-  dat[, comp.name] <- gdComp(mass = dat[, which.massloss], vol.b = dat[, vol.name], temp = dat[, temp], 
-                             pres = dat[, pres], unit.temp = unit.temp, unit.pres = unit.pres)
+  if(averaging != 'fin') {
+  dat[, comp.name] <- gdComp(mass = dat[, mass.name], vol = dat[, std.vol.name], temp = dat[, temp], 
+                             pres = dat[, pres], unit.temp = unit.temp, unit.pres = unit.pres, fill.value = 0)
+  } else {
+    for(i in unique(dat[, id.name])) {
+      which.id <- which(dat[, id.name]==i)
+
+      dat[which.id, comp.name] <- gdComp(mass = sum(dat[which.id, mass.name]), 
+                                         vol = sum(dat[which.id, std.vol.name]), 
+                                         temp = dat[which.id, temp], pres = dat[which.id, pres], 
+                                         unit.temp = unit.temp, unit.pres = unit.pres, fill.value = 0)
+    } 
+  }
 
   # Proceed with either vol or grav method
   # NTS: This should ultimately be done in a separate function, also called by cumBg() or cumBgVol()
   # Volumetric
   # Function will work with vol and add columns
-  if(tolower(cmethod) %in% c('vol', 'volume')) {
+  if(tolower(vmethod) %in% c('vol', 'volume')) {
     # vol dat needs id time vol
 
     # Calculate interval (or cum if interval = FALSE) gas production
@@ -155,68 +211,32 @@ cumBgGD <- function(
       dat <- dat[, ! names(dat) %in% c('rvBg','rvCH4')]
     }
 
-    # Drop NAs if they extend to the latest time for a given bottle (based on problem with AMPTSII data, sometimes shorter for some bottles)
-    if(any(is.na(dat[, dat.name]))) {
-      dat2 <- data.frame()
-      for(i in unique(dat[, id.name])) {
-        dd <- dat[dat[, id.name] == i, ]
-        if(is.na(dd[nrow(dd), dat.name])) {
-          # All NAs
-          i1 <- which(is.na(dd[, dat.name]))
-
-          # Look for consecutive NAs
-          i1d <- diff(i1)
-
-          # That are uninterupted by a value
-          if(any(i1d > 1)) {
-            i2 <- max(which(i1d > 1)) + 1 
-          } else {
-            i2 <- 1
-          }
-
-          i3 <- i1[i2]
-
-          dat2 <- rbind(dat2, dd[-c(i3:nrow(dd)), ])
-
-        } else {
-
-          dat2 <- rbind(dat2, dd)
-
-        }
-      }
-
-      dat <- dat2
-    }
-
     rownames(dat) <- 1:nrow(dat)
 
     return(dat)
 
-  } else if(cmethod == 'grav') {
+  } else if(vmethod == 'grav') {
     # Gravimetric
     # NTS: we need to make a separate function to do this.
     # Work with mass
     message('Working with mass data (applying gravimetric approach).')
 
-    # In this section main data frame is saved to `dat`, and name of response (mass) to `mass.name`
-    dat <- dat
-
     # Calculate biogas production
-    if(any(dat[, 'massloss'] < 0)) {
-      dat[whichones <- which(dat$massloss < 0), 'massloss'] <- NA
+    if(any(dat[, 'mass.tot'] < 0)) {
+      dat[whichones <- which(dat$mass.tot < 0), 'mass.tot'] <- NA
       stop('Mass *gain* calculated for one or more observations. See ', paste('id.name column:', dat[whichones, id.name], ' and time.name column:', dat[whichones - 1, time.name], 'to', dat[whichones, time.name], sep = ' ', collapse = ', '), ' in dat data frame. ')
     }
 
-    dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'massloss'], xCH4 = dat[, comp.name], temp = dat[, temp], pres = dat[, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
+    dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'mass.tot'], xCH4 = dat[, comp.name], temp = dat[, temp], pres = dat[, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
 
     if(!is.null(headspace)) {
       # Apply initial headspace correction only for times 1 and 2 (i.e., one mass loss measurement per reactor)
       which1and2 <- sort(c(which(starts$start), which(starts$start) + 1) )
-      dat[which1and2, c('vBg', 'vCH4')] <- mass2vol(mass = dat$massloss[which1and2], xCH4 = dat[which1and2, comp.name], temp = dat[which1and2, temp], pres = dat[which1and2, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', headspace = dat[which1and2, vol.hs.name], headcomp = 'N2', temp.init = temp.init, std.message = FALSE)[, c('vBg', 'vCH4')]
+      dat[which1and2, c('vBg', 'vCH4')] <- mass2vol(mass = dat$mass.tot[which1and2], xCH4 = dat[which1and2, comp.name], temp = dat[which1and2, temp], pres = dat[which1and2, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', headspace = dat[which1and2, vol.hs.name], headcomp = 'N2', temp.init = temp.init, std.message = FALSE)[, c('vBg', 'vCH4')]
     }
 
     # Set time zero volumes to zero--necessary because xCH4 is always missing
-    dat[dat$massloss==0, c('vBg', 'vCH4')] <- 0
+    dat[dat$mass.tot==0, c('vBg', 'vCH4')] <- 0
 
     # Cumulative gas production and rates
     dat <- dat[order(dat[, id.name], dat[, time.name]), ]
@@ -245,11 +265,7 @@ cumBgGD <- function(
 
     # Sort and return results
     dat <- dat[order(dat[, id.name], dat[, time.name]), ]
-    # Drop comp-related columns if comp not provided
-    # With longcombo separate comp data frame is not needed, only comp.name is needed in main data frame
-    if((data.struct != 'longcombo' & is.null(comp)) | (data.struct == 'longcombo' & is.null(comp.name))) {
-      dat <- dat[, !names(dat) %in% c(comp.name, 'vCH4', 'cvCH4', 'rvCH4')]
-    }
+
     rownames(dat) <- 1:nrow(dat)
     
     return(dat)
