@@ -1,8 +1,9 @@
 
 # Numerical comparison of results
- 
+
 # Calculate difference (compared to manometric method) - WHICH ONE TO COMPARE ALL TOO? man? gd?
 BMP.all$man.grav.diff <- BMP.all$mean.man - BMP.all$mean.grav
+BMP.all$man.grav.diff.perc <- (BMP.all$man.grav.diff/BMP.all$mean.man)*100
 
 # -----------------
 
