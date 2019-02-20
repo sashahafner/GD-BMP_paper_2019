@@ -1,12 +1,6 @@
 # cumBg() calls and gdComp
 # NTS: is extrapolation for BMP really needed?
 
-# Set biogas options
-options(unit.pres = 'kPa')
-
-# Set BMP duration for all calls
-when.BMP <- 30
-
 # Manometric biogas calculation
 cbg.man <- cumBg(biogas, dat.type = 'pres', comp = comp, temp = 35,
                  id.name = 'id', time.name = 'elapsed.time',
@@ -57,27 +51,3 @@ cbg.gd <- cumBg(cbg.gd, dat.type = 'vol', temp = 20, pres = 101.325,
                 headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                 showt0 = FALSE, temp.init = 20,
                 addt0 = FALSE, extrap = TRUE) 
-
-
-cbg.list <- list(vol = cbg.vol, man = cbg.man, grav = cbg.grav, gd = cbg.gd) 
-BMP <- summBg(cbg.list, setup, id.name = "id",
-              time.name = 'elapsed.time', descrip.name = 'descrip',
-              inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-              when = when.BMP, extrap = TRUE, set.name = 'method')
-
-# Note the set.name argument. The code above would give you a new column (1st one) in the output with the name "method". 
-# You will then be able to cut some code from merge.R as well.
-
-# o for "obs" = one value for each bottle
-#BMPo <- ... show.obs = TRUE)
-BMPo <- summBg(cbg.list, setup, id.name = "id",
-              time.name = 'elapsed.time', descrip.name = 'descrip',
-              inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-              when = when.BMP, extrap = TRUE, set.name = 'method', show.obs = TRUE)
-
-# yld for yield
-#yld <- ... when = 'meas')
-yld <- summBg(cbg.list, setup, id.name = "id",
-              time.name = 'elapsed.time', descrip.name = 'descrip',
-              inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-              when = 'meas', extrap = TRUE, set.name = 'method')

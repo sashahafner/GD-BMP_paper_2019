@@ -7,7 +7,20 @@ ggplot(cbg.all, aes(elapsed.time, cvCH4, group = pid)) +
   facet_wrap(~ descrip)
 ggsave('../plots/cum_CH4.png')
 
-# More interesting with yld
+# # More interesting with yld
+yld1$pid <- interaction(yld1$descrip, yld1$method)
+ggplot(yld1, aes(elapsed.time, mean, group = pid)) +
+  geom_line(aes(colour = method)) +
+  facet_wrap(~ descrip)
+ggsave('../plots/yld.interaction.png')
+
+
+yld2$pid <- interaction(yld2$descrip, yld2$method)
+ggplot(yld2, aes(elapsed.time, mean, group = pid)) +
+  geom_line(aes(colour = method)) +
+  facet_wrap(~ descrip)
+ggsave('../plots/yld.interaction.png')
+
 
 # Plot of data before corrected for inoculum (grav) - maybe change coloring for descrip (need to add descrip column)
 ggplot(cbg.grav.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
@@ -93,12 +106,11 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 # ----------------------
 
 # Plots for method comparison directly
-plot(reshaped.BMP$mean.gd, reshaped.BMP$mean.grav)
-plot(reshaped.BMP$mean.gd, reshaped.BMP$mean.vol)
-plot(reshaped.BMP$mean.gd, reshaped.BMP$mean.man)
+plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
+plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
+plot(BMP.all$mean.gd, BMP.all$mean.vol)          # Looks okay similar to vol
 
+plot(BMP.all$mean.vol, BMP.all$mean.man)
+plot(BMP.all$mean.vol, BMP.all$mean.grav)
 
-plot(reshaped.BMP$mean.grav, reshaped.BMP$mean.man)
-plot(reshaped.BMP$mean.grav, reshaped.BMP$mean.vol)
-
-plot(reshaped.BMP$mean.man, reshaped.BMP$mean.vol)
+plot(BMP.all$mean.man, BMP.all$mean.grav)

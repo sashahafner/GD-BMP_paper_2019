@@ -35,5 +35,5 @@ source('merge.R')
 # source('numeric_comparison.R')
 
 # Graphical comparison of methods
-#source('plots.R')
+source('plots.R')
 

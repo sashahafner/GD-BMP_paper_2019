@@ -57,9 +57,9 @@ setup2$id.exper <- paste0(setup2$id, "-E", setup2$exper)
 
 # Comp data set - Is this relevant if it is merged correctly into the biogas frame??
 # Use start time from biogas for all calculations (min date.time in comp is not trial start)
-starts <- summarise(group_by(biogas, id), start.time = min(date.time))
-comp <- merge(comp, starts, by = "id")
-comp$elapsed.time <- difftime(comp$date.time, comp$start.time, units = 'days')
+#starts <- summarise(group_by(biogas, id), start.time = min(date.time))
+#comp <- merge(comp, starts, by = "id")
+#comp$elapsed.time <- difftime(comp$date.time, comp$start.time, units = 'days')
 
 # Make a subset for each expriment eventually
 
