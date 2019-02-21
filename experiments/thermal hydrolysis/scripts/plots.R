@@ -46,6 +46,16 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = id )) +
 ggsave('../plots/manometric_biogas.png')
 
 # Plot of data before corrected for inoculum (GD)
+ggplot(cbg.gd1, aes(elapsed.time, cvCH4, colour = id )) +
+  geom_point() +
+  geom_line() + 
+  ggtitle("GD Method") +
+  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/GD1_biogas.png')
+
+# Plot of data before corrected for inoculum (GD)
 ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
@@ -54,7 +64,6 @@ ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/GD_biogas.png')
-
 
 
 # ----------------------

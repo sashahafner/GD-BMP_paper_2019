@@ -26,3 +26,14 @@ cbg.gd <- cumBg(cbg.gd, dat.type = 'vol',
                 showt0 = FALSE, temp.init = 20,
                 addt0 = FALSE, extrap = TRUE) 
 
+# New gd function
+cbg.gd1 <- cumBgGD(biogas, 
+                   temp = 20, pres = 1013.25, 
+                   id.name = 'id',vol.name = 'vol',
+                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
+                   comp.name = 'xCH4', time.name = 'elapsed.time', 
+                   vented.mass = TRUE, averaging = 'int', 
+                   temp.init = 20, 
+                   headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
+                   extrap = TRUE, 
+                   addt0 = TRUE, showt0 = TRUE)
