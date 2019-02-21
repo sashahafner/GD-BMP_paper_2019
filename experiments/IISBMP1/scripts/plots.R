@@ -53,7 +53,7 @@ ggplot(cbg.man.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper
 ggsave('../plots/manometric_biogas.png')
 
 # Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
+ggplot(cbg.gd1.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
   geom_point() +
   geom_line() + 
   ggtitle("GD Method") +
@@ -114,3 +114,10 @@ plot(BMP.all$mean.vol, BMP.all$mean.man)
 plot(BMP.all$mean.vol, BMP.all$mean.grav)
 
 plot(BMP.all$mean.man, BMP.all$mean.grav)
+
+
+# Export tables
+write.csv(BMP, '../output/BMP.csv', row.names = FALSE)
+write.csv(BMPo, '../output/BMPo.csv', row.names = FALSE)
+write.csv(yld, '../output/yld.csv', row.names = FALSE)
+

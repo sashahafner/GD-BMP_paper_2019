@@ -10,12 +10,12 @@ when.BMP <- 29
 cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
 cbg.man.list <- split(cbg.man, cbg.man$exper)
 cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
-cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
+cbg.gd1.list <- split(cbg.gd1, cbg.gd1$exper)
 
 # Calculate BMP, yld and BMPo
 
 # Experiment 1 - A warning is given, as some bottles do not have replicates due to removal of NAs
-cbg.list.1 <- list(vol = cbg.vol.list[[1]], man = cbg.man.list[[1]], grav = cbg.grav.list[[1]], gd = cbg.gd.list[[1]]) 
+cbg.list.1 <- list(vol = cbg.vol.list[[1]], man = cbg.man.list[[1]], grav = cbg.grav.list[[1]], gd = cbg.gd1.list[[1]]) 
 BMP1 <- summBg(cbg.list.1, setup1, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',
               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
@@ -35,7 +35,7 @@ yld1 <- summBg(cbg.list.1, setup1, id.name = "id",
 
 
 # Experiment 2
-cbg.list.2 <- list(vol = cbg.vol.list[[2]], man = cbg.man.list[[2]], grav = cbg.grav.list[[2]], gd = cbg.gd.list[[2]]) 
+cbg.list.2 <- list(vol = cbg.vol.list[[2]], man = cbg.man.list[[2]], grav = cbg.grav.list[[2]], gd = cbg.gd1.list[[2]]) 
 BMP2 <- summBg(cbg.list.2, setup2, id.name = "id",
                time.name = 'elapsed.time', descrip.name = 'descrip',
                inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
