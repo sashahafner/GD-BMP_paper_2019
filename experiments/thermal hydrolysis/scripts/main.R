@@ -13,14 +13,14 @@ source('load.R')
 # Clean data
 source('clean.R')
 
+# Calculate leakage from biogas bottles
+source('leak.R')
+
 # Calculate biogas production
 source('biogas.R')
 
 # Calculate BMP, yld and BMPo
 source('BMP.R')
-
-# Calculate leakage from biogas bottles
-source('leak.R')
 
 # Clean data prior to analysis
 source('merge.R')

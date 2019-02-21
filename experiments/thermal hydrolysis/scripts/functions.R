@@ -9,3 +9,6 @@ source('../../../functions/gdComp.R')
 
 # Leakage function
 source('../../../functions/massLoss.R')
+
+# cumBgGD function
+source('../../../functions/cumBgGD.R')
