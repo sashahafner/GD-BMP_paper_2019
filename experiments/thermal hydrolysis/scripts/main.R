@@ -29,7 +29,7 @@ source('BMP.R')
 source('merge.R')
 
 # Compare methods numerically
-# source('numeric_comparison.R')
+source('numeric_comparison.R')
 
 # Graphical comparison of methods
 source('plots.R')
