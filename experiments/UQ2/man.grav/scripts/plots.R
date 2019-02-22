@@ -62,8 +62,14 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 
 # Extra: Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
 
-
 # ----------------------
 
 # Plots for method comparison directly
-plot(BMP.all$mean.man, BMP.all$mean.grav)    # Only based on two points...
+# Only based on two points...
+
+# Plots for method comparison directly
+jpeg('../plots/method_comparison_to_GD.png')
+par(mfrow=c(1,1))
+plot(BMP.all$mean.man, BMP.all$mean.grav)
+abline(0,1)
+dev.off()

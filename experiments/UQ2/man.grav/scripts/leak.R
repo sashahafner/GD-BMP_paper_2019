@@ -11,5 +11,3 @@ leaks <- massLoss(biogas,
                   time.name = 'elapsed.time', 
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
                   id.name = 'id')
-
-write.csv(leaks, '../output/leak.csv', row.names = FALSE)

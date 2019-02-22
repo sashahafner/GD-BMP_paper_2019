@@ -1,4 +1,4 @@
-# Runs complete analysis of IISBMP1 data
+# Runs complete analysis of UQ2 data
 # Camilla G. Justesen
 
 # Load functions
@@ -16,14 +16,14 @@ source('clean.R')
 # Export raw data 
 source('export.R')
 
+# Calculate leakage from biogas bottles
+source('leak.R')
+
 # Calculate biogas production
 source('biogas.R')
 
 # Calculate BMP, yld and BMPo
 source('BMP.R')
-
-# Calculate leakage from biogas bottles
-source('leak.R')
 
 # Clean data prior to analysis
 source('merge.R')
@@ -34,3 +34,5 @@ source('numeric_comparison.R')
 # Graphical comparison of methods
 source('plots.R')
 
+# Export results
+source('export_results.R')
