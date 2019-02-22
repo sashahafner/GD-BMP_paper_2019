@@ -26,4 +26,4 @@ biogas <- as.data.frame(mutate(group_by(biogas, id), start.time = min(date.time)
 biogas$elapsed.time <- as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days'))
 
 # Check times
-print(sort(unique(biogas$elapsed.time)))
+# print(sort(unique(biogas$elapsed.time)))

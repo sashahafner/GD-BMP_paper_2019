@@ -15,14 +15,14 @@ ggplot(yld, aes(elapsed.time, mean, group = pid)) +
 ggsave('../plots/yld.interaction.png')
 
 # Plot of data before corrected for inoculum (grav)
-ggplot(cbg.gd1, aes(elapsed.time, cvCH4, colour = id )) +
+ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("GD") +
   labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
-ggsave('../plots/gravimetric_biogas.png')
+ggsave('../plots/gd_biogas.png')
 
 
 # ----------------------
@@ -49,9 +49,3 @@ ggplot(BMP, aes(descrip, mean, colour = method)) +
 ggsave('../plots/method_comparison_BMP_reverse.png')
 
 # Extra: Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
-
-
-write.csv(BMP, '../output/BMP.csv', row.names = FALSE)
-write.csv(BMPo, '../output/BMPo.csv', row.names = FALSE)
-write.csv(yld, '../output/yld.csv', row.names = FALSE)
-

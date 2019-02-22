@@ -4,7 +4,7 @@ max(biogas$elapsed.time)
 when.BMP <- 27
 # Needs to be 27 as there is no measurements above 30
 
-cbg.list <- list(gd = cbg.gd1) 
+cbg.list <- list(gd = cbg.gd) 
 BMP <- summBg(cbg.list, setup, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',
               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
@@ -12,9 +12,6 @@ BMP <- summBg(cbg.list, setup, id.name = "id",
 
 # Add % deviation - these deviations are really small! < l.5 %
 BMP$perc <- BMP$sd/BMP$mean*100
-
-# Note the set.name argument. The code above would give you a new column (1st one) in the output with the name "method". 
-# You will then be able to cut some code from merge.R as well.
 
 # o for "obs" = one value for each bottle
 #BMPo <- ... show.obs = TRUE)
