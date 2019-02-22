@@ -17,7 +17,7 @@ cumBgGD <- function(
   m.post.name,
   comp.name = 'xCH4',  # Name of column *added*
   vented.mass = TRUE, # Which type of mass loss to use in calculations for xCH4 (vented or total) 
-  averaging = 'int',  # Interval, cumulative, or final?
+  averaging = 'interval',  # Interval, cumulative, or final?
   # Additional arguments . .  . needed?
   temp.init = NULL,
   pres.init = NULL,
