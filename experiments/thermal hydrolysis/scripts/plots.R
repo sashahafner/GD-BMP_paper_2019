@@ -97,8 +97,11 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 
 # Plots for method comparison directly
 plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
+abline(0,1)
 plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
+abline(0,1)
 plot(BMP.all$mean.gd, BMP.all$mean.vol)          # Looks okay similar to vol
+abline(0,1)
 
 plot(BMP.all$mean.vol, BMP.all$mean.man)
 plot(BMP.all$mean.vol, BMP.all$mean.grav)
