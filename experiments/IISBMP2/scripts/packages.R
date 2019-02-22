@@ -1,8 +1,10 @@
 # Loads packages
 
+library(readxl)
 library(biogas)
-library(plyr) 
+library(dplyr)
 library(ggplot2)
 library(lubridate)
-library(readxl)
+
+# Check which packages is actually used later
 

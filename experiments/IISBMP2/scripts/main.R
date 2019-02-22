@@ -1,18 +1,41 @@
-# Calculate BMP etc. of 2nd IIS-BMP AU data
+# Runs complete analysis of IISBMP2 AU data
+# Camilla G. Justesen
+
+# Load functions
+source('functions.R')
 
 # Load packages
 source('packages.R')
 
-# Get and clean data
+# Load data 
 source('load.R')
+
+# Clean data
 source('clean.R')
+
+# Calculation of water detection limits 
+source('water_detect_lim.R')
+
+# Calculate leakage from biogas bottles
+source('leak.R')
+
+# Export raw data 
+source('export.R')
 
 # Calculate biogas production
 source('biogas.R')
-source('gd_comp.R')
-source('biogas_gd.R')
+
+# Calculate BMP, yld and BMPo
 source('BMP.R')
 
-# Export results, make plots
-source('export.R')
+# Clean data prior to analysis
+source('merge.R')
+
+# Compare methods numerically
+source('numeric_comparison.R')
+
+# Graphical comparison of methods
 source('plots.R')
+
+# Export results
+source('export_results.R')

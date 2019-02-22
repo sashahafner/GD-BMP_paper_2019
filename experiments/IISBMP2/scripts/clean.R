@@ -1,23 +1,28 @@
-# Cleaning data
+# Cleaning of data and organizing for analysis 
+#which(is.na(biogas$mass.init))
+#which(is.na(biogas$mass.final))
 
-# Add row numbers
-biogas$row.in.file <- 1:nrow(biogas) + 2
+# Clean biogas data
+# Change from characters to numeric 
+biogas$mass.init <- as.numeric(biogas$mass.init)
 
-# Make id a factor for plots
+# Make id a factor instead of a character
 biogas$id <- factor(biogas$id)
 setup$id <- factor(setup$id)
 
-# Elapsed time
-biogas$date.time <- dmy_hm(paste(biogas$date, biogas$time))
-t.start <- dmy_hm('27.09.2018 15.35')
-biogas$time.d <- signif(as.numeric(difftime(biogas$date.time, t.start, units = 'days')), 3)
-biogas$date <- dmy(biogas$date)
+# Make a date/time column for measured table and composition table
+biogas$date.time <- dmy_hm(paste0(biogas$date, biogas$time))
 
-# Fill in missing pressure
-biogas$pres.amb[is.na(biogas$pres.amb)] <- 1013.25
+# Discard all rows with water controls (have NAs)
+water <- subset(biogas, grepl('W', biogas$id))
+biogas <- droplevels(subset(biogas, !grepl('^W', id)))
 
-# Separate water control data
-wat <- subset(biogas, id == 'W1')
-biogas <- subset(biogas, id != 'W1')
+# Make a cummulative date.time column
+biogas <- as.data.frame(mutate(group_by(biogas, id), start.time = min(date.time)))
+biogas$elapsed.time <- as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days'))
 
-biogas.vol <- subset(biogas, time.d > 0)
+# Fill in missing pressure - Not nessecary
+# biogas$pres.amb[is.na(biogas$pres.amb)] <- 1013.25
+
+
+biogas.vol <- subset(biogas, elapsed.time > 0)

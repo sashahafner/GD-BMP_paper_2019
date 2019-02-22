@@ -1,17 +1,28 @@
+# Set BMP duration for all calls
+when.BMP <- 30 # (maybe choose another value)
+cbg.list <- list(vol = cbg.vol, grav = cbg.grav, gd = cbg.gd) 
 
-# Rates for duration
-rates <- summBg(cbg.gd, setup, id.name = 'id', time.name = 'time.d', descrip.name = 'substrate',
-                inoc.name = 'BK', inoc.m.name = 'm.inoc', norm.name = 'm.sub.vs', show.rates = TRUE, 
-                show.obs = TRUE)
+BMP <- summBg(cbg.list, setup, id.name = "id",
+              time.name = 'elapsed.time', descrip.name = 'descrip',
+              inoc.name = "Inoculum", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+              when = when.BMP, extrap = TRUE, set.name = 'method')
 
-yld <- summBg(cbg.gd, setup, id.name = 'id', time.name = 'time.d', descrip.name = 'substrate',
-              inoc.name = 'BK', inoc.m.name = 'm.inoc', norm.name = 'm.sub.vs', when = 'meas',
-              show.obs = TRUE)
+BMP.1p3d <- summBg(cbg.list, setup, id.name = "id",
+              time.name = 'elapsed.time', descrip.name = 'descrip',
+              inoc.name = "Inoculum", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+              when = '1p3d', extrap = TRUE, set.name = 'method')
 
-BMP <- summBg(cbg.gd, setup, id.name = 'id', time.name = 'time.d', descrip.name = 'substrate',
-              inoc.name = 'BK', inoc.m.name = 'm.inoc', norm.name = 'm.sub.vs', when = '1p3d')
+#BMPo <- ... show.obs = TRUE) (also called rates)
+BMPo <- summBg(cbg.list, setup, id.name = "id",
+               time.name = 'elapsed.time', descrip.name = 'descrip',
+               inoc.name = "Inoculum", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+               when = when.BMP, extrap = TRUE, set.name = 'method', show.obs = TRUE)
 
-
-
+# yld for yield
+#yld <- ... when = 'meas')
+yld <- summBg(cbg.list, setup, id.name = "id",
+              time.name = 'elapsed.time', descrip.name = 'descrip',
+              inoc.name = "Inoculum", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+              when = 'meas', extrap = TRUE, set.name = 'method')
 
 
