@@ -1,4 +1,4 @@
-# Runs complete analysis of thermal hydrolysis data
+# Runs complete analysis of IISBMP1 data
 # Camilla G. Justesen
 
 # Load functions
@@ -13,6 +13,9 @@ source('load.R')
 # Clean data
 source('clean.R')
 
+# Export raw data 
+source('export.R')
+
 # Calculate leakage from biogas bottles
 source('leak.R')
 
@@ -25,12 +28,5 @@ source('BMP.R')
 # Clean data prior to analysis
 source('merge.R')
 
-# Compare methods numerically
-# source('numeric_comparison.R')
-
 # Graphical comparison of methods
 source('plots.R')
-
-
-# library(devtools)
-# install_github('sashahafner/biogas', ref = 'dev')

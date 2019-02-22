@@ -36,3 +36,7 @@ starts <- summarise(group_by(biogas, id), start.time = min(date.time))
 comp <- merge(comp, starts, by = "id")
 comp$elapsed.time <- as.numeric(difftime(comp$date.time, comp$start.time, units = 'days'))
 
+# Merge composition data with biogas data by id and date
+comp1 <- comp[, c('id', 'date', 'xCH4', 'elapsed.time')]
+biogas <- merge(biogas, comp1, by = c('id', 'elapsed.time'), all.x = TRUE)
+                

@@ -14,7 +14,6 @@ ggplot(yld, aes(elapsed.time, mean, group = pid)) +
   facet_wrap(~ descrip)
 ggsave('../plots/yld.interaction.png')
 
-
 # Plot of data before corrected for inoculum (grav)
 ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
@@ -25,15 +24,6 @@ ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = id )) +
   theme(text = element_text(size = 10))
 ggsave('../plots/gravimetric_biogas.png')
 
-# Plot of data before corrected for inoculum (vol)
-ggplot(cbg.vol, aes(elapsed.time, cvCH4, colour = id )) +
-  geom_point() +
-  geom_line() + 
-  ggtitle("Volumetric") +
-  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  theme_bw() + 
-  theme(text = element_text(size = 10))
-ggsave('../plots/volumetric_biogas.png')
 
 # Plot of data before corrected for inoculum (man)
 ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = id )) +
@@ -45,38 +35,18 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = id )) +
   theme(text = element_text(size = 10))
 ggsave('../plots/manometric_biogas.png')
 
-# Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd1, aes(elapsed.time, cvCH4, colour = id )) +
-  geom_point() +
-  geom_line() + 
-  ggtitle("GD Method") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  theme_bw() + 
-  theme(text = element_text(size = 10))
-ggsave('../plots/GD1_biogas.png')
-
-# Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
-  geom_point() +
-  geom_line() + 
-  ggtitle("GD Method") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  theme_bw() + 
-  theme(text = element_text(size = 10))
-ggsave('../plots/GD_biogas.png')
-
 
 # ----------------------
 
 # Plot mean data for each substrate (with ino and substrate correction) 
 
 ggplot(BMP, aes(method, mean, colour = descrip)) + 
-         geom_point() + geom_line(aes(group = descrip)) + 
-         geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-         position=position_dodge(0.05)) + 
-         labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
-         theme_bw() + 
-         theme(text = element_text(size = 10))
+  geom_point() + geom_line(aes(group = descrip)) + 
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) + 
+  labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP.png')
 
 
@@ -96,11 +66,4 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 # ----------------------
 
 # Plots for method comparison directly
-plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
-plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
-plot(BMP.all$mean.gd, BMP.all$mean.vol)          # Looks okay similar to vol
-
-plot(BMP.all$mean.vol, BMP.all$mean.man)
-plot(BMP.all$mean.vol, BMP.all$mean.grav)
-
-plot(BMP.all$mean.man, BMP.all$mean.grav)
+plot(BMP.all$mean.man, BMP.all$mean.grav)    # Only based on two points...

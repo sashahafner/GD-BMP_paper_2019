@@ -6,9 +6,9 @@
 cbg.vol$method <- 'vol'
 cbg.man$method <- 'man'
 cbg.grav$method <- 'grav'
-cbg.gd$method <- 'gd'
+cbg.gd1$method <- 'gd'
 
-cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd)
+cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd1)
 
 # Cannot use rbind() because the number of columns do not match, why is it possible to use rbindf()?
 
@@ -23,7 +23,7 @@ BMP.all <- reshape(data = BMP,
                    timevar = 'method',
                    direction = 'wide') 
 names(BMP)
-names(reshaped.BMP)
+names(BMP.all)
 
 # For yield
 yld.all <- reshape(data = yld, 
@@ -38,10 +38,3 @@ BMPo.all <- reshape(data = BMPo,
                     idvar = c('id', 'elapsed.time', 'n'), 
                     timevar = 'method',
                     direction = 'wide') 
-
-#----------------
-# Leaks are a problem we need to deal with
-# Just to see it (need to move this code, to leaks.R?)
-leaks <- mutate(group_by(biogas, id), leak.m = c(NA, mass.final[-length(mass.final)] - mass.init[-1]))
-plot(sort((leaks$leak.m)))
-abline(0, 0)

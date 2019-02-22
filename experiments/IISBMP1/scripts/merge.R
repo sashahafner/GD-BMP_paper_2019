@@ -6,9 +6,9 @@
 cbg.vol$method <- 'vol'
 cbg.man$method <- 'man'
 cbg.grav$method <- 'grav'
-cbg.gd$method <- 'gd'
+cbg.gd1$method <- 'gd'
 
-cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd)
+cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd1)
 
 # Cannot use rbind() because the number of columns do not match, why is it possible to use rbindf()?
 

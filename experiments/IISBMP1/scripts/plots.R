@@ -27,7 +27,7 @@ ggplot(cbg.grav.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.expe
   geom_point() +
   geom_line() + 
   ggtitle("Gravimetric") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/gravimetric_biogas.png')
@@ -37,7 +37,7 @@ ggplot(cbg.vol.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper
   geom_point() +
   geom_line() + 
   ggtitle("Volumetric") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/volumetric_biogas.png')
@@ -47,17 +47,17 @@ ggplot(cbg.man.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper
   geom_point() +
   geom_line() + 
   ggtitle("Manometric") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/manometric_biogas.png')
 
 # Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
+ggplot(cbg.gd1.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
   geom_point() +
   geom_line() + 
   ggtitle("GD Method") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/GD_biogas.png')
@@ -114,3 +114,10 @@ plot(BMP.all$mean.vol, BMP.all$mean.man)
 plot(BMP.all$mean.vol, BMP.all$mean.grav)
 
 plot(BMP.all$mean.man, BMP.all$mean.grav)
+
+
+# Export tables
+write.csv(BMP, '../output/BMP.csv', row.names = FALSE)
+write.csv(BMPo, '../output/BMPo.csv', row.names = FALSE)
+write.csv(yld, '../output/yld.csv', row.names = FALSE)
+

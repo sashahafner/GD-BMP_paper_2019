@@ -4,6 +4,8 @@
 # Calculate difference (compared to manometric method) - WHICH ONE TO COMPARE ALL TOO? man? gd?
 BMP.all$man.grav.diff <- BMP.all$mean.man - BMP.all$mean.grav
 
+# diff <- cbg.gd$cvCH4-cbg.gd1$cvCH4
+
 # -----------------
 
 # # Try using ANOVA
