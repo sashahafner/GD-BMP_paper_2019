@@ -39,7 +39,7 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 20, pres = 101.32
 
 
 # New gd function
-cbg.gd1 <- cumBgGD(biogas, 
+cbg.gd <- cumBgGD(biogas, 
                   temp = 20, pres = 101.325, 
                   id.name = 'id',vol.name = 'vol',
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',

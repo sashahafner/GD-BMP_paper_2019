@@ -16,6 +16,9 @@ source('clean.R')
 # Calculate leakage from biogas bottles
 source('leak.R')
 
+# Export raw data 
+source('export.R')
+
 # Calculate biogas production
 source('biogas.R')
 
@@ -31,6 +34,5 @@ source('merge.R')
 # Graphical comparison of methods
 source('plots.R')
 
-
-# library(devtools)
-# install_github('sashahafner/biogas', ref = 'dev')
+# Export results
+source('export_results.R')

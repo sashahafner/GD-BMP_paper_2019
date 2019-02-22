@@ -13,9 +13,6 @@ leaks <- massLoss(biogas,
 leaks1 <- leaks[ , c('id', 'elapsed.time', 'mass.tot', 'mass.vent', 'mass.leak', "cmass.tot", "cmass.vent", "cmass.leak") ]
 biogas <- merge(biogas, leaks1, by = c('id', 'elapsed.time'), all.x = TRUE)
 
-write.csv(leaks, '../output/leaks.csv', row.names = FALSE)
-
-
 # Checking leaks
 jpeg('../plots/leaks.png')
 plot(leaks$elapsed.time, 
@@ -30,6 +27,11 @@ abline(0, 0)
 
 biogas.leak <- merge(biogas, leaks1, by = c('id', 'elapsed.time'))
 
+# Plot leaks
+jpeg('../plots/leaks.png')
+par(mfrow = c(1,1))
 plot(leaks$elapsed.time, 
      leaks$cmass.leak)
 abline(0, 0)
+dev.off()
+# Add line for the detection limit of water

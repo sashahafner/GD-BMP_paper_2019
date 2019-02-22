@@ -1,7 +1,7 @@
 
 # Set BMP duration for all calls
 when.BMP <- 30
-cbg.list <- list(vol = cbg.vol, man = cbg.man, grav = cbg.grav, gd = cbg.gd1) 
+cbg.list <- list(vol = cbg.vol, man = cbg.man, grav = cbg.grav, gd = cbg.gd) 
 
 BMP <- summBg(cbg.list, setup, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',
@@ -24,8 +24,3 @@ yld <- summBg(cbg.list, setup, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',
               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
               when = 'meas', extrap = TRUE, set.name = 'method')
-
-summBg(cbg.vol, setup, id.name = "id",
-       time.name = 'elapsed.time', descrip.name = 'descrip',
-       inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-       when = when.BMP, extrap = TRUE, set.name = 'method')

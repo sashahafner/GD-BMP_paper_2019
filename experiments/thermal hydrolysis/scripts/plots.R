@@ -46,16 +46,6 @@ ggplot(cbg.man, aes(elapsed.time, cvCH4, colour = id )) +
 ggsave('../plots/manometric_biogas.png')
 
 # Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd1, aes(elapsed.time, cvCH4, colour = id )) +
-  geom_point() +
-  geom_line() + 
-  ggtitle("GD Method") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  theme_bw() + 
-  theme(text = element_text(size = 10))
-ggsave('../plots/GD1_biogas.png')
-
-# Plot of data before corrected for inoculum (GD)
 ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
@@ -96,14 +86,29 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 # ----------------------
 
 # Plots for method comparison directly
+jpeg('../plots/method_comparison_to_GD.png')
+par(mfrow=c(3,1))
 plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
 abline(0,1)
 plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
 abline(0,1)
 plot(BMP.all$mean.gd, BMP.all$mean.vol)          # Looks okay similar to vol
 abline(0,1)
+dev.off()
 
+# Plots for comparion all methods
+jpeg('../plots/method_comparison_all_methods.png')
+par(mfrow=c(3,2))
+plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
+abline(0,1)
+plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
+abline(0,1)
+plot(BMP.all$mean.gd, BMP.all$mean.vol)          # Looks okay similar to vol
+abline(0,1)
 plot(BMP.all$mean.vol, BMP.all$mean.man)
+abline(0,1)
 plot(BMP.all$mean.vol, BMP.all$mean.grav)
-
+abline(0,1)
 plot(BMP.all$mean.man, BMP.all$mean.grav)
+abline(0,1)
+dev.off()
