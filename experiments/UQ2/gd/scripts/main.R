@@ -1,4 +1,4 @@
-# Runs complete analysis of IISBMP1 data
+# Runs complete analysis of UQ2gd data
 # Camilla G. Justesen
 
 # Load functions
@@ -30,3 +30,6 @@ source('merge.R')
 
 # Graphical comparison of methods
 source('plots.R')
+
+# Export results
+source('export_results.R')
