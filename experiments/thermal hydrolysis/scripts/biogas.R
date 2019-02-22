@@ -5,7 +5,7 @@
 options(unit.pres = 'kPa')
 
 # Manometric biogas calculation
-cbg.man <- cumBg(biogas, dat.type = 'pres', comp = comp, temp = 35,
+cbg.man <- cumBg(biogas, dat.type = 'pres', comp = comp, temp = 30,
                  id.name = 'id', time.name = 'elapsed.time',
                  dat.name = 'pres.init', comp.name = 'xCH4',
                  temp.init = 20,
@@ -37,24 +37,6 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol', comp = comp, temp = 20, pres = 101.32
                  headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                  extrap = TRUE) 
 
-# GD method
-biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
-cbg.gd <- as.data.frame(mutate(group_by(biogas, id), cvol = cumsum(vol), cmassloss = mass.final[1]-mass.final))
-
-# Make a GD data frame
-cbg.gd$xCH4 <- gdComp(cbg.gd$cmassloss, cbg.gd$cvol, temp = 20, pres = 101.325)
-
-
-# volumetric less sensitive to comp.therefore, use this one with GD. Can also try others afterwards. 
-## But when using dat.type = 'vol' - wont it affect the results which method is used? 
-cbg.gd <- cumBg(cbg.gd, dat.type = 'vol', temp = 20, pres = 101.325,
-                data.struct = 'longcombo',
-                id.name = 'id', time.name = 'elapsed.time',
-                dat.name = 'vol', comp.name = 'xCH4',
-                headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                showt0 = FALSE, temp.init = 20,
-                addt0 = FALSE, extrap = TRUE) 
-
 
 # New gd function
 cbg.gd1 <- cumBgGD(biogas, 
@@ -63,8 +45,8 @@ cbg.gd1 <- cumBgGD(biogas,
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
                   comp.name = 'xCH4', time.name = 'elapsed.time', 
                   vented.mass = TRUE, averaging = 'int', 
-                  temp.init = 20, 
-                  headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                  extrap = FALSE, 
+                  # temp.init = 20, 
+                  # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
+                  # extrap = FALSE, 
                   addt0 = TRUE, showt0 = TRUE)
 

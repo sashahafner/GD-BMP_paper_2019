@@ -61,7 +61,7 @@ yld2 <- summBg(cbg.list.2, setup2, id.name = "id",
 BMP1$exper <- 1
 BMP2$exper <- 2
 BMPo1$exper <- 1
-BMPo$exper <- 2
+BMPo2$exper <- 2
 yld1$exper <- 1
 yld2$exper <- 2
 

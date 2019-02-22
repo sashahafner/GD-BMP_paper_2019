@@ -24,3 +24,8 @@ yld <- summBg(cbg.list, setup, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',
               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
               when = 'meas', extrap = TRUE, set.name = 'method')
+
+summBg(cbg.vol, setup, id.name = "id",
+       time.name = 'elapsed.time', descrip.name = 'descrip',
+       inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+       when = when.BMP, extrap = TRUE, set.name = 'method')
