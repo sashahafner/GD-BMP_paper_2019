@@ -19,8 +19,8 @@ source('clean.R')
 # Export raw data 
 source('export.R')
 
-# Calculate detection limit from water samples
-source('detection_limit.R')
+# Calculation of water detection limits 
+source('water_detect_lim.R')
 
 # Calculate leakage from biogas bottles
 source('leak.R')
