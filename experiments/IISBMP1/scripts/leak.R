@@ -14,5 +14,3 @@ leaks <- massLoss(biogas,
 
 leaks1 <- leaks[ , c( 'id.exper', 'elapsed.time', 'mass.tot', 'mass.vent', 'mass.leak', "cmass.tot", "cmass.vent", "cmass.leak") ]
 biogas <- merge(biogas, leaks1, by = c('id.exper', 'elapsed.time'))
-
-write.csv(leaks, '../output/leak.csv', row.names = FALSE)

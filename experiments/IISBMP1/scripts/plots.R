@@ -1,7 +1,7 @@
 # Plots
 
 # Some other possibilities . . .
-cbg.all$pid <- interaction(cbg.all$id, cbg.all$method)
+cbg.all$pid <- interaction(cbg.all$id.exper, cbg.all$method)
 ggplot(cbg.all, aes(elapsed.time, cvCH4, group = pid)) +
   geom_line(aes(colour = method)) +
   facet_wrap(~ descrip)
@@ -12,14 +12,13 @@ yld1$pid <- interaction(yld1$descrip, yld1$method)
 ggplot(yld1, aes(elapsed.time, mean, group = pid)) +
   geom_line(aes(colour = method)) +
   facet_wrap(~ descrip)
-ggsave('../plots/yld.interaction.png')
-
+ggsave('../plots/yld.interaction_exper1.png')
 
 yld2$pid <- interaction(yld2$descrip, yld2$method)
 ggplot(yld2, aes(elapsed.time, mean, group = pid)) +
   geom_line(aes(colour = method)) +
   facet_wrap(~ descrip)
-ggsave('../plots/yld.interaction.png')
+ggsave('../plots/yld.interaction_exper2.png')
 
 
 # Plot of data before corrected for inoculum (grav) - maybe change coloring for descrip (need to add descrip column)
@@ -30,7 +29,7 @@ ggplot(cbg.grav.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.expe
   labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
-ggsave('../plots/gravimetric_biogas.png')
+ggsave('../plots/gravimetric_biogas_exper1.png')
 
 # Plot of data before corrected for inoculum (vol)
 ggplot(cbg.vol.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
@@ -40,7 +39,7 @@ ggplot(cbg.vol.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper
   labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
-ggsave('../plots/volumetric_biogas.png')
+ggsave('../plots/volumetric_biogas_exper1.png')
 
 # Plot of data before corrected for inoculum (man)
 ggplot(cbg.man.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
@@ -50,26 +49,65 @@ ggplot(cbg.man.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper
   labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
-ggsave('../plots/manometric_biogas.png')
+ggsave('../plots/manometric_biogas_exper1.png')
 
 # Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd1.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
+ggplot(cbg.gd.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
   geom_point() +
   geom_line() + 
   ggtitle("GD Method") +
   labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
-ggsave('../plots/GD_biogas.png')
+ggsave('../plots/GD_biogas_exper1.png')
 
 
 # All plots above are made for experiment 1, not 2 
+# for exper 2
+# Plot of data before corrected for inoculum (grav) - maybe change coloring for descrip (need to add descrip column)
+ggplot(cbg.grav.list[[2]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
+  geom_point() +
+  geom_line() + 
+  ggtitle("Gravimetric") +
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/gravimetric_biogas_exper2.png')
+
+# Plot of data before corrected for inoculum (vol)
+ggplot(cbg.vol.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
+  geom_point() +
+  geom_line() + 
+  ggtitle("Volumetric") +
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/volumetric_biogas_exper2.png')
+
+# Plot of data before corrected for inoculum (man)
+ggplot(cbg.man.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
+  geom_point() +
+  geom_line() + 
+  ggtitle("Manometric") +
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/manometric_biogas_exper2.png')
+
+# Plot of data before corrected for inoculum (GD)
+ggplot(cbg.gd.list[[1]], aes(elapsed.time, cvCH4, colour = id, group = id.exper )) +
+  geom_point() +
+  geom_line() + 
+  ggtitle("GD Method") +
+  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/GD_biogas_exper2.png')
 
 
 # ----------------------
 
 # Plot mean data for each substrate (with ino and substrate correction) 
-
 ggplot(BMP1, aes(method, mean, colour = descrip)) + 
          geom_point() + geom_line(aes(group = descrip)) + 
          geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
@@ -77,8 +115,16 @@ ggplot(BMP1, aes(method, mean, colour = descrip)) +
          labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
          theme_bw() + 
          theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP.png')
+ggsave('../plots/method_comparison_BMP_exper1.png')
 
+ggplot(BMP2, aes(method, mean, colour = descrip)) + 
+  geom_point() + geom_line(aes(group = descrip)) + 
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) + 
+  labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/method_comparison_BMP_exper2.png')
 
 # Plot with reverse of method/descrip [1]
 ggplot(BMP1, aes(descrip, mean, colour = method)) +
@@ -88,7 +134,7 @@ ggplot(BMP1, aes(descrip, mean, colour = method)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse.png')
+ggsave('../plots/method_comparison_BMP_reverse_exper1.png')
 
 # Plot with reverse of method/descrip [2]
 ggplot(BMP2, aes(descrip, mean, colour = method)) +
@@ -98,7 +144,7 @@ ggplot(BMP2, aes(descrip, mean, colour = method)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse.png')
+ggsave('../plots/method_comparison_BMP_reverse_exper2.png')
 
 # Extra: Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
 
@@ -116,8 +162,93 @@ plot(BMP.all$mean.vol, BMP.all$mean.grav)
 plot(BMP.all$mean.man, BMP.all$mean.grav)
 
 
-# Export tables
-write.csv(BMP, '../output/BMP.csv', row.names = FALSE)
-write.csv(BMPo, '../output/BMPo.csv', row.names = FALSE)
-write.csv(yld, '../output/yld.csv', row.names = FALSE)
+# Plots for method comparison directly
+jpeg('../plots/method_comparison_to_GD.png')
+par(mfrow=c(3,1))
+plot(BMP.all$mean.gd, BMP.all$mean.grav)        
+abline(0,1)
+plot(BMP.all$mean.gd, BMP.all$mean.man)         
+abline(0,1)
+plot(BMP.all$mean.gd, BMP.all$mean.vol)         
+abline(0,1)
+dev.off()
+
+# Plots for comparion all methods
+jpeg('../plots/method_comparison_all_methods.png')
+par(mfrow=c(3,2))
+plot(BMP.all$mean.gd, BMP.all$mean.grav)         
+abline(0,1)
+plot(BMP.all$mean.gd, BMP.all$mean.man)          
+abline(0,1)
+plot(BMP.all$mean.gd, BMP.all$mean.vol)          
+abline(0,1)
+plot(BMP.all$mean.vol, BMP.all$mean.man)
+abline(0,1)
+plot(BMP.all$mean.vol, BMP.all$mean.grav)
+abline(0,1)
+plot(BMP.all$mean.man, BMP.all$mean.grav)
+abline(0,1)
+dev.off()
+
+# Divided into each expriment
+BMP.all.1 <- subset(BMP.all, exper == 1)
+BMP.all.2 <- subset(BMP.all, exper == 2)
+
+# Experiment 1
+# Plots for method comparison directly
+jpeg('../plots/method_comparison_to_GD_exper1.png')
+par(mfrow=c(3,1))
+plot(BMP.all.1$mean.gd, BMP.all.1$mean.grav)        
+abline(0,1)
+plot(BMP.all.1$mean.gd, BMP.all.1$mean.man)          
+abline(0,1)
+plot(BMP.all.1$mean.gd, BMP.all.1$mean.vol)          
+abline(0,1)
+dev.off()
+
+# Plots for comparion all methods
+jpeg('../plots/method_comparison_all_method_exper1.png')
+par(mfrow=c(3,2))
+plot(BMP.all.1$mean.gd, BMP.all.1$mean.grav)         
+abline(0,1)
+plot(BMP.all.1$mean.gd, BMP.all.1$mean.man)          
+abline(0,1)
+plot(BMP.all.1$mean.gd, BMP.all.1$mean.vol)          
+abline(0,1)
+plot(BMP.all.1$mean.vol, BMP.all.1$mean.man)
+abline(0,1)
+plot(BMP.all.1$mean.vol, BMP.all.1$mean.grav)
+abline(0,1)
+plot(BMP.all.1$mean.man, BMP.all.1$mean.grav)
+abline(0,1)
+dev.off()
+
+# Experiment 2
+# Plots for method comparison directly
+jpeg('../plots/method_comparison_to_GD_exper2.png')
+par(mfrow=c(3,1))
+plot(BMP.all.2$mean.gd, BMP.all.2$mean.grav)        
+abline(0,1)
+plot(BMP.all.2$mean.gd, BMP.all.2$mean.man)          
+abline(0,1)
+plot(BMP.all.2$mean.gd, BMP.all.2$mean.vol)          
+abline(0,1)
+dev.off()
+
+# Plots for comparion all methods
+jpeg('../plots/method_comparison_all_method_exper2.png')
+par(mfrow=c(3,2))
+plot(BMP.all.2$mean.gd, BMP.all.2$mean.grav)         
+abline(0,1)
+plot(BMP.all.2$mean.gd, BMP.all.2$mean.man)          
+abline(0,1)
+plot(BMP.all.2$mean.gd, BMP.all.2$mean.vol)          
+abline(0,1)
+plot(BMP.all.2$mean.vol, BMP.all.2$mean.man)
+abline(0,1)
+plot(BMP.all.2$mean.vol, BMP.all.2$mean.grav)
+abline(0,1)
+plot(BMP.all.2$mean.man, BMP.all.2$mean.grav)
+abline(0,1)
+dev.off()
 

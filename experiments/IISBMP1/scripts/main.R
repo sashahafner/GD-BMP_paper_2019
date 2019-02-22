@@ -19,6 +19,9 @@ source('clean.R')
 # Export raw data 
 source('export.R')
 
+# Calculate detection limit from water samples
+source('detection_limit.R')
+
 # Calculate leakage from biogas bottles
 source('leak.R')
 
@@ -32,8 +35,10 @@ source('BMP.R')
 source('merge.R')
 
 # Compare methods numerically
-# source('numeric_comparison.R')
+source('numeric_comparison.R')
 
 # Graphical comparison of methods
 source('plots.R')
 
+# Export results
+source('export_results.R')
