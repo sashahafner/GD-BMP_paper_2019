@@ -19,9 +19,6 @@ comp <- comp[, c('exper', 'id', 'date', 'inject.date.time', 'xCH4', 'xCH4.oa')]
 water <- subset(biogas, grepl('W', biogas$id))
 biogas <- droplevels(subset(biogas, !grepl('^W', id)))
 
-# Change from characters to numeric 
-biogas$mass.init <- as.numeric(biogas$mass.init)
-
 # Add leading zeros
 biogas$date <- sprintf('%08i', biogas$date)
 biogas$time <- sprintf('%04i', biogas$time)   
@@ -29,7 +26,7 @@ biogas$time <- sprintf('%04i', biogas$time)
 #-----------
 # Merge composition data with biogas data by id and date
 # Problem with two B3 measurements one day - note from Sasha
-biogas <- merge(biogas, comp, by = c('exper', 'id', 'date'))
+biogas <- merge(biogas, comp, by = c('exper', 'id', 'date'), all.x = TRUE)
 
 # Make a date/time column
 biogas$date.time <- dmy_hm(paste0(biogas$date, biogas$time))
