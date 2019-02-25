@@ -39,3 +39,6 @@ source('plots.R')
 
 # Export results
 source('export_results.R')
+
+# Export manipulated results
+source('export_manipulated.R')

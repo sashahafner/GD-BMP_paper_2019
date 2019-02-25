@@ -32,11 +32,15 @@ names(yld.all)
 
 # For BMPo
 BMPo.all <- reshape(data = BMPo, 
-                    idvar = c('id', 'elapsed.time', 'n'), 
+                    idvar = c('id', 'descrip', 'elapsed.time', 'n'), 
                     timevar = 'method',
+                    drop = c('descrip2', 'tare', 'm.inoc', 'm.sub', 'm.water', 'm.tot1', 'm.tot2', 'm.tot', 
+                    'm.tot.sd', 'vol.hs', 'conc.sub.vs', 'm.sub.vs'), 
                     direction = 'wide') 
 
 BMP.all.1p3d <- reshape(data = BMP.1p3d, 
                    idvar = c('descrip', 'elapsed.time', 'n'), 
                    timevar = 'method',
+                   drop = c('descrip2', 'tare', 'm.inoc', 'm.sub', 'm.water', 'm.tot1', 'm.tot2', 'm.tot', 
+                            'm.tot.sd', 'vol.hs', 'conc.sub.vs', 'm.sub.vs'), 
                    direction = 'wide') 
