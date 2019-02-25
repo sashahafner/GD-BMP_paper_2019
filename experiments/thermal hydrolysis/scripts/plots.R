@@ -14,6 +14,8 @@ ggplot(yld, aes(elapsed.time, mean, group = pid)) +
   facet_wrap(~ descrip)
 ggsave('../plots/yld.interaction.png')
 
+# ---------------
+# Individual cbg data
 
 # Plot of data before corrected for inoculum (grav)
 ggplot(cbg.grav, aes(elapsed.time, cvCH4, colour = id )) +
@@ -50,22 +52,60 @@ ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
   geom_point() +
   geom_line() + 
   ggtitle("GD Method") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  +
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/GD_biogas.png')
 
 
-# ----------------------
+# -----------
+# Using cbg.all data
+cbg.all$substrate <- substring(cbg.all$id, 1, 1)
+
+# 2x2 plot
+ggplot(cbg.all, aes(elapsed.time, cvCH4, colour = id)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~ method) +
+  ggtitle("All Methods") +
+  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  +
+  theme_bw() +
+  theme(text = element_text(size = 10))
+ggsave('../plots/all_methods_cumBg.png')
+  
+# Horizontal alignment (1x4)
+  ggplot(cbg.all, aes(elapsed.time, cvCH4, colour = id), group_by(descrip)) +
+    geom_point() +
+    geom_line() +
+    facet_grid(~ method) +
+    ggtitle("All Methods") +
+    labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  +
+    theme_bw() +
+    theme(text = element_text(size = 10), legend.position = "bottom")
+ggsave('../plots/all_methods_cumBg_aligned_horisontal.png')
+
+# plot each substrate individually 
+ggplot(cbg.all, aes(elapsed.time, cvCH4, colour = method)) +
+  geom_point() +
+  #eom_line() +
+  facet_wrap( ~ substrate) +
+  ggtitle("Grouped by Substrate") +
+  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Method")  +
+  theme_bw() +
+  theme(text = element_text(size = 10))
+ggsave('../plots/all_methods_cumBg_groupby_substrate.png')
+  
+
+ ----------------------
 
 # Plot mean data for each substrate (with ino and substrate correction) 
 
 ggplot(BMP, aes(method, mean, colour = descrip)) + 
-         geom_point() + geom_line(aes(group = descrip)) + 
-         geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-         position=position_dodge(0.05)) + 
-         labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
-         theme_bw() + 
+  geom_point() + 
+  geom_line(aes(group = descrip)) + 
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) + 
+  labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + theme_bw() + 
          theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP.png')
 
