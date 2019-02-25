@@ -10,8 +10,8 @@ write.csv(BMPo, '../output/BMPo.csv', row.names = FALSE)
 write.csv(yld, '../output/yld.csv', row.names = FALSE)
 
 
-write.csv(BMP.all, '../output/yld.all.csv', row.names = FALSE)
-write.csv(BMPo.all, '../output/yld.all.csv', row.names = FALSE)
+write.csv(BMP.all, '../output/BMP.all.csv', row.names = FALSE)
+write.csv(BMPo.all, '../output/BMPo.all.csv', row.names = FALSE)
 write.csv(yld.all, '../output/yld.all.csv', row.names = FALSE)
 
 write.csv(leaks, '../output/leak.csv', row.names = FALSE)
