@@ -38,6 +38,8 @@ names(yld.all)
 BMPo.all <- reshape(data = BMPo, 
                     idvar = c('id', 'elapsed.time', 'n'), 
                     timevar = 'method',
+                    drop = c('descrip2', 'tare', 'm.inoc', 'm.sub', 'm.water', 'm.tot1', 'm.tot2', 'm.tot', 
+                             'm.tot.sd', 'vol.hs', 'conc.sub.vs', 'm.sub.vs'),
                     direction = 'wide') 
 
 #----------------
