@@ -29,6 +29,7 @@ cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 # Reshaping into column structures instead
 
+BMP$rsd <- 100 * BMP$sd/BMP$mean
 BMP.all <- reshape(data = BMP, 
               idvar = c('descrip', 'exper', 'elapsed.time', 'n'), 
               timevar = 'method',

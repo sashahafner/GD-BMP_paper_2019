@@ -146,6 +146,32 @@ ggplot(BMP2, aes(descrip, mean, colour = method)) +
   theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP_reverse_exper2.png')
 
+# Barplot option
+
+BMP1$lwr <- BMP1$mean - BMP1$sd
+BMP1$upr <- BMP1$mean + BMP1$sd
+ggplot(BMP1) +
+    geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+    geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+    #facet_grid(. ~ exper, scales = 'free_x') +
+    labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+    #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+    #theme(legend.position = 'none')
+ggsave('../plots/BMP1_comp_bars.pdf', height = 6, width = 6, scale = 1.2)
+
+BMP2$lwr <- BMP2$mean - BMP2$sd
+BMP2$upr <- BMP2$mean + BMP2$sd
+ggplot(BMP2) +
+    geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+    geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+    #facet_grid(. ~ exper, scales = 'free_x') +
+    labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+    #theme(legend.position = 'none')
+ggsave('../plots/BMP2_comp_bars.pdf', height = 6, width = 6, scale = 1.2)
+
 # Extra: Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
 
 
