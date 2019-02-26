@@ -9,7 +9,10 @@ leaks <- massLoss(biogas.leak,
                 m.pre.name = 'mass.init', m.post.name = 'mass.final',
                 id.name = 'id')
 
-leaks <- leaks[ , c('id', 'date', 'elapsed.time', 'mass.tot', 'mass.vent', 'mass.leak', "cmass.tot", "cmass.vent", "cmass.leak") ]
+id.descrip <- setup[, c('id', 'descrip')]
+leaks <- merge(leaks, id.descrip, by = 'id', all.x = TRUE)
+
+leaks <- leaks[ , c('id', 'descrip', 'date', 'elapsed.time', 'mass.tot', 'mass.vent', 'mass.leak', "cmass.tot", "cmass.vent", "cmass.leak") ]
 biogas <- merge(biogas, leaks, by = c('id', 'date', 'elapsed.time'), all.x = TRUE)
 
 
@@ -18,7 +21,7 @@ jpeg('../plots/leaks.png')
 plot(leaks$elapsed.time, 
      leaks$mass.leak)
 abline(0, 0)
-abline(detect.lim.tot, 0)
+abline(detect.lim.int, 0)
 dev.off()
 
 # Plot leaks
@@ -27,17 +30,19 @@ par(mfrow = c(1,1))
 plot(leaks$elapsed.time, 
      leaks$cmass.leak)
 abline(0, 0)
-#abline(detect.lim.tot, 0)
+abline(detect.lim.tot, 0)
 dev.off()
 
-
 # Make a subset where samples with high leak is removed
-large.leaks <- subset(filter(leaks, mass.leak > detect.lim.tot))
-small.leaks <- subset(filter(leaks, mass.leak < detect.lim.tot))
+large.leaks <- subset(filter(leaks, cmass.leak > detect.lim.tot))
+small.leaks <- subset(filter(leaks, cmass.leak < detect.lim.tot))
+
+large.leaks.int <- subset(filter(leaks, mass.leak > detect.lim.int))
+small.leaks.int <- subset(filter(leaks, mass.leak < detect.lim.int))
 
 plot(small.leaks$elapsed.time, small.leaks$mass.leak)
 abline(0, 0)
 
-# plot(large.leaks$elapsed.time, large.leaks$mass.leak)
+plot(large.leaks$elapsed.time, large.leaks$mass.leak)
 
 
