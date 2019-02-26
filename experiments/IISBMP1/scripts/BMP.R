@@ -72,3 +72,7 @@ yld <- rbind(yld1, yld2)
 
 # Eventually add id to all data frames too (just keep the first letter from descrip or add a column from other data frame)
 
+# Add leaklimit column. TRUE == leak is above detection limit
+BMP$leak.l <- BMP$descrip %in% large.leaks$descrip
+BMPo$leak.l <- BMPo$id.exper %in% large.leaks$id.exper
+# yld$leak.l <- yld$descrip %in% large.leaks$descrip

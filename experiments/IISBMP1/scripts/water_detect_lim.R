@@ -32,5 +32,3 @@ detect.lim.int1 <- round(mean(detect.limits1$detect.lim.int), digits = 2)
 detect.lim.tot1 <- round(mean(detect.limits1$detect.lim.tot), digits = 2)
 detect.lim.int2 <- round(mean(detect.limits2$detect.lim.int), digits = 2)
 detect.lim.tot2 <- round(mean(detect.limits2$detect.lim.tot), digits = 2)
-
-

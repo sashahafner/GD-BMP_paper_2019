@@ -35,6 +35,9 @@ dev.off()
 large.leaks <- subset(filter(leaks, cmass.leak > detect.lim.tot))
 small.leaks <- subset(filter(leaks, cmass.leak < detect.lim.tot))
 
+large.leaks.int <- subset(filter(leaks, mass.leak > detect.lim.int))
+small.leaks.int <- subset(filter(leaks, mass.leak < detect.lim.int))
+
 #plot(small.leaks$elapsed.time, small.leaks$mass.leak)
 #abline(0, 0)
 
