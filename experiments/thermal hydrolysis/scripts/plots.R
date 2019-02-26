@@ -87,7 +87,7 @@ ggsave('../plots/all_methods_cumBg_aligned_horisontal.png')
 # plot each substrate individually 
 ggplot(cbg.all, aes(elapsed.time, cvCH4, colour = method)) +
   geom_point() +
-  #eom_line() +
+  #geom_line() +
   facet_wrap( ~ substrate) +
   ggtitle("Grouped by Substrate") +
   labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Method")  +
@@ -99,15 +99,13 @@ ggsave('../plots/all_methods_cumBg_groupby_substrate.png')
  ----------------------
 
 # Plot mean data for each substrate (with ino and substrate correction) 
-
-ggplot(BMP, aes(method, mean, colour = descrip)) + 
-  geom_point() + 
-  geom_line(aes(group = descrip)) + 
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-                position=position_dodge(0.05)) + 
-  labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + theme_bw() + 
-         theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP.png')
+# ggplot(BMP, aes(descrip, mean, colour = method)) + 
+#   geom_point() + 
+#   geom_line(aes(group = descrip)) + 
+#   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, position=position_dodge(0.05)) + 
+#   labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + theme_bw() + 
+#   theme(text = element_text(size = 10))
+# ggsave('../plots/method_comparison_BMP.png')
 
 
 # Plot with reverse of method/descrip
