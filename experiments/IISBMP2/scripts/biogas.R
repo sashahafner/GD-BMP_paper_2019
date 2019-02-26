@@ -4,27 +4,6 @@
 # Set biogas options
 options(unit.pres = 'hPa')
 
-# Gravimetric biogas calculation
-cbg.grav <- cumBg(biogas, dat.type = 'mass', comp = 0.6, temp = 'temp.air', pres = 'pres.amb',
-                  id.name = 'id', time.name = 'elapsed.time',
-                  dat.name = 'mass.final',
-                  headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                  temp.init = 20,
-                  extrap = TRUE)
-
-# Should we use the columns for temp and pres.amb or temp = 30, pres = 150?(remember to correct to the unit hPa)
-
-# Volumetric biogas calculation
-cbg.vol <- cumBg(biogas.vol, dat.type = 'vol', comp = 0.6, temp = 'temp.air', pres = 'pres.amb',
-                 id.name = 'id', time.name = 'elapsed.time',
-                 dat.name = 'vol', comp.name = 'xCH4',
-                 headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                 extrap = TRUE) 
-
-# Use above or temp = 20, pres = 101.325 (remember to correct to the unit hPa)
-
-# DOES IT MAKE ANY SENSE TO INCLUDE ABOVE METHODS WITOUH COMP?
-
 # New gd function
 cbg.gd <- cumBgGD(biogas, 
                   # temp = 20, pres = 101.325, 
