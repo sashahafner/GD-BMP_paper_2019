@@ -1,5 +1,11 @@
 # Cleaning of data and organizing for analysis 
 
+# Water samples 
+water$id.orig <- water$id
+water$id <- replace(water$id, water$id == 28, 'W1')
+water$id <- replace(water$id, water$id == 29, 'W2')
+water$id <- replace(water$id, water$id == 30, 'W3')
+
 # check for missing values
 # The NAs in mass.init is just first measurement for each bottle
 which(is.na(biogas$mass.init))
@@ -27,3 +33,6 @@ biogas$elapsed.time <- as.numeric(difftime(biogas$date.time, biogas$start.time, 
 
 # Check times
 # print(sort(unique(biogas$elapsed.time)))
+
+# Check if day and elapsed.time is equal - as it is elapsed.time is not needed in water data set to be comparable
+all.equal(biogas$day, biogas$elapsed.time)
