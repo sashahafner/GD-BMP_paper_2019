@@ -65,6 +65,12 @@ BMPo2$exper <- 2
 yld1$exper <- 1
 yld2$exper <- 2
 
+# for using leaks individually for each experiment, it should be added before rbind. Otherwise delete and use the code below
+BMP1$leak.l <- BMP1$descrip %in% large.leaks1$descrip
+BMPo1$leak.l <- BMPo1$id.exper %in% large.leaks1$id.exper
+BMP2$leak.l <- BMP2$descrip %in% large.leaks2$descrip
+BMPo2$leak.l <- BMPo2$id.exper %in% large.leaks2$id.exper
+
 # Merge results with rbind()
 BMP <- rbind(BMP1, BMP2)
 BMPo <- rbind(BMPo1, BMPo2)
@@ -73,6 +79,6 @@ yld <- rbind(yld1, yld2)
 # Eventually add id to all data frames too (just keep the first letter from descrip or add a column from other data frame)
 
 # Add leaklimit column. TRUE == leak is above detection limit
-BMP$leak.l <- BMP$descrip %in% large.leaks$descrip
-BMPo$leak.l <- BMPo$id.exper %in% large.leaks$id.exper
+# BMP$leak.l <- BMP$descrip %in% large.leaks$descrip
+# BMPo$leak.l <- BMPo$id.exper %in% large.leaks$id.exper
 # yld$leak.l <- yld$descrip %in% large.leaks$descrip
