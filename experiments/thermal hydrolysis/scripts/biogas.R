@@ -50,3 +50,4 @@ cbg.gd <- cumBgGD(biogas,
                   # extrap = FALSE, 
                   addt0 = TRUE, showt0 = TRUE)
 
+
