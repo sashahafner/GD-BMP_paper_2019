@@ -50,3 +50,7 @@ setup2$id.exper <- paste0(setup2$id, "-E", setup2$exper)
 #starts <- summarise(group_by(biogas, id), start.time = min(date.time))
 #comp <- merge(comp, starts, by = "id")
 #comp$elapsed.time <- difftime(comp$date.time, comp$start.time, units = 'days')
+
+# Make data set for composition plots 
+comp1 <- biogas[, c('id', 'exper', 'id.exper', 'elapsed.time', 'date', 'inject.date.time', 'xCH4', 'xCH4.oa')]
+# comp1 <- comp1[!is.na(comp1$xCH4), ]
