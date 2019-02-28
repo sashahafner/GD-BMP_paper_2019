@@ -26,8 +26,8 @@ cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd,
 
 # Cannot use rbind() because the number of columns do not match, why is it possible to use rbindf()?
 
-# Add substrate type and other needed variables with merge of some columns from setup
-cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
+# # Add substrate type and other needed variables with merge of some columns from setup
+# cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 
 # Add rsd to data frames
