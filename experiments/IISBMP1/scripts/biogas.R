@@ -53,7 +53,6 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol',
 biogas <- biogas[order(biogas$id.exper, biogas$elapsed.time), ]
 biogas.gd <- biogas[!is.na(biogas$vol) & !is.na(biogas$mass.init) & !is.na(biogas$mass.final), ]
 
-args(cumBgGD)
 cbg.gd <- cumBgGD(biogas.gd, 
                    temp = 20, pres = 1.01325, 
                    id.name = 'id.exper',vol.name = 'vol',
