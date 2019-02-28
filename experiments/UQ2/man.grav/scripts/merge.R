@@ -13,6 +13,9 @@ cbg.all <- biogas:::rbindf(cbg.man, cbg.grav)
 # Add substrate type and other needed variables with merge of some columns from setup
 cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
+# Add rsd to data frames
+BMP$rsd <- 100 * BMP$sd/BMP$mean
+yld$rsd <- 100 * yld$sd/yld$mean
 
 #----------------
 # Bind by column instead

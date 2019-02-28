@@ -1,4 +1,4 @@
-# Runs complete analysis of UQ2 data
+# Runs complete analysis of UQ2 data (man_grav)
 # Camilla G. Justesen
 
 # Load functions
