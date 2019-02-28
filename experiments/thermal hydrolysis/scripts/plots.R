@@ -1,5 +1,17 @@
 # Plots
 
+# Plots
+ggplot(BMP, aes(method, mean), fill = method, color = method) +
+  geom_bar(stat = 'identity', color = 'black') + 
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2)+
+  ggtitle("GD Method") +
+  labs(x = "Method", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+  facet_wrap(~ descrip)
+theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/GD_methods_barplot.png')
+# See how "nice" Substrate D is - which has no leaks
+
 # More interesting with yld
 yld$pid <- interaction(yld$descrip, yld$method)
 ggplot(yld, aes(elapsed.time, mean, group = pid)) +
