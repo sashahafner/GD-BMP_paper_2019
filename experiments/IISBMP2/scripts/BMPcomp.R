@@ -9,10 +9,6 @@ cbg.list <- list(
   gd7 = cbg.gd7, gd8 = cbg.gd8, gd9 = cbg.gd9, gd10 = cbg.gd10, gd11 = cbg.gd11, gd12 = cbg.gd12) 
 
 # BMP
-# Set BMP duration for all calls
-when.BMP <- 30 # (maybe choose another value)
-cbg.list <- list(gd = cbg.gd) 
-
 BMP <- summBg(cbg.list, setup, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',
               inoc.name = "Inoculum", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
