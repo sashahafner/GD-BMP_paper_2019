@@ -23,16 +23,19 @@ source('water_detect_lim.R')
 source('leak.R')
 
 # Calculate biogas production
-source('biogas.R')
+#source('biogas.R')
+source('cumBgGDcomparison.R')       # includes all methods
 
 # Calculate BMP, yld and BMPo
-source('BMP.R')
+# source('BMP.R')
+source('BMPcomp.R')
 
 # Clean data prior to analysis
 source('merge.R')
 
 # Graphical comparison of methods
 source('plots.R')
+source('xCH4.plots.R')
 
 # Export results
 source('export_results.R')
