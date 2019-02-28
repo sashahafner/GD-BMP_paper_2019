@@ -30,6 +30,10 @@ cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, cbg.grav, cbg.gd,
 cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 
+# Add rsd to data frames
+BMP$rsd <- 100 * BMP$sd/BMP$mean
+yld$rsd <- 100 * yld$sd/yld$mean
+
 #----------------
 # Bind BMPs in columns (original tables are row-binded (yld, BMP,BMPo))
 BMP.all <- reshape(data = BMP, 
