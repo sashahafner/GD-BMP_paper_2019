@@ -24,9 +24,11 @@ source('export.R')
 
 # Calculate biogas production
 source('biogas.R')
+source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo
 source('BMP.R')
+source('BMPcomp.R')
 
 # Clean data prior to analysis
 #source('merge.R')
@@ -36,6 +38,7 @@ source('BMP.R')
 
 # Graphical comparison of methods
 source('plots.R')
+source('xCH4.plots.R')
 
 # Export results
 source('export_results.R')
