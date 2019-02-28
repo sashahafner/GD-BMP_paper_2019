@@ -23,15 +23,12 @@ source('leak.R')
 source('export.R')
 
 # Calculate biogas production
-source('biogas.R')
+#source('biogas.R')
 source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo
 source('BMP.R')
 source('BMPcomp.R')
-
-# Clean data prior to analysis
-#source('merge.R')
 
 # Compare methods numerically
 #source('numeric_comparison.R')

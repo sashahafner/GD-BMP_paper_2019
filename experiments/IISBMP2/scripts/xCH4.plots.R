@@ -19,9 +19,9 @@ cbg.gd12$method <- 'gd12'
 cbg.gd.all <- biogas:::rbindf(
   # cbg.vol, cbg.man, cbg.grav, cbg.gd, 
   #cbg.gd1, cbg.gd2, gbg.gd3, cbg.gd4, cbg.gd5, cbg.gd6, 
-  #cbg.gd7, 
+  cbg.gd7, 
   cbg.gd8, cbg.gd9, 
-  #cbg.gd10, 
+  cbg.gd10, 
   cbg.gd11, cbg.gd12)
 
 ggplot(cbg.gd.all, aes(elapsed.time, xCH4, colour = descrip)) + 

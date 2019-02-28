@@ -6,7 +6,7 @@ options(unit.pres = 'hPa')
 
 # New gd function
 cbg.gd <- cumBgGD(biogas, 
-                  # temp = 20, pres = 101.325, 
+                  # temp = 20, pres = 1013.25, 
                   temp = 'temp.air', pres = 'pres.amb',
                   id.name = 'id',vol.name = 'vol',
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
