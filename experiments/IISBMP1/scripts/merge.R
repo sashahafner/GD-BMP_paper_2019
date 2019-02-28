@@ -26,10 +26,11 @@ cbg.all <- merge(cbg.all, setup[, c('id', 'descrip')], by = 'id')
 
 #biogas.BMP1 <- biogas.BMP1[ , c('method', 'id', 'descrip', 'elapsed.time', 'mean', 'sd', 'se', 'n', 'id.exper')]
 
+# Add rsd to data frames
+BMP$rsd <- 100 * BMP$sd/BMP$mean
+yld$rsd <- 100 * yld$sd/yld$mean
 
 # Reshaping into column structures instead
-
-BMP$rsd <- 100 * BMP$sd/BMP$mean
 BMP.all <- reshape(data = BMP, 
               idvar = c('descrip', 'exper', 'elapsed.time', 'n'), 
               timevar = 'method',
