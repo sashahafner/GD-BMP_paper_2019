@@ -4,7 +4,7 @@
 cbg.gd.result <- cbg.gd[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4', 'rvBg', 'rvCH4')]
 write.csv(cbg.gd.result, '../results/cbg.gd.csv', row.names = FALSE)
 
-BMP.comparison <- BMP[, c('descrip', 'mean', 'sd')]
+BMP.comparison <- BMP[, c('descrip', 'mean', 'sd', 'leak.l')]
 write.csv(BMP.comparison, '../results/BMP.csv', row.names = FALSE)
 
 yld.comparison <- yld[, c('descrip', 'elapsed.time', 'mean', 'sd')]

@@ -13,8 +13,15 @@ write.csv(cbg.vol.result, '../results/cbg.vol.csv', row.names = FALSE)
 cbg.all.result <- cbg.all[, c('method', 'exper', 'id.exper', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
 write.csv(cbg.all.result, '../results/cbg.all.csv', row.names = FALSE)
 
-BMP.comparison <- BMP.all[, c('descrip', 'exper', 'mean.vol', 'sd.vol', 'rsd.vol', 'mean.grav', 'sd.grav', 'rsd.grav', 'mean.man', 'sd.man', 'rsd.man', 'mean.gd', 'sd.gd', 'rsd.gd')]
-write.csv(BMP.comparison, '../results/BMP.csv', row.names = FALSE)
+# BMP tables
+BMP.comparison <- BMP.all[, -c(grep("leak.l", colnames(BMP.all)), grep("se", colnames(BMP.all)))]
+BMP.comparison1 <- BMP.all[ , c('elapsed.time', 'descrip', 'exper')]
+BMP.comparison1$leak.l <- BMP.all$leak.l.vol
+BMP.comparison2 <- merge(BMP.comparison1, BMP.comparison, by = c('descrip', 'exper'))
+write.csv(BMP.comparison2, '../results/BMP.csv', row.names = FALSE)
+
+# BMP.comparison <- BMP.all[, c('descrip', 'exper', 'mean.vol', 'sd.vol', 'rsd.vol', 'mean.grav', 'sd.grav', 'rsd.grav', 'mean.man', 'sd.man', 'rsd.man', 'mean.gd', 'sd.gd', 'rsd.gd')]
+# write.csv(BMP.comparison, '../results/BMP.csv', row.names = FALSE)
 
 yld.comparison <- yld.all[, c('descrip', 'exper', 'elapsed.time', 'mean.vol', 'sd.vol', 'mean.grav', 'sd.grav', 'mean.man', 'sd.man', 'mean.gd', 'sd.gd')]
 write.csv(yld.comparison, '../results/yld.csv', row.names = FALSE)
