@@ -18,7 +18,7 @@ cumBgGD <- function(
   comp.name = 'xCH4',  # Name of column *added*
   vented.mass = TRUE, # Which type of mass loss to use in calculations for xCH4 (vented or total) 
   averaging = 'interval',  # Interval, cumulative, or final?
-  # Additional arguments . .  . needed?
+  # Additional arguments . . .
   temp.init = NULL,
   pres.init = NULL,
   rh.resid.init = 1,
@@ -29,6 +29,8 @@ cumBgGD <- function(
   # cmethod doesn't really apply
   #cmethod = 'removed',
   vmethod = 'vol', # vol or grav or both. Return warning if vol and venting mass loss is used (or leakage is present)
+  comp.lim = c(0, 1),
+  comp.sub = 'lim', # 'lim' for comp.lim or 'NA' or NA for NA
   imethod = 'linear',
   extrap = FALSE,
   addt0 = TRUE,
@@ -153,6 +155,19 @@ cumBgGD <- function(
                                          temp = dat[which.id, temp], pres = dat[which.id, pres], 
                                          unit.temp = unit.temp, unit.pres = unit.pres, fill.value = 0)
     } 
+  }
+
+  # Replace xCH4 values that are beyond limits in lim
+  # NTS: some of these checks can go after argument list
+  if(!is.null(comp.lim) & !is.na(comp.lim) & is.numeric(comp.lim) & length(comp.lim) == 2) {
+    if(!is.na(comp.sub) & comp.sub != 'NA') {
+      comp.lim <- sort(comp.lim)
+      dat[dat[, comp.name] < comp.lim[1], comp.name] <- comp.lim[1]
+      dat[dat[, comp.name] > comp.lim[2], comp.name] <- comp.lim[2]
+    } else {
+      dat[dat[, comp.name] < comp.lim[1], comp.name] <- NA
+      dat[dat[, comp.name] > comp.lim[2], comp.name] <- NA
+    }
   }
 
   # Proceed with either vol or grav method
