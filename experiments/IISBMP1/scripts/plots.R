@@ -1,11 +1,11 @@
 # Plots
 
 # Some other possibilities . . .
-cbg.all$pid <- interaction(cbg.all$id.exper, cbg.all$method)
-ggplot(cbg.all, aes(elapsed.time, cvCH4, group = pid)) +
-  geom_line(aes(colour = method)) +
-  facet_wrap(~ descrip)
-ggsave('../plots/cum_CH4.png')
+# cbg.all$pid <- interaction(cbg.all$id.exper, cbg.all$method)
+# ggplot(cbg.all, aes(elapsed.time, cvCH4, group = pid)) +
+#   geom_line(aes(colour = method)) +
+#   facet_wrap(~ descrip)
+# ggsave('../plots/cum_CH4.png')
 
 # # More interesting with yld
 yld1$pid <- interaction(yld1$descrip, yld1$method)
@@ -147,7 +147,6 @@ ggplot(BMP2, aes(descrip, mean, colour = method)) +
 ggsave('../plots/method_comparison_BMP_reverse_exper2.png')
 
 # Barplot option
-
 BMP1$lwr <- BMP1$mean - BMP1$sd
 BMP1$upr <- BMP1$mean + BMP1$sd
 ggplot(BMP1) +
