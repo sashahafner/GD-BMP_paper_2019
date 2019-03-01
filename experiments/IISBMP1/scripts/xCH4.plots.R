@@ -1,11 +1,11 @@
 # Make plots for xCH4
 
 # Plot GC measured results
-comp1 <- merge(comp, setup[, c('id', 'descrip')], by = 'id')    # Change to comp later on
+comp1 <- merge(comp1, setup[, c('id.exper', 'descrip')], by = c("id.exper"), all.x = TRUE)    # Change to comp later on
 comp1$method <- 'GC'
 
 ggplot(comp1, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id)) +
+  geom_point() + geom_line(aes(group = id.exper)) +
   # geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, position=position_dodge(0.05)) + 
   labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
   ggtitle('Composition GC') +
@@ -19,7 +19,7 @@ ggsave('../plots/xCH4comp.png')
 # man, grav and vol methods  - These should be the same as it is calculated from GC
 # - What has been done in code to keep the xCH4 at the highest level instead of dropping?
 ggplot(cbg.man, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id)) +
+  geom_point() + geom_line(aes(group = id.exper)) +
   labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
   ggtitle('Composition Manometric') +
   theme_bw() + 
@@ -56,7 +56,7 @@ cbg.gd.all <- biogas:::rbindf(
   cbg.gd11, cbg.gd12)
 
 ggplot(cbg.gd.all, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id)) + 
+  geom_point() + geom_line(aes(group = id.exper)) + 
   labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
   ggtitle('Composition Comparison') +
   theme_bw() + 
@@ -68,25 +68,25 @@ ggsave('../plots/xCH4.png')
 
 # Negative xCH4
 ggplot(cbg.gd7, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
+  geom_point() + geom_line(aes(group = id.exper))
 ggsave('../plots/xCH4gd7.png')
 ggplot(cbg.gd10, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
+  geom_point() + geom_line(aes(group = id.exper))
 ggsave('../plots/xCH4gd10.png')
 
 # Straight (final)
 ggplot(cbg.gd9, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
+  geom_point() + geom_line(aes(group = id.exper))
 ggsave('../plots/xCH4gd9.png')
 ggplot(cbg.gd12, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
+  geom_point() + geom_line(aes(group = id.exper))
 ggsave('../plots/xCH4gd12.png')
 
 ggplot(cbg.gd8, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
+  geom_point() + geom_line(aes(group = id.exper))
 ggsave('../plots/xCH4gd8.png')
 ggplot(cbg.gd11, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
+  geom_point() + geom_line(aes(group = id.exper))
 ggsave('../plots/xCH4gd11.png')
 
 # It only seems to be the cumulative and final averaging method that makes sense in order to get methane content. 

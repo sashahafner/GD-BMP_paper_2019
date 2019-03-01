@@ -6,7 +6,7 @@ ggplot(BMP, aes(method, mean), fill = method, color = method) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2)+
   ggtitle("GD Method") +
   labs(x = "Method", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  facet_wrap(~ descrip)
+  facet_wrap(~ descrip) +
 theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/GD_methods_barplot.png')
@@ -145,27 +145,44 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 # Plots for method comparison directly
 jpeg('../plots/method_comparison_to_GD.png')
 par(mfrow=c(3,1))
-plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
+plot(BMP.all$mean.gd10, BMP.all$mean.grav)         # Seems to be no relation to grav
 abline(0,1)
-plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
+plot(BMP.all$mean.gd10, BMP.all$mean.man)          # Looks okay similar to man
 abline(0,1)
-plot(BMP.all$mean.gd9, BMP.all$mean.vol)          # Looks okay similar to vol
+plot(BMP.all$mean.gd10, BMP.all$mean.vol)          # Looks okay similar to vol
 abline(0,1)
 dev.off()
 
 # Plots for comparion all methods
 jpeg('../plots/method_comparison_all_methods.png')
 par(mfrow=c(3,2))
-plot(BMP.all$mean.gd, BMP.all$mean.grav)         # Seems to be no relation to grav
+plot(BMP.all$mean.gd10, BMP.all$mean.grav)         # Seems to be no relation to grav
 abline(0,1)
-plot(BMP.all$mean.gd, BMP.all$mean.man)          # Looks okay similar to man
+plot(BMP.all$mean.gd10, BMP.all$mean.man)          # Looks okay similar to man
 abline(0,1)
-plot(BMP.all$mean.gd, BMP.all$mean.vol)          # Looks okay similar to vol
+plot(BMP.all$mean.gd10, BMP.all$mean.vol)          # Looks okay similar to vol
 abline(0,1)
 plot(BMP.all$mean.vol, BMP.all$mean.man)
 abline(0,1)
 plot(BMP.all$mean.vol, BMP.all$mean.grav)
 abline(0,1)
 plot(BMP.all$mean.man, BMP.all$mean.grav)
+abline(0,1)
+dev.off()
+
+
+jpeg('../plots/method_comparison_gd_methods.png')
+par(mfrow=c(3,2))
+plot(BMP.all$mean.gd10, BMP.all$mean.gd7)         # Seems to be no relation to grav
+abline(0,1)
+plot(BMP.all$mean.gd10, BMP.all$mean.gd8)          # Looks okay similar to man
+abline(0,1)
+plot(BMP.all$mean.gd10, BMP.all$mean.gd9)          # Looks okay similar to vol
+abline(0,1)
+plot(BMP.all$mean.gd10, BMP.all$mean.gd11)
+abline(0,1)
+plot(BMP.all$mean.gd10, BMP.all$mean.gd12)
+abline(0,1)
+plot(BMP.all$mean.gd10, BMP.all$mean.vol)
 abline(0,1)
 dev.off()
