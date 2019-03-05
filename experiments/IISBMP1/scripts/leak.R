@@ -86,6 +86,13 @@ no.leaks2 <- subset(filter(leaks2, cmass.leak < detect.lim.tot2))
 large.leaks.int2 <- subset(filter(leaks1, mass.leak > detect.lim.int1))
 no.leaks.int2 <- subset(filter(leaks1, mass.leak < detect.lim.int1))
 
+# Merge for data frame exper 2 without leaks
+id.descrip <- setup[, c('id.exper', 'descrip')]
+no.leaks <- merge(no.leaks, id.descrip, by = "descrip", 'id.exper')
+
+no.leaks2 <- no.leaks2[ , c( 'id.exper', 'exper', 'descrip', 'elapsed.time', 'mass.tot', 'mass.vent', 'mass.leak', "cmass.tot", "cmass.vent", "cmass.leak") ]
+no.leaks2.biogas <- merge(biogas, no.leaks2, by = c('id.exper', 'exper', 'elapsed.time'))
+
 
 # Plots
 # plot(small.leaks1$elapsed.time, small.leaks1$mass.leak)
