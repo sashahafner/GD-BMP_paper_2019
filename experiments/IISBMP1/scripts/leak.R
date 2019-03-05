@@ -64,10 +64,10 @@ dev.off()
 
 # Make a subset where samples with high leak is removed
 large.leaks <- subset(filter(leaks, cmass.leak > detect.lim.tot))
-small.leaks <- subset(filter(leaks, cmass.leak < detect.lim.tot))
+no.leaks <- subset(filter(leaks, cmass.leak < detect.lim.tot))
 
 large.leaks.int <- subset(filter(leaks, mass.leak > detect.lim.int))
-small.leaks.int <- subset(filter(leaks, mass.leak < detect.lim.int))
+no.leaks.int <- subset(filter(leaks, mass.leak < detect.lim.int))
 
 
 # If using the values seperated for exper delete the above
