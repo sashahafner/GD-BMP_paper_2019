@@ -74,17 +74,17 @@ small.leaks.int <- subset(filter(leaks, mass.leak < detect.lim.int))
 # For each experiment 
 # Exper 1
 large.leaks1 <- subset(filter(leaks1, cmass.leak > detect.lim.tot1))
-small.leaks1 <- subset(filter(leaks1, cmass.leak < detect.lim.tot1))
+no.leaks1 <- subset(filter(leaks1, cmass.leak < detect.lim.tot1))
 
 large.leaks.int1 <- subset(filter(leaks1, mass.leak > detect.lim.int1))
-small.leaks.int1 <- subset(filter(leaks1, mass.leak < detect.lim.int1))
+no.leaks.int1 <- subset(filter(leaks1, mass.leak < detect.lim.int1))
 
 # Exper 2
 large.leaks2 <- subset(filter(leaks2, cmass.leak > detect.lim.tot2))
-small.leaks2 <- subset(filter(leaks2, cmass.leak < detect.lim.tot2))
+no.leaks2 <- subset(filter(leaks2, cmass.leak < detect.lim.tot2))
 
 large.leaks.int2 <- subset(filter(leaks1, mass.leak > detect.lim.int1))
-small.leaks.int2 <- subset(filter(leaks1, mass.leak < detect.lim.int1))
+no.leaks.int2 <- subset(filter(leaks1, mass.leak < detect.lim.int1))
 
 
 # Plots
