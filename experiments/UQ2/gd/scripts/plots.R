@@ -14,15 +14,15 @@ ggplot(yld, aes(elapsed.time, mean, group = pid)) +
   facet_wrap(~ descrip)
 ggsave('../plots/yld.interaction.png')
 
-# Plot of data before corrected for inoculum (grav)
-ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
-  geom_point() +
-  geom_line() + 
-  ggtitle("GD") +
-  labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  theme_bw() + 
-  theme(text = element_text(size = 10))
-ggsave('../plots/gd_biogas.png')
+# # Plot of data before corrected for inoculum (grav)
+# ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
+#   geom_point() +
+#   geom_line() + 
+#   ggtitle("GD") +
+#   labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
+#   theme_bw() + 
+#   theme(text = element_text(size = 10))
+# ggsave('../plots/gd_biogas.png')
 
 
 # ----------------------
@@ -31,7 +31,9 @@ ggsave('../plots/gd_biogas.png')
 ggplot(BMP, aes(method, mean, colour = descrip)) + 
   geom_point() + geom_line(aes(group = descrip)) + 
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-                position=position_dodge(0.05)) + 
+                position=position_dodge(0.05)) +
+  geom_hline(yintercept = predBg("C6H10O5"), linetype = "dashed", color = "lightblue", size = 1) +
+  #geom_hline(yintercept = predBg("SUBSC"), linetype = "dashed", color = "orange", size = 1) +
   labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
   theme_bw() + 
   theme(text = element_text(size = 10))

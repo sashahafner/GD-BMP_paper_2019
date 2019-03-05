@@ -42,3 +42,6 @@ source('export_results.R')
 
 # Export manipulated results
 source('export_manipulated.R')
+
+# Calculate maximum theoretical BMP for the substrates 
+source('theoretical_BMP.R')

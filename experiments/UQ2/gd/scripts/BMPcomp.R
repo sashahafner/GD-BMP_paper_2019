@@ -6,8 +6,14 @@ when.BMP <- 27
 # Needs to be 27 as there is no measurements above 30
 
 cbg.list <- list(
-  # gd1 = cbg.gd1, gd2 = cbg.gd2, gd3 = cbg.gd3, gd4 = cbg.gd4, gd5 = cbg.gd5, gd6 = cbg.gd6, 
-  gd7 = cbg.gd7, gd8 = cbg.gd8, gd9 = cbg.gd9, gd10 = cbg.gd10, gd11 = cbg.gd11, gd12 = cbg.gd12) 
+  gd1 = cbg.gd1, gd2 = cbg.gd2, gd3 = cbg.gd3, 
+  #gd4 = cbg.gd4, 
+  gd5 = cbg.gd5, 
+  #gd6 = cbg.gd6, 
+  #gd7 = cbg.gd7, 
+  gd8 = cbg.gd8
+  #gd9 = cbg.gd9, gd10 = cbg.gd10, gd11 = cbg.gd11, gd12 = cbg.gd12
+  ) 
 
 # BMP
 BMP <- summBg(cbg.list, setup, id.name = "id",
