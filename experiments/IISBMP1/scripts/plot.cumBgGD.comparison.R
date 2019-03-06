@@ -15,6 +15,7 @@ ggplot(BMP2, aes(method, mean, colour = descrip)) +
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP_exper2.png')
+ggsave('../plots/method_comparison_BMP_exper2_good_substrate.png')
 
 # Plot with reverse of method/descrip [2]
 ggplot(BMP2, aes(descrip, mean, colour = method)) +
@@ -25,6 +26,8 @@ ggplot(BMP2, aes(descrip, mean, colour = method)) +
   theme_bw() +
   theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP_reverse_exper2.png')
+#ggsave('../plots/method_comparison_BMP_reverse_exper2_good_substrate.png')
+
 
 # Barplot option
 BMP2$lwr <- BMP2$mean - BMP2$sd
@@ -37,5 +40,19 @@ ggplot(BMP2) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/BMP2_comp_bars.pdf', height = 6, width = 6, scale = 1.2)
-ggsave('../plots/BMP2_comp_bars.png')
+ggsave('../plots/BMP2_comp_bars_good_substrate.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP2_comp_bars_good_substrate.png')
+# ggsave('../plots/BMP2_comp_bars_good_substrate.pdf', height = 6, width = 6, scale = 1.2)
+# ggsave('../plots/BMP2_comp_bars_good_substrate.png')
+
+# Barplot option
+ggplot(BMP2) +
+  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+#theme(legend.position = 'none')
+ggsave('../plots/BMP2_comp_bars_reverse.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP2_comp_bars_reverse.png')
