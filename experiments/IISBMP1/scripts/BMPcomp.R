@@ -4,14 +4,15 @@
 when.BMP <- 29
 # Needs to be 29 as there is no measurements above 30 for experiment 1
 
+
 # Only use experiment 1 (remeber to change to biogas1 when removing the NAs too)
 # biogas1 <- biogas[biogas$exper == 1, ]
 
 # Make a list of each experiment for all methods 
-# cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
-# cbg.man.list <- split(cbg.man, cbg.man$exper)
-# cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
-# cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
+cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
+cbg.man.list <- split(cbg.man, cbg.man$exper)
+cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
+#cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
 cbg.gd1.list <- split(cbg.gd1, cbg.gd1$exper)
 cbg.gd2.list <- split(cbg.gd2, cbg.gd2$exper)
 cbg.gd3.list <- split(cbg.gd3, cbg.gd3$exper)
@@ -67,6 +68,7 @@ cbg.list.2 <- list(
 ) 
 ######################################################
 cbg.list.2 <- droplevels(cbg.list.2$, id == "C4")
+cbg.list.2 <- subset(cbg.list.2, !id %in% c('C4'))
 
 BMP2 <- summBg(cbg.list.2, setup2, id.name = "id",
                time.name = 'elapsed.time', descrip.name = 'descrip',
