@@ -26,7 +26,7 @@ source('water_detect_lim.R')
 source('leak.R')
 
 # Calculate biogas production
-source('biogas.R')
+#source('biogas.R')
 source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo

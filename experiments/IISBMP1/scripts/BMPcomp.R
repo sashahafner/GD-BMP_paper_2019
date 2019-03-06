@@ -1,7 +1,7 @@
 # BMP comparison
 
 # Set BMP duration for all calls
-when.BMP <- 29
+when.BMP <- 30
 # Needs to be 29 as there is no measurements above 30 for experiment 1
 
 
@@ -28,35 +28,35 @@ cbg.gd8.list <- split(cbg.gd8, cbg.gd8$exper)
 
 
 # Calculate BMP, yld and BMPo
-
-# Experiment 1 
-cbg.list.1 <- list(
-  vol = cbg.vol.list[[1]], man = cbg.man.list[[1]], grav = cbg.grav.list[[1]], 
-  #gd = cbg.gd.list[[1]], 
-  gd1 = cbg.gd1.list[[1]], gd2 = cbg.gd2.list[[1]], gd3 = cbg.gd3.list[[1]], 
-  #gd4 = cbg.gd4.list[[1]], 
-  gd5 = cbg.gd5.list[[1]], 
-  #gd6 = cbg.gd6.list[[1]],
-  #gd7 = cbg.gd7.list[[1]], 
-  gd8 = cbg.gd8.list[[1]]
-  #gd9 = cbg.gd9.list[[1]], gd10 = cbg.gd10.list[[1]], gd11 = cbg.gd11.list[[1]], gd12 = cbg.gd12.list[[1]]
-  ) 
-BMP1 <- summBg(cbg.list.1, setup1, id.name = "id",
-               time.name = 'elapsed.time', descrip.name = 'descrip',
-               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-               when = when.BMP, extrap = TRUE, set.name = 'method')
-# BMPo
-BMPo1 <- summBg(cbg.list.1, setup1, id.name = "id",
-                time.name = 'elapsed.time', descrip.name = 'descrip',
-                inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-                when = when.BMP, extrap = TRUE, set.name = 'method', show.obs = TRUE)
-
-# yld for yield
-#yld <- ... when = 'meas')
-yld1 <- summBg(cbg.list.1, setup1, id.name = "id",
-               time.name = 'elapsed.time', descrip.name = 'descrip',
-               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
-               when = 'meas', extrap = TRUE, set.name = 'method')
+# 
+# # Experiment 1 
+# cbg.list.1 <- list(
+#   #vol = cbg.vol.list[[1]], man = cbg.man.list[[1]], grav = cbg.grav.list[[1]], 
+#   #gd = cbg.gd.list[[1]], 
+#   gd1 = cbg.gd1.list[[1]], gd2 = cbg.gd2.list[[1]], gd3 = cbg.gd3.list[[1]], 
+#   #gd4 = cbg.gd4.list[[1]], 
+#   gd5 = cbg.gd5.list[[1]], 
+#   #gd6 = cbg.gd6.list[[1]],
+#   #gd7 = cbg.gd7.list[[1]], 
+#   gd8 = cbg.gd8.list[[1]]
+#   #gd9 = cbg.gd9.list[[1]], gd10 = cbg.gd10.list[[1]], gd11 = cbg.gd11.list[[1]], gd12 = cbg.gd12.list[[1]]
+#   ) 
+# BMP1 <- summBg(cbg.list.1, setup1, id.name = "id",
+#                time.name = 'elapsed.time', descrip.name = 'descrip',
+#                inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+#                when = when.BMP, extrap = TRUE, set.name = 'method')
+# # BMPo
+# BMPo1 <- summBg(cbg.list.1, setup1, id.name = "id",
+#                 time.name = 'elapsed.time', descrip.name = 'descrip',
+#                 inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+#                 when = when.BMP, extrap = TRUE, set.name = 'method', show.obs = TRUE)
+# 
+# # yld for yield
+# #yld <- ... when = 'meas')
+# yld1 <- summBg(cbg.list.1, setup1, id.name = "id",
+#                time.name = 'elapsed.time', descrip.name = 'descrip',
+#                inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+#                when = 'meas', extrap = TRUE, set.name = 'method')
 
 
 # Experiment 2
@@ -93,23 +93,23 @@ yld2 <- summBg(cbg.list.2, setup2, id.name = "id",
 
 # Merge data for each three result into one data frame for exper1+exper2
 # Add column to each set to have experiment given in data frame
-BMP1$exper <- 1
+# BMP1$exper <- 1
 BMP2$exper <- 2
-BMPo1$exper <- 1
+#BMPo1$exper <- 1
 BMPo2$exper <- 2
-yld1$exper <- 1
+#yld1$exper <- 1
 yld2$exper <- 2
 
 # for using leaks individually for each experiment, it should be added before rbind. Otherwise delete and use the code below
-BMP1$leak.l <- BMP1$descrip %in% large.leaks1$descrip
-BMPo1$leak.l <- BMPo1$id.exper %in% large.leaks1$id.exper
+# BMP1$leak.l <- BMP1$descrip %in% large.leaks1$descrip
+# BMPo1$leak.l <- BMPo1$id.exper %in% large.leaks1$id.exper
 BMP2$leak.l <- BMP2$descrip %in% large.leaks2$descrip
 BMPo2$leak.l <- BMPo2$id.exper %in% large.leaks2$id.exper
 
-# Merge results with rbind()
-BMP <- rbind(BMP1, BMP2)
-BMPo <- rbind(BMPo1, BMPo2)
-yld <- rbind(yld1, yld2)
+# # Merge results with rbind()
+# BMP <- rbind(BMP1, BMP2)
+# BMPo <- rbind(BMPo1, BMPo2)
+# yld <- rbind(yld1, yld2)
 
 # Eventually add id to all data frames too (just keep the first letter from descrip or add a column from other data frame)
 

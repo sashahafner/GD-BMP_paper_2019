@@ -1,0 +1,41 @@
+# Plots for results 3.2
+
+yld2$pid <- interaction(yld2$descrip, yld2$method)
+ggplot(yld2, aes(elapsed.time, mean, group = pid)) +
+  geom_line(aes(colour = method)) +
+  facet_wrap(~ descrip)
+ggsave('../plots/yld.interaction_exper2.png')
+
+
+ggplot(BMP2, aes(method, mean, colour = descrip)) + 
+  geom_point() + geom_line(aes(group = descrip)) + 
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) + 
+  labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
+  theme_bw() + 
+  theme(text = element_text(size = 10))
+ggsave('../plots/method_comparison_BMP_exper2.png')
+
+# Plot with reverse of method/descrip [2]
+ggplot(BMP2, aes(descrip, mean, colour = method)) +
+  geom_point() + geom_line(aes(group = method)) +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) +
+  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  theme_bw() +
+  theme(text = element_text(size = 10))
+ggsave('../plots/method_comparison_BMP_reverse_exper2.png')
+
+# Barplot option
+BMP2$lwr <- BMP2$mean - BMP2$sd
+BMP2$upr <- BMP2$mean + BMP2$sd
+ggplot(BMP2) +
+  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+#theme(legend.position = 'none')
+ggsave('../plots/BMP2_comp_bars.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP2_comp_bars.png')
