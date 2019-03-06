@@ -170,6 +170,7 @@ ggplot(BMP2) +
     #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
     #theme(legend.position = 'none')
 ggsave('../plots/BMP2_comp_bars.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP2_comp_bars.png')
 
 # Extra: Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
 

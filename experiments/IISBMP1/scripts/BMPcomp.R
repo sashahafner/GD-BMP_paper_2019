@@ -9,10 +9,10 @@ when.BMP <- 29
 # biogas1 <- biogas[biogas$exper == 1, ]
 
 # Make a list of each experiment for all methods 
-cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
-cbg.man.list <- split(cbg.man, cbg.man$exper)
-cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
-#cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
+# cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
+# cbg.man.list <- split(cbg.man, cbg.man$exper)
+# cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
+# cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
 cbg.gd1.list <- split(cbg.gd1, cbg.gd1$exper)
 cbg.gd2.list <- split(cbg.gd2, cbg.gd2$exper)
 cbg.gd3.list <- split(cbg.gd3, cbg.gd3$exper)
@@ -32,9 +32,14 @@ cbg.gd8.list <- split(cbg.gd8, cbg.gd8$exper)
 # Experiment 1 
 cbg.list.1 <- list(
   vol = cbg.vol.list[[1]], man = cbg.man.list[[1]], grav = cbg.grav.list[[1]], 
-  gd = cbg.gd.list[[1]], 
-  #gd1 = cbg.gd1.list[[1]], gd2 = cbg.gd2.list[[1]], gd3 = cbg.gd3.list[[1]], gd4 = cbg.gd4.list[[1]], gd5 = cbg.gd5.list[[1]], gd6 = cbg.gd6.list[[1]],
-  gd7 = cbg.gd7.list[[1]], gd8 = cbg.gd8.list[[1]], gd9 = cbg.gd9.list[[1]], gd10 = cbg.gd10.list[[1]], gd11 = cbg.gd11.list[[1]], gd12 = cbg.gd12.list[[1]]
+  #gd = cbg.gd.list[[1]], 
+  gd1 = cbg.gd1.list[[1]], gd2 = cbg.gd2.list[[1]], gd3 = cbg.gd3.list[[1]], 
+  #gd4 = cbg.gd4.list[[1]], 
+  gd5 = cbg.gd5.list[[1]], 
+  #gd6 = cbg.gd6.list[[1]],
+  #gd7 = cbg.gd7.list[[1]], 
+  gd8 = cbg.gd8.list[[1]]
+  #gd9 = cbg.gd9.list[[1]], gd10 = cbg.gd10.list[[1]], gd11 = cbg.gd11.list[[1]], gd12 = cbg.gd12.list[[1]]
   ) 
 BMP1 <- summBg(cbg.list.1, setup1, id.name = "id",
                time.name = 'elapsed.time', descrip.name = 'descrip',
@@ -66,10 +71,6 @@ cbg.list.2 <- list(
   gd8 = cbg.gd8.list[[2]]
   #gd9 = cbg.gd9.list[[2]], gd10 = cbg.gd10.list[[2]], gd11 = cbg.gd11.list[[2]], gd12 = cbg.gd12.list[[2]]
 ) 
-######################################################
-cbg.list.2 <- droplevels(cbg.list.2$, id == "C4")
-cbg.list.2 <- subset(cbg.list.2, !id %in% c('C4'))
-
 BMP2 <- summBg(cbg.list.2, setup2, id.name = "id",
                time.name = 'elapsed.time', descrip.name = 'descrip',
                inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",

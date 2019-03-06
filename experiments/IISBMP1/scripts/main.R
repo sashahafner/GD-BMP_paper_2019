@@ -30,7 +30,7 @@ source('biogas.R')
 source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo
-# source('BMP.R')
+source('BMP.R')
 source('BMPcomp.R')
 
 # Clean data prior to analysis
@@ -49,10 +49,4 @@ source('export_results.R')
 # Export manipulated results
 source('export_manipulated.R')
 
-# Substrate A
-predBg("C17H31O13N")
-# Substrate C
-predBg("C18H32O8N")
-# Substrate B
-predBg("C23H38O16N")
 
