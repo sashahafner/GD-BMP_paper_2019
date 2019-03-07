@@ -166,8 +166,8 @@ cumBgGD <- function(
       dat[dat[, comp.name] < comp.lim[1], comp.name] <- comp.lim[1]
       dat[dat[, comp.name] > comp.lim[2], comp.name] <- comp.lim[2]
     } else {
-      dat[!is.na(dat[, comp.name]) && dat[, comp.name] < comp.lim[1], comp.name] <- NA
-      dat[!is.na(dat[, comp.name]) && dat[, comp.name] > comp.lim[2], comp.name] <- NA
+      dat[!is.na(dat[, comp.name]) & dat[, comp.name] < comp.lim[1], comp.name] <- NA
+      dat[!is.na(dat[, comp.name]) & dat[, comp.name] > comp.lim[2], comp.name] <- NA
     }
   }
 
