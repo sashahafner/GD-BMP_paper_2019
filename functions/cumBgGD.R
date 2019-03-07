@@ -1,8 +1,10 @@
 cumBgGD <- function(
   # Main arguments
   dat,
-  temp,                    # Temperature for gas volume measurement
-  pres,                    # Pressure for gas volume measurement
+  temp.vol,                    # Temperature for gas volume measurement, numeric or column name
+  temp.grav,                   # Temperature for grav measurement, numeric or column name
+  pres.vol,                    # Pressure for gas volume measurement, numeric or column name
+  pres.grav,                   # Pressure for grav measurement, numeric or column name
   id.name = 'id',
   time.name = 'time',
   vol.name = 'vol', 
@@ -98,17 +100,31 @@ cumBgGD <- function(
   }
 
   # Add temperature and pressure to dat if single numeric values were provided
-  if(!is.null(temp)) {
-    if(is.numeric(temp)) {
-      dat[, 'temperature'] <- temp
-      temp <- 'temperature'
+  if(!is.null(temp.vol)) {
+    if(is.numeric(temp.vol)) {
+      dat[, 'temp.vol'] <- temp.vol
+      temp.vol <- 'temp.vol'
     } 
   }
 
-  if(!is.null(pres)) {
-    if(is.numeric(pres)) {
-      dat[, 'pressure'] <- pres
-      pres <- 'pressure' 
+  if(!is.null(temp.grav)) {
+    if(is.numeric(temp.grav)) {
+      dat[, 'temp.grav'] <- temp.grav
+      temp.grav <- 'temp.grav'
+    } 
+  }
+
+  if(!is.null(pres.vol)) {
+    if(is.numeric(pres.vol)) {
+      dat[, 'pres.vol'] <- pres.vol
+      pres.vol <- 'pres.vol' 
+    } 
+  }
+
+  if(!is.null(pres.grav)) {
+    if(is.numeric(pres.grav)) {
+      dat[, 'pres.grav'] <- pres.grav
+      pres.grav <- 'pres.grav' 
     } 
   }
 
@@ -117,7 +133,7 @@ cumBgGD <- function(
 
   # Standardize measured biogas volume
   # NTS: These are overwritten below. Might improve.
-  dat$vBg <- stdVol(dat[, vol.name], temp = dat[, temp], pres = dat[, pres], rh = rh, pres.std = pres.std, 
+  dat$vBg <- stdVol(dat[, vol.name], temp = dat[, temp.vol], pres = dat[, pres.vol], rh = rh, pres.std = pres.std, 
                     temp.std = temp.std, unit.temp = unit.temp, unit.pres = unit.pres, 
                     std.message = std.message)
 
@@ -129,15 +145,15 @@ cumBgGD <- function(
 
   # Get biogas composition
   if(averaging != 'fin') {
-  dat[, comp.name] <- gdComp(mass = dat[, mass.name], vol = dat[, std.vol.name], temp = dat[, temp], 
-                             pres = dat[, pres], unit.temp = unit.temp, unit.pres = unit.pres, fill.value = 0)
+  dat[, comp.name] <- gdComp(mass = dat[, mass.name], vol = dat[, std.vol.name], temp = dat[, temp.grav], 
+                             pres = dat[, pres.grav], unit.temp = unit.temp, unit.pres = unit.pres, fill.value = 0)
   } else {
     for(i in unique(dat[, id.name])) {
       which.id <- which(dat[, id.name]==i)
 
       dat[which.id, comp.name] <- gdComp(mass = sum(dat[which.id, mass.name]), 
                                          vol = sum(dat[which.id, std.vol.name]), 
-                                         temp = dat[which.id, temp], pres = dat[which.id, pres], 
+                                         temp = dat[which.id, temp.grav], pres = dat[which.id, pres.grav], 
                                          unit.temp = unit.temp, unit.pres = unit.pres, fill.value = 0)
     } 
   }
@@ -150,8 +166,8 @@ cumBgGD <- function(
       dat[dat[, comp.name] < comp.lim[1], comp.name] <- comp.lim[1]
       dat[dat[, comp.name] > comp.lim[2], comp.name] <- comp.lim[2]
     } else {
-      dat[dat[, comp.name] < comp.lim[1], comp.name] <- NA
-      dat[dat[, comp.name] > comp.lim[2], comp.name] <- NA
+      dat[!is.na(dat[, comp.name]) && dat[, comp.name] < comp.lim[1], comp.name] <- NA
+      dat[!is.na(dat[, comp.name]) && dat[, comp.name] > comp.lim[2], comp.name] <- NA
     }
   }
 
@@ -227,12 +243,12 @@ cumBgGD <- function(
       stop('Mass *gain* calculated for one or more observations. See ', paste('id.name column:', dat[whichones, id.name], ' and time.name column:', dat[whichones - 1, time.name], 'to', dat[whichones, time.name], sep = ' ', collapse = ', '), ' in dat data frame. ')
     }
 
-    dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'mass.tot'], xCH4 = dat[, comp.name], temp = dat[, temp], pres = dat[, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
+    dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'mass.tot'], xCH4 = dat[, comp.name], temp = dat[, temp.grav], pres = dat[, pres.grav], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
 
     if(!is.null(headspace)) {
       # Apply initial headspace correction only for times 1 and 2 (i.e., one mass loss measurement per reactor)
       which1and2 <- sort(c(which(starts$start), which(starts$start) + 1) )
-      dat[which1and2, c('vBg', 'vCH4')] <- mass2vol(mass = dat$mass.tot[which1and2], xCH4 = dat[which1and2, comp.name], temp = dat[which1and2, temp], pres = dat[which1and2, pres], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', headspace = dat[which1and2, vol.hs.name], headcomp = 'N2', temp.init = temp.init, std.message = FALSE)[, c('vBg', 'vCH4')]
+      dat[which1and2, c('vBg', 'vCH4')] <- mass2vol(mass = dat$mass.tot[which1and2], xCH4 = dat[which1and2, comp.name], temp = dat[which1and2, temp.grav], pres = dat[which1and2, pres.grav], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', headspace = dat[which1and2, vol.hs.name], headcomp = 'N2', temp.init = temp.init, std.message = FALSE)[, c('vBg', 'vCH4')]
     }
 
     # Set time zero volumes to zero--necessary because xCH4 is always missing

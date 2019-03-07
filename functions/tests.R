@@ -51,21 +51,21 @@ dat
 
 # cumBgGD()
 # Default options, using vented volume (that is all that is measured), venting mass loss, interval values
-cp1 <- cumBgGD(dat, temp = 20, pres = 1, m.pre.name = 'm.init', m.post.name = 'm.final')
+cp1 <- cumBgGD(dat, temp.vol = 20, temp.grav = 32, pres.vol = 1, pres.grav = 1.5, m.pre.name = 'm.init', m.post.name = 'm.final')
 cp1
 # Use total mass loss instead of vented (less accurate here because of leak)
-cp2 <- cumBgGD(dat, temp = 20, pres = 1, m.pre.name = 'm.init', m.post.name = 'm.final', vented.mass = FALSE)
+cp2 <- cumBgGD(dat, temp.vol = 20, temp.grav = 32, pres.vol = 1, pres.grav = 1.5, m.pre.name = 'm.init', m.post.name = 'm.final', vented.mass = FALSE)
 cp2
 # Back to venting mass loss, but cumulative values here
 # Notice how xCH4 stabilizes
-cp3 <- cumBgGD(dat, temp = 20, pres = 1, m.pre.name = 'm.init', m.post.name = 'm.final', averaging = 'cumulative')
+cp3 <- cumBgGD(dat, temp.vol = 20, temp.grav = 32, pres.vol = 1, pres.grav = 1.5, m.pre.name = 'm.init', m.post.name = 'm.final', averaging = 'cumulative')
 cp3
 # Can also use total/final values (constant xCH4 per bottle)
-cp4 <- cumBgGD(dat, temp = 20, pres = 1, m.pre.name = 'm.init', m.post.name = 'm.final', averaging = 'final')
+cp4 <- cumBgGD(dat, temp.vol = 20, temp.grav = 32, pres.vol = 1, pres.grav = 1.5, m.pre.name = 'm.init', m.post.name = 'm.final', averaging = 'final')
 cp4
 # NTS: Would be good to use some generated data to show these options. . .
 # Can also get grav results instead of vol
-cp5 <- cumBgGD(dat, temp = 20, pres = 1, m.pre.name = 'm.init', m.post.name = 'm.final', averaging = 'final', vmethod = 'grav')
+#cp5 <- cumBgGD(dat, temp = 20, pres = 1, m.pre.name = 'm.init', m.post.name = 'm.final', averaging = 'final', vmethod = 'grav')
 cp5
 
 plot(xCH4 ~ time, data = cp1, type = 'b', subset = id == 'a')
