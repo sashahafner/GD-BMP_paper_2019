@@ -29,7 +29,8 @@ biogas.gd <- subset(biogas.gd, select = -c(xCH4, xCH4.oa))
 
 
 cbg.gd1 <- cumBgGD(biogas.gd,
-                  temp = 20, pres = 1.01325,
+                  temp.vol = 20, pres.vol = 1.01325,
+                  temp.grav = 30, pres.grav = 1.5,
                   id.name = 'id.exper', vol.name = 'vol',
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
                   comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -40,7 +41,8 @@ cbg.gd1 <- cumBgGD(biogas.gd,
                   addt0 = TRUE, showt0 = TRUE)
 
 cbg.gd2 <- cumBgGD(biogas.gd,
-                   temp = 20, pres = 1.01325,
+                   temp.vol = 20, pres.vol = 1.01325,
+                   temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -51,7 +53,8 @@ cbg.gd2 <- cumBgGD(biogas.gd,
                    addt0 = TRUE, showt0 = TRUE)
 
 cbg.gd3 <- cumBgGD(biogas.gd,
-                   temp = 20, pres = 1.01325,
+                   temp.vol = 20, pres.vol = 1.01325,
+                   temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -73,7 +76,8 @@ cbg.gd3 <- cumBgGD(biogas.gd,
 #                    addt0 = TRUE, showt0 = TRUE)
 # 
 cbg.gd5 <- cumBgGD(biogas.gd,
-                   temp = 20, pres = 1.01325,
+                   temp.vol = 20, pres.vol = 1.01325,
+                   temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -108,7 +112,8 @@ cbg.gd5 <- cumBgGD(biogas.gd,
 #                    addt0 = TRUE, showt0 = TRUE)
 
 cbg.gd8 <- cumBgGD(biogas.gd, 
-                   temp = 20, pres = 1.01325, 
+                   temp.vol = 20, pres.vol = 1.01325,
+                   temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time', 
