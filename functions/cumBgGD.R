@@ -159,7 +159,7 @@ cumBgGD <- function(
 
   # Replace xCH4 values that are beyond limits in lim
   # NTS: some of these checks can go after argument list
-  if(!is.null(comp.lim) & !is.na(comp.lim) & is.numeric(comp.lim) & length(comp.lim) == 2) {
+  if(all(!is.null(comp.lim)) & all(!is.na(comp.lim)) & is.numeric(comp.lim) & length(comp.lim) == 2) {
     if(!is.na(comp.sub) & comp.sub != 'NA') {
       comp.lim <- sort(comp.lim)
       dat[dat[, comp.name] < comp.lim[1], comp.name] <- comp.lim[1]
