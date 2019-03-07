@@ -1,43 +1,28 @@
 cumBgGD <- function(
   # Main arguments
   dat,
-  # Only vol and grav mix presently. If using manometric method, get vol from man first and use dry = TRUE
-  #vol.type = 'vol',
-  temp,
-  pres,
-  # Only interval data
-  #interval = TRUE, # When empty.name is used, there is a mix, and interval is ignored
-  # Only works with widecombo
-  #data.struct = 'long', # long, wide, longcombo, widecombo
-  # Column names for volumetric method
+  temp,                    # Temperature for gas volume measurement
+  pres,                    # Pressure for gas volume measurement
   id.name = 'id',
   time.name = 'time',
-  vol.name = 'vol', # Will be used for first dat column for data.struct = 'wide'
-  m.pre.name,
-  m.post.name,
-  comp.name = 'xCH4',  # Name of column *added*
-  vented.mass = TRUE, # Which type of mass loss to use in calculations for xCH4 (vented or total) 
-  averaging = 'interval',  # Interval, cumulative, or final?
-  # Additional arguments . . .
-  temp.init = NULL,
-  pres.init = NULL,
-  rh.resid.init = 1,
-  headspace = NULL,
-  vol.hs.name = 'vol.hs',
-  headcomp = 'N2',
+  vol.name = 'vol', 
+  m.pre.name,              # Name of column with mass before venting (NTS: should not be required)
+  m.post.name,             # Name of column with mass after venting
+  comp.name = 'xCH4',      # Name of xCH4 column *added* to the data frame
+  vented.mass = TRUE,      # Which type of mass loss to use in calculations for xCH4 (vented or total) 
+  averaging = 'interval',  # Interval, cumulative, or final mass loss for calculating xCH4?
+  temp.init = NULL,        # NTS: needs work or deletion. Used for grav calcs
+  headspace = NULL,        # 
+  vol.hs.name = 'vol.hs',  
+  headcomp = 'N2',         # For gravimetric calculations
   # Calculation method and other settings
-  # cmethod doesn't really apply
-  #cmethod = 'removed',
-  vmethod = 'vol', # vol or grav or both. Return warning if vol and venting mass loss is used (or leakage is present)
-  comp.lim = c(0, 1),
-  comp.sub = 'lim', # 'lim' for comp.lim or 'NA' or NA for NA
+  vmethod = 'vol',         # Method for biogas calculations, vol or grav or both. NTS: Return warning if vol and venting mass loss is used (or leakage is present)
+  comp.lim = c(0, 1),      # Allowed limits on xCH4
+  comp.sub = NA,           # Value substituted in when xCH4 is outside comp.lim. Use 'lim' for comp.lim values (e.g., 0, 1), or 'NA' or NA for NA
   imethod = 'linear',
-  extrap = FALSE,
   addt0 = TRUE,
   showt0 = TRUE,
-  # Additional argument for volumetric data only 
   dry = FALSE,
-  empty.name = NULL, # Column name for binary/logical column for when cum vol was reset to zero
   # Warnings and messages
   std.message = TRUE,
   check = TRUE,
