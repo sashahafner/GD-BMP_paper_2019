@@ -12,8 +12,8 @@ watVap <- biogas:::watVap
 gdComp <- function(
   mass,     # Mass loss in reactor
   vol,      # Standardized (dry, 1 atm, 0C) biogas volume
-  temp,     # Temperature in unit.pres
-  pres,     # Pressure of biogas in unit.pres
+  temp,     # Headspace temperature at time of venting in unit.pres (grav)
+  pres,     # Pressure of biogas in headspace at time of venting unit.pres (grav)
   vol.hs = NULL,   # Headspace volume in bottle (mL)
   headcomp = 'N2', 
   temp.init = NULL,
