@@ -12,3 +12,25 @@ write.csv(yld.comparison, '../results/yld.csv', row.names = FALSE)
 
 BMPo.comparison <- BMPo[, c('id', 'cvCH4')]
 write.csv(BMPo.comparison, '../results/BMPo.csv', row.names = FALSE)
+
+
+#Extract xCH4
+cbg.gd1$xCH4_gd1 <- cbg.gd1$xCH4
+cbg.gd2$xCH4_gd2 <- cbg.gd2$xCH4
+cbg.gd3$xCH4_gd3 <- cbg.gd3$xCH4
+cbg.gd5$xCH4_gd5 <- cbg.gd5$xCH4
+cbg.gd8$xCH4_gd8 <- cbg.gd8$xCH4
+
+gd1comp <- cbg.gd1[, c('id', 'elapsed.time', 'descrip', 'xCH4_gd1')]
+gd2comp <- cbg.gd2[, c('id', 'elapsed.time', 'descrip', 'xCH4_gd2')]
+gd3comp <- cbg.gd3[, c('id', 'elapsed.time', 'descrip', 'xCH4_gd3')]
+gd5comp <- cbg.gd5[, c('id', 'elapsed.time', 'descrip', 'xCH4_gd5')]
+gd8comp <- cbg.gd8[, c('id', 'elapsed.time', 'descrip', 'xCH4_gd8')]
+
+
+gdcomp <- merge(gd1comp, gd2comp, by = c('id', 'elapsed.time', 'descrip'))
+gdcomp <- merge(gdcomp, gd3comp, by = c('id', 'elapsed.time', 'descrip'))
+gdcomp <- merge(gdcomp, gd5comp, by = c('id', 'elapsed.time', 'descrip'))
+gdcomp <- merge(gdcomp, gd8comp, by = c('id', 'elapsed.time', 'descrip'))
+
+write.csv(gdcomp, '../results/gdxCH4')

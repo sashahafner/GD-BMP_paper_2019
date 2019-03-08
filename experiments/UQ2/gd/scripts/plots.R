@@ -2,10 +2,10 @@
 
 # Some other possibilities . . .
 # cbg.gd$pid <- interaction(cbg.gd$descrip, cbg.gd$method)
-# ggplot(cbg.gd, aes(elapsed.time, cvCH4, group = pid)) +
-#   geom_line(aes(colour = )) +
-#   facet_wrap(~ descrip)
-# ggsave('../plots/cum_CH4.png')
+ggplot(cbg.gd, aes(elapsed.time, cvCH4, group = id)) +
+   geom_line(aes(colour = )) +
+   facet_wrap(~ descrip)
+ ggsave('../plots/cum_CH4.png')
 
 # More interesting with yld
 yld$pid <- interaction(yld$descrip, yld$method)
@@ -13,17 +13,6 @@ ggplot(yld, aes(elapsed.time, mean, group = pid)) +
   geom_line(aes(colour = method)) +
   facet_wrap(~ descrip)
 ggsave('../plots/yld.interaction.png')
-
-# # Plot of data before corrected for inoculum (grav)
-# ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
-#   geom_point() +
-#   geom_line() + 
-#   ggtitle("GD") +
-#   labs(x = "Elapsed Time [day]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-#   theme_bw() + 
-#   theme(text = element_text(size = 10))
-# ggsave('../plots/gd_biogas.png')
-
 
 # ----------------------
 

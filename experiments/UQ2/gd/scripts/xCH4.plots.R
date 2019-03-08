@@ -37,26 +37,52 @@ ggplot(cbg.gd.all, aes(elapsed.time, xCH4, colour = descrip)) +
 ggsave('../plots/xCH4.png')
 
 # ---------------
+#gd1 (int, grav, total)
+ggplot(cbg.gd1, aes(elapsed.time, xCH4, colour = descrip)) + 
+  geom_point() + geom_line(aes(group = id)) + 
+  labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
+  ggtitle('Composition gd1') +
+  theme_bw() + 
+  theme(text = element_text(size = 8)) +
+  facet_grid(method ~. )   # What is the best grid after adding all (or chosen) gd methods
+ggsave('../plots/xCH4.gd1.png')
 
-# Negative xCH4
-ggplot(cbg.gd7, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
-ggsave('../plots/xCH4gd7.png')
-ggplot(cbg.gd10, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
-ggsave('../plots/xCH4gd10.png')
+# gd2 (cum, grav, total)
+ggplot(cbg.gd2, aes(elapsed.time, xCH4, colour = descrip)) + 
+  geom_point() + geom_line(aes(group = id)) + 
+  labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
+  ggtitle('Composition gd2') +
+  theme_bw() + 
+  theme(text = element_text(size = 8)) +
+  facet_grid(method ~. )   # What is the best grid after adding all (or chosen) gd methods
+ggsave('../plots/xCH4.gd2.png')
 
-# Straight (final)
-ggplot(cbg.gd9, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
-ggsave('../plots/xCH4gd9.png')
-ggplot(cbg.gd12, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
-ggsave('../plots/xCH4gd12.png')
+#gd3 (final, grav, total)
+ggplot(cbg.gd3, aes(elapsed.time, xCH4, colour = descrip)) + 
+  geom_point() + geom_line(aes(group = id)) + 
+  labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
+  ggtitle('Composition gd3') +
+  theme_bw() + 
+  theme(text = element_text(size = 8)) +
+  facet_grid(method ~. )   # What is the best grid after adding all (or chosen) gd methods
+ggsave('../plots/xCH4.gd3.png')
 
+#gd5 (cum, grav, vented)
+ggplot(cbg.gd5, aes(elapsed.time, xCH4, colour = descrip)) + 
+  geom_point() + geom_line(aes(group = id)) + 
+  labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
+  ggtitle('Composition gd1') +
+  theme_bw() + 
+  theme(text = element_text(size = 8)) +
+  facet_grid(method ~. )   # What is the best grid after adding all (or chosen) gd methods
+ggsave('../plots/xCH4.gd5.png')
+
+#gd8 (cum, vol, vented)
 ggplot(cbg.gd8, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
-ggsave('../plots/xCH4gd8.png')
-ggplot(cbg.gd11, aes(elapsed.time, xCH4, colour = descrip)) + 
-  geom_point() + geom_line(aes(group = id))
-ggsave('../plots/xCH4gd11.png')
+  geom_point() + geom_line(aes(group = id)) + 
+  labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
+  ggtitle('Composition gd8') +
+  theme_bw() + 
+  theme(text = element_text(size = 8)) +
+  facet_grid(method ~. )   # What is the best grid after adding all (or chosen) gd methods
+ggsave('../plots/xCH4.gd8.png')
