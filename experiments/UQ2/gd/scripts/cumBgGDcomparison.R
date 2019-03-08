@@ -9,7 +9,8 @@ biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
 
 # New gd function
 cbg.gd <- cumBgGD(biogas, 
-                  temp = 20, pres = 1013.25, 
+                  temp.vol = 20, pres.vol = 1013.25,
+                  temp.grav = 30, pres.grav = 1050,
                   id.name = 'id',vol.name = 'vol',
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
                   comp.name = 'xCH4', time.name = 'elapsed.time', 
@@ -22,7 +23,8 @@ cbg.gd <- cumBgGD(biogas,
 
 
 cbg.gd1 <- cumBgGD(biogas,
-                  temp = 20, pres = 1013.25,
+                  temp.vol = 20, pres.vol = 1013.25,
+                  temp.grav = 30, pres.grav = 1050,
                   id.name = 'id', vol.name = 'vol',
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
                   comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -33,7 +35,8 @@ cbg.gd1 <- cumBgGD(biogas,
                   addt0 = TRUE, showt0 = TRUE)
  
 cbg.gd2 <- cumBgGD(biogas,
-                   temp = 20, pres = 1013.25,
+                   temp.vol = 20, pres.vol = 1013.25,
+                   temp.grav = 30, pres.grav = 1050,
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -44,7 +47,8 @@ cbg.gd2 <- cumBgGD(biogas,
                    addt0 = TRUE, showt0 = TRUE)
  
 cbg.gd3 <- cumBgGD(biogas,
-                   temp = 20, pres = 1013.25,
+                   temp.vol = 20, pres.vol = 1013.25,
+                   temp.grav = 30, pres.grav = 1050,
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -55,7 +59,8 @@ cbg.gd3 <- cumBgGD(biogas,
                    addt0 = TRUE, showt0 = TRUE)
  
 # cbg.gd4 <- cumBgGD(biogas, 
-#                    temp = 20, pres = 1013.25, 
+#                    temp.vol = 20, pres.vol = 1013.25,
+#                    temp.grav = 30, pres.grav = 1050,
 #                    id.name = 'id', vol.name = 'vol',
 #                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
 #                    comp.name = 'xCH4', time.name = 'elapsed.time', 
@@ -66,7 +71,8 @@ cbg.gd3 <- cumBgGD(biogas,
 #                    addt0 = TRUE, showt0 = TRUE)
 # 
 cbg.gd5 <- cumBgGD(biogas,
-                   temp = 20, pres = 1013.25,
+                   temp.vol = 20, pres.vol = 1013.25,
+                   temp.grav = 30, pres.grav = 1050,
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time',
@@ -75,9 +81,10 @@ cbg.gd5 <- cumBgGD(biogas,
                    # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                    # extrap = FALSE
                    addt0 = TRUE, showt0 = TRUE)
-# 
+
 # cbg.gd6 <- cumBgGD(biogas, 
-#                    temp = 20, pres = 1013.25, 
+#                    temp.vol = 20, pres.vol = 1013.25,
+#                    temp.grav = 30, pres.grav = 1050,
 #                    id.name = 'id', vol.name = 'vol',
 #                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
 #                    comp.name = 'xCH4', time.name = 'elapsed.time', 
@@ -90,7 +97,8 @@ cbg.gd5 <- cumBgGD(biogas,
 # ------------------------
 
 # cbg.gd7 <- cumBgGD(biogas, 
-#                    temp = 20, pres = 1013.25, 
+#                    temp.vol = 20, pres.vol = 1013.25,
+#                    temp.grav = 30, pres.grav = 1050, 
 #                    id.name = 'id', vol.name = 'vol',
 #                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
 #                    comp.name = 'xCH4', time.name = 'elapsed.time', 
@@ -101,7 +109,8 @@ cbg.gd5 <- cumBgGD(biogas,
 #                    addt0 = TRUE, showt0 = TRUE)
 
 cbg.gd8 <- cumBgGD(biogas, 
-                   temp = 20, pres = 1013.25, 
+                   temp.vol = 20, pres.vol = 1013.25,
+                   temp.grav = 30, pres.grav = 1050, 
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time', 
@@ -112,7 +121,8 @@ cbg.gd8 <- cumBgGD(biogas,
                    addt0 = TRUE, showt0 = TRUE)
 
 # cbg.gd9 <- cumBgGD(biogas, 
-#                    temp = 20, pres = 1013.25, 
+#                    temp.vol = 20, pres.vol = 1013.25,
+#                    temp.grav = 30, pres.grav = 1050, 
 #                    id.name = 'id', vol.name = 'vol',
 #                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
 #                    comp.name = 'xCH4', time.name = 'elapsed.time', 
@@ -134,7 +144,8 @@ cbg.gd8 <- cumBgGD(biogas,
 #                    addt0 = TRUE, showt0 = TRUE)
 # 
 # cbg.gd11 <- cumBgGD(biogas, 
-#                    temp = 20, pres = 1013.25, 
+#                    temp.vol = 20, pres.vol = 1013.25,
+#                    temp.grav = 30, pres.grav = 1050, 
 #                    id.name = 'id', vol.name = 'vol',
 #                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
 #                    comp.name = 'xCH4', time.name = 'elapsed.time', 
@@ -145,7 +156,8 @@ cbg.gd8 <- cumBgGD(biogas,
 #                    addt0 = TRUE, showt0 = TRUE)
 # 
 # cbg.gd12 <- cumBgGD(biogas, 
-#                    temp = 20, pres = 1013.25, 
+#                    temp.vol = 20, pres.vol = 1013.25,
+#                    temp.grav = 30, pres.grav = 1050,
 #                    id.name = 'id', vol.name = 'vol',
 #                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
 #                    comp.name = 'xCH4', time.name = 'elapsed.time', 
