@@ -1,9 +1,6 @@
 # Runs complete analysis of UQ2gd data
 # Camilla G. Justesen
 
-# Load functions
-source('functions.R')
-
 # Load packages
 source('packages.R')
 
@@ -17,10 +14,7 @@ source('merge.R')
 source('plots.R')
 
 # Export results
-# source('export_results.R')
-# 
-# # Export manipulated results
-# source('export_manipulated.R')
-# 
-# # Calculate maximum theoretical BMP for the substrates 
-# source('theoretical_BMP.R')
+source('export_results.R')
+
+# Calculate the variations in percentage
+source('compare.R')
