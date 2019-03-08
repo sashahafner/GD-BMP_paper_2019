@@ -4,6 +4,10 @@
 # Set biogas options
 options(unit.pres = 'bar', pres.std = 1.01325)
 
+# ADD THIS DATA FRAME FOR ONLY NO LEAK BOTTLES FROM EXPER 2
+biogas <- no.leaks2.biogas
+biogas <- subset(biogas, !id %in% c('C4', 'C5'))
+
 
 # Calculation of cumulative biogas based on both experiments at the same time 
 
@@ -48,20 +52,3 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol',
                  dat.name = 'vol', comp.name = 'xCH4',
                  headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                  extrap = TRUE) 
-
-# Biogas by gd
-biogas <- biogas[order(biogas$id.exper, biogas$elapsed.time), ]
-
-biogas.gd <- biogas[!is.na(biogas$vol) & !is.na(biogas$mass.init) & !is.na(biogas$mass.final), ]
-
-cbg.gd <- cumBgGD(biogas.gd, 
-                   temp = 20, pres = 1.01325, 
-                   id.name = 'id.exper',vol.name = 'vol',
-                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
-                   comp.name = 'xCH4', time.name = 'elapsed.time', 
-                   vented.mass = TRUE, averaging = 'int', 
-                   # temp.init = 20, 
-                   # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                   vmethod = 'vol',
-                   # extrap = TRUE, 
-                   addt0 = TRUE, showt0 = TRUE)

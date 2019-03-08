@@ -11,7 +11,7 @@ when.BMP <- 30
 # Make a list of each experiment for all methods 
 # cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
 # cbg.man.list <- split(cbg.man, cbg.man$exper)
-# cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
+cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
 # cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
 cbg.gd1.list <- split(cbg.gd1, cbg.gd1$exper)
 cbg.gd2.list <- split(cbg.gd2, cbg.gd2$exper)
@@ -61,7 +61,8 @@ cbg.gd8.list <- split(cbg.gd8, cbg.gd8$exper)
 
 # Experiment 2
 cbg.list.2 <- list(
-  #vol = cbg.vol.list[[2]], man = cbg.man.list[[2]], grav = cbg.grav.list[[2]], 
+  #vol = cbg.vol.list[[2]], man = cbg.man.list[[2]], 
+  grav = cbg.grav.list[[2]], 
   #gd = cbg.gd.list[[2]], 
   gd1 = cbg.gd1.list[[2]], gd2 = cbg.gd2.list[[2]], gd3 = cbg.gd3.list[[2]], 
   #gd4 = cbg.gd4.list[[2]], 

@@ -56,25 +56,3 @@ ggplot(BMP2) +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP2_comp_bars_reverse.pdf', height = 6, width = 6, scale = 1.2)
 ggsave('../plots/BMP2_comp_bars_reverse.png')
-
-
-# Plots for method comparison directly
-
-Reshaping into column structures instead
-BMP.all <- reshape(data = BMP2,
-              idvar = c('descrip', 'exper', 'elapsed.time', 'n'),
-              timevar = 'method',
-              direction = 'wide')
-names(BMP2)
-names(BMP.all)
-jpeg('../plots/method_comparison_cumBgGD_exper2.png')
-par(mfrow=c(3,1))
-plot(BMP2$mean[1], BMP2$mean[2])        
-abline(0,1)
-plot(BMP.all$mean.gd, BMP.all$mean.man)         
-abline(0,1)
-plot(BMP.all$mean.gd, BMP.all$mean.vol)         
-abline(0,1)
-dev.off()
-
-list <- split(BMP2, BMP2$method)

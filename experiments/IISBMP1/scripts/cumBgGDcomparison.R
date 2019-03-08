@@ -3,9 +3,9 @@
 # Set biogas options
 options(unit.pres = 'bar', pres.std = 1.01325)
 
-# ADD THIS DATA FRAME FOR ONLY NO LEAK BOTTLES FROM EXPER 2
-biogas <- no.leaks2.biogas
-biogas <- subset(biogas, !id %in% c('C4', 'C5'))
+# # ADD THIS DATA FRAME FOR ONLY NO LEAK BOTTLES FROM EXPER 2
+# biogas <- no.leaks2.biogas
+# biogas <- subset(biogas, !id %in% c('C4', 'C5'))
 
 # Biogas by gd
 biogas <- biogas[order(biogas$id.exper, biogas$elapsed.time), ]

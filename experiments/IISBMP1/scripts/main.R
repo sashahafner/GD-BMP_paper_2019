@@ -26,10 +26,10 @@ source('water_detect_lim.R')
 source('leak.R')
 
 # Remove all substrates having any leaks
-#no.leaks2.biogas <- subset(no.leaks2.biogas, !descrip %in% c('Cellulose', 'CB'))
+no.leaks2.biogas <- subset(no.leaks2.biogas, !descrip %in% c('Cellulose', 'CB'))
 
 # Calculate biogas production
-#source('biogas.R')
+source('biogas.R')
 source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo
