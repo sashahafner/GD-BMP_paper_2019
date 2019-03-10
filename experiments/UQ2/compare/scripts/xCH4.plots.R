@@ -11,6 +11,14 @@ ggplot(xCH4.all, aes(elapsed.time, xCH4, colour = descrip)) +
 ggsave('../plots/xCH4.comparison.png')
 
 
+ggplot(xCH4.all, aes(elapsed.time, xCH4, colour = descrip)) + 
+  geom_point() + geom_line(aes(group = id)) + 
+  labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
+  ggtitle('Composition Comparison') +
+  theme_bw() + 
+  theme(text = element_text(size = 8)) +
+  facet_wrap(~ method)   # What is the best grid after adding all (or chosen) gd methods
+ggsave('../plots/xCH4.comparison.wrap.png')
 
 # ---------------
 #grav/man (GC data)
