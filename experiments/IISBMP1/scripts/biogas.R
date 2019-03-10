@@ -52,3 +52,4 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol',
                  dat.name = 'vol', comp.name = 'xCH4',
                  headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                  extrap = TRUE) 
+
