@@ -12,6 +12,8 @@ BMP.grav <- as.data.frame(read.csv(grav))
 # composition
 gdcomp <- "../../gd/results/gdxCH4.csv"
 comp.gd<- as.data.frame(read.csv(gdcomp))
+gdcomp.all <- "../../gd/results/xCH4.all.csv"
+comp.gd.all<- as.data.frame(read.csv(gdcomp.all))
 
 GCcomp <- "../../man.grav/results/GCxCH4.csv"
 comp.GC <- as.data.frame(read.csv(GCcomp))

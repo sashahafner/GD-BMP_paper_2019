@@ -36,5 +36,5 @@ gdcomp <- merge(gdcomp, gd8comp, by = c('id', 'elapsed.time', 'descrip'))
 write.csv(gdcomp, '../results/gdxCH4.csv', row.names = FALSE)
 
 # Make a rowbinded data frame
-xCH4.all <- cbg.gd.all[, c('id', 'elapsed.time', 'descrip', 'xCH4')]
+xCH4.all <- cbg.gd.all[, c('id', 'elapsed.time', 'descrip', 'xCH4', 'method')]
 write.csv(xCH4.all, '../results/xCH4.all.csv', row.names = FALSE)
