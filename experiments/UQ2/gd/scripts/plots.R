@@ -2,10 +2,10 @@
 
 # Some other possibilities . . .
 # cbg.gd$pid <- interaction(cbg.gd$descrip, cbg.gd$method)
-ggplot(cbg.gd, aes(elapsed.time, cvCH4, group = id)) +
-   geom_line(aes(colour = )) +
-   facet_wrap(~ descrip)
- ggsave('../plots/cum_CH4.png')
+# ggplot(cbg.gd, aes(elapsed.time, cvCH4, group = id)) +
+#    geom_line(aes(colour = )) +
+#    facet_wrap(~ descrip)
+#  ggsave('../plots/cum_CH4.png')
 
 # More interesting with yld
 yld$pid <- interaction(yld$descrip, yld$method)
