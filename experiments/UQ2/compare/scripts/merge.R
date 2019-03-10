@@ -11,3 +11,7 @@ BMP <- rbind(BMP.gd, BMP.grav)
 
 # Bind xCH4 for GC and gd
 xCH4 <- merge(comp.gd, comp.GC, by= c('id', 'descrip', 'elapsed.time'))
+
+# Methane composition for rowbinded
+comp.GC$method <- 'grav.GC'
+xCH4.all <- rbind(comp.gd.all, comp.GC)
