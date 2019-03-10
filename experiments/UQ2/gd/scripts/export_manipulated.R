@@ -33,4 +33,4 @@ gdcomp <- merge(gdcomp, gd3comp, by = c('id', 'elapsed.time', 'descrip'))
 gdcomp <- merge(gdcomp, gd5comp, by = c('id', 'elapsed.time', 'descrip'))
 gdcomp <- merge(gdcomp, gd8comp, by = c('id', 'elapsed.time', 'descrip'))
 
-write.csv(gdcomp, '../results/gdxCH4.csv')
+write.csv(gdcomp, '../results/gdxCH4.csv', row.names = FALSE)

@@ -8,3 +8,6 @@ BMP.grav <- subset(BMP.grav, method == 'grav')
 
 # Bind grav and gd dataset 
 BMP <- rbind(BMP.gd, BMP.grav)
+
+# Bind xCH4 for GC and gd
+xCH4 <- merge(comp.gd, comp.GC, by= c('id', 'descrip', 'elapsed.time'))
