@@ -18,13 +18,13 @@ cbg.gd8$method <- 'gd8'
 # Plot all gd methods composition in one plot
 cbg.gd.all <- biogas:::rbindf(
   cbg.gd1, cbg.gd2, cbg.gd3, 
-  #cbg.gd4, 
+  cbg.gd4, 
   cbg.gd5, 
-  #cbg.gd6, cbg.gd7, 
-  cbg.gd8
-  # cbg.gd9, 
-  # cbg.gd10, 
-  # cbg.gd11, cbg.gd12
+  cbg.gd6, cbg.gd7, 
+  cbg.gd8,
+  cbg.gd9, 
+  cbg.gd10, 
+  cbg.gd11, cbg.gd12
   )
 
 ggplot(cbg.gd.all, aes(elapsed.time, xCH4, colour = descrip)) + 
