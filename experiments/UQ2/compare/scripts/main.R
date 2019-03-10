@@ -1,4 +1,4 @@
-# Runs complete analysis of UQ2gd data
+# Runs complete comparision of UQ2gd data and UQ2man.grav
 # Camilla G. Justesen
 
 # Load packages

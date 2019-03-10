@@ -8,3 +8,7 @@ BMP.gd <- as.data.frame(read.csv(gd))
 
 grav <- "../../man.grav/output/BMP.csv"
 BMP.grav <- as.data.frame(read.csv(grav))
+
+# composition
+gdcomp <- "../../gd/results/gdxCH4.csv"
+comp.gd<- as.data.frame(read.csv(gdcomp))
