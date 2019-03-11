@@ -4,7 +4,7 @@ ggplot(BMP, aes(method, mean), fill = method, color = method) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2)+
   ggtitle("GD Method") +
   labs(x = "Method", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  facet_grid(~ descrip)
+  facet_grid(~ descrip) + 
   theme_bw() + 
   theme(text = element_text(size = 10))
 ggsave('../plots/GD_methods_barplot.png')

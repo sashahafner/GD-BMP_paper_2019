@@ -28,7 +28,7 @@ source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo
 source('BMP.R')
-source('BMPcomp.R')
+#source('BMPcomp.R')
 
 # Compare methods numerically
 #source('numeric_comparison.R')
