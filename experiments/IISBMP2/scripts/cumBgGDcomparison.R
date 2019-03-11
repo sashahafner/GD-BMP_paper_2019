@@ -152,12 +152,17 @@ cbg.gd11 <- cumBgGD(biogas,
 
 cbg.gd12 <- cumBgGD(biogas, 
                    # temp = 20, pres = 1013.25, 
-                   temp = 'temp.air', pres = 'pres.amb',
+                   temp.vol = 'temp.air', pres.vol = 'pres.amb',
+                   temp.grav = 30, pres.grav = 1500,
+                   #temp = 'temp.air', pres = 'pres.amb',
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'elapsed.time', 
                    vented.mass = TRUE, averaging = 'final', vmethod = 'vol',
                    # temp.init = 20, 
                    # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
-                   # extrap = FALSE
+                   extrap = FALSE,
                    addt0 = TRUE, showt0 = TRUE)
+
+temp.vol = 20, pres.vol = 1.01325,
+temp.grav = 30, pres.grav = 1.5,
