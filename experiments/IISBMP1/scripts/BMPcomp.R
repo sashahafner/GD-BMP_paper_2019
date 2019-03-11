@@ -16,15 +16,15 @@ cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
 cbg.gd1.list <- split(cbg.gd1, cbg.gd1$exper)
 cbg.gd2.list <- split(cbg.gd2, cbg.gd2$exper)
 cbg.gd3.list <- split(cbg.gd3, cbg.gd3$exper)
-# cbg.gd4.list <- split(cbg.gd4, cbg.gd4$exper)
+cbg.gd4.list <- split(cbg.gd4, cbg.gd4$exper)
 cbg.gd5.list <- split(cbg.gd5, cbg.gd5$exper)
-# cbg.gd6.list <- split(cbg.gd6, cbg.gd6$exper)
-# cbg.gd7.list <- split(cbg.gd7, cbg.gd7$exper)
+cbg.gd6.list <- split(cbg.gd6, cbg.gd6$exper)
+cbg.gd7.list <- split(cbg.gd7, cbg.gd7$exper)
 cbg.gd8.list <- split(cbg.gd8, cbg.gd8$exper)
-# cbg.gd9.list <- split(cbg.gd9, cbg.gd9$exper)
-# cbg.gd10.list <- split(cbg.gd10, cbg.gd10$exper)
-# cbg.gd11.list <- split(cbg.gd11, cbg.gd11$exper)
-# cbg.gd12.list <- split(cbg.gd12, cbg.gd12$exper)
+cbg.gd9.list <- split(cbg.gd9, cbg.gd9$exper)
+cbg.gd10.list <- split(cbg.gd10, cbg.gd10$exper)
+cbg.gd11.list <- split(cbg.gd11, cbg.gd11$exper)
+cbg.gd12.list <- split(cbg.gd12, cbg.gd12$exper)
 
 
 # Calculate BMP, yld and BMPo
@@ -65,12 +65,12 @@ cbg.list.2 <- list(
   grav = cbg.grav.list[[2]], 
   #gd = cbg.gd.list[[2]], 
   gd1 = cbg.gd1.list[[2]], gd2 = cbg.gd2.list[[2]], gd3 = cbg.gd3.list[[2]], 
-  #gd4 = cbg.gd4.list[[2]], 
+  gd4 = cbg.gd4.list[[2]],
   gd5 = cbg.gd5.list[[2]], 
-  #gd6 = cbg.gd6.list[[2]],
-  #gd7 = cbg.gd7.list[[2]], 
-  gd8 = cbg.gd8.list[[2]]
-  #gd9 = cbg.gd9.list[[2]], gd10 = cbg.gd10.list[[2]], gd11 = cbg.gd11.list[[2]], gd12 = cbg.gd12.list[[2]]
+  gd6 = cbg.gd6.list[[2]]
+  # gd7 = cbg.gd7.list[[2]],
+  # gd8 = cbg.gd8.list[[2]],
+  # gd9 = cbg.gd9.list[[2]], gd10 = cbg.gd10.list[[2]], gd11 = cbg.gd11.list[[2]], gd12 = cbg.gd12.list[[2]]
 ) 
 BMP2 <- summBg(cbg.list.2, setup2, id.name = "id",
                time.name = 'elapsed.time', descrip.name = 'descrip',
