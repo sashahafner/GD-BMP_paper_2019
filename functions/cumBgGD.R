@@ -23,6 +23,7 @@ cumBgGD <- function(
   comp.sub = NA,           # Value substituted in when xCH4 is outside comp.lim. Use 'lim' for comp.lim values (e.g., 0, 1), or 'NA' or NA for NA
   imethod = 'linear',
   addt0 = TRUE,
+  extrap = FALSE,
   showt0 = TRUE,
   dry = FALSE,
   # Warnings and messages
@@ -160,12 +161,15 @@ cumBgGD <- function(
 
   # Replace xCH4 values that are beyond limits in lim
   # NTS: some of these checks can go after argument list
+  dat[, paste0(comp.name, '.lim.flag')] <- ''
   if(all(!is.null(comp.lim)) & all(!is.na(comp.lim)) & is.numeric(comp.lim) & length(comp.lim) == 2) {
     if(!is.na(comp.sub) & comp.sub != 'NA') {
       comp.lim <- sort(comp.lim)
       dat[dat[, comp.name] < comp.lim[1], comp.name] <- comp.lim[1]
       dat[dat[, comp.name] > comp.lim[2], comp.name] <- comp.lim[2]
     } else {
+      dat[!is.na(dat[, comp.name]) & dat[, comp.name] < comp.lim[1], paste0(comp.name, '.lim.flag')] <- 'low'
+      dat[!is.na(dat[, comp.name]) & dat[, comp.name] > comp.lim[2], paste0(comp.name, '.lim.flag')] <- 'high'
       dat[!is.na(dat[, comp.name]) & dat[, comp.name] < comp.lim[1], comp.name] <- NA
       dat[!is.na(dat[, comp.name]) & dat[, comp.name] > comp.lim[2], comp.name] <- NA
     }
@@ -178,6 +182,14 @@ cumBgGD <- function(
   if(tolower(vmethod) %in% c('vol', 'volume')) {
     # vol dat needs id time vol
 
+    # Interpolate xCH4 if needed
+    # Skip first obs, which should be 0 in grav method
+    for(i in unique(dat[, id.name])) {
+      dc <- dat[dat[, id.name]==i, ]
+      dat[dat[, id.name]==i & is.na(dat[, comp.name]), comp.name] <- interp(dc[, time.name], dc[, comp.name], time.out = dat[dat[, id.name]==i & is.na(dat[, comp.name]), time.name], method = imethod, extrap = extrap)
+    }
+
+ 
     # Calculate CH4 production from vBg calculated above
     if (averaging == 'cum') {
       dat$cvCH4 <- dat[, comp.name] * dat$cvBg
@@ -243,10 +255,17 @@ cumBgGD <- function(
     return(dat)
 
   } else if(vmethod == 'grav') {
+
     # Gravimetric
-    # NTS: we need to make a separate function to do this.
-    # Work with mass
     message('Working with mass data (applying gravimetric approach).')
+
+    # Interpolate xCH4 if needed
+    # Skip first obs, which should be 0 in grav method, so sorting essential
+    dat <- dat[order(dat[, id.name], dat[, time.name]), ]
+    for(i in unique(dat[, id.name])) {
+      dc <- dat[dat[, id.name]==i, ]
+      dat[dat[, id.name]==i, comp.name][-1] <- interp(dc[, time.name], dc[, comp.name], time.out = dat[dat[, id.name]==i, time.name][-1], method = imethod, extrap = extrap)
+    }
 
     # Calculate biogas production
     if(any(dat[, 'mass.tot'] < 0)) {
@@ -260,13 +279,13 @@ cumBgGD <- function(
                                           temp = dat[, temp.grav], pres = dat[, pres.grav], 
                                           temp.std = temp.std, pres.std = pres.std, 
                                           unit.temp = unit.temp, unit.pres = unit.pres, 
-                                          value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
+                                          value = 'all', std.message = FALSE)[, c('vBg', 'vCH4')]
     } else {
       dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'mass.tot'], xCH4 = dat[, comp.name], 
                                           temp = dat[, temp.grav], pres = dat[, pres.grav], 
                                           temp.std = temp.std, pres.std = pres.std, 
                                           unit.temp = unit.temp, unit.pres = unit.pres, 
-                                          value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
+                                          value = 'all', std.message = FALSE)[, c('vBg', 'vCH4')]
     }
 
 
