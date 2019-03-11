@@ -5,29 +5,31 @@
 # Bind by rows
 # cbg.vol$method <- 'vol'
 # cbg.man$method <- 'man'
-# cbg.grav$method <- 'grav'
+cbg.grav$method <- 'grav'
 # cbg.gd$method <- 'gd'
-cbg.gd1$method <- 'gd1'
-cbg.gd2$method <- 'gd2'
-cbg.gd3$method <- 'gd3'
-# cbg.gd4$method <- 'gd4'
-cbg.gd5$method <- 'gd5'
-# cbg.gd6$method <- 'gd6'
-# cbg.gd7$method <- 'gd7'
-cbg.gd8$method <- 'gd8'
-# cbg.gd9$method <- 'gd9'
-# cbg.gd10$method <- 'gd10'
-# cbg.gd11$method <- 'gd11'
-# cbg.gd12$method <- 'gd12'
+cbg.gd01$method <- 'gd01'
+cbg.gd02$method <- 'gd02'
+cbg.gd03$method <- 'gd03'
+cbg.gd04$method <- 'gd04'
+cbg.gd05$method <- 'gd05'
+cbg.gd06$method <- 'gd06'
+cbg.gd07$method <- 'gd07'
+cbg.gd08$method <- 'gd08'
+cbg.gd09$method <- 'gd09'
+cbg.gd10$method <- 'gd10'
+cbg.gd11$method <- 'gd11'
+cbg.gd12$method <- 'gd12'
 
-cbg.all <- biogas:::rbindf(#cbg.vol, cbg.man, cbg.grav, cbg.gd, 
-                           cbg.gd1, cbg.gd2, cbg.gd3, 
-                           #cbg.gd4, 
-                           cbg.gd5, 
-                           #cbg.gd6, 
-                           #cbg.gd7, 
-                           cbg.gd8
-                           #cbg.gd9, cbg.gd10, cbg.gd11, cbg.gd12
+cbg.all <- biogas:::rbindf(#cbg.vol, cbg.man, 
+  cbg.grav, 
+  # cbg.gd, 
+                           cbg.gd01, cbg.gd02, cbg.gd03,
+                           cbg.gd04, 
+                           cbg.gd05, 
+                           cbg.gd06,
+                           cbg.gd07,
+                           cbg.gd08,
+                           cbg.gd09, cbg.gd10, cbg.gd11, cbg.gd12
                            )
 
 

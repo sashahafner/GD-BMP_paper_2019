@@ -56,3 +56,50 @@ ggplot(BMP2) +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP2_comp_bars_reverse.pdf', height = 6, width = 6, scale = 1.2)
 ggsave('../plots/BMP2_comp_bars_reverse.png')
+
+SubA <- subset(BMP2, descrip == 'A')
+ggplot(SubA) +
+  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+#theme(legend.position = 'none')
+ggsave('../plots/BMP2_comp_bars_A.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP2_comp_bars_A.png')
+
+SubB <- subset(BMP2, descrip == 'B')
+ggplot(SubB) +
+  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+#theme(legend.position = 'none')
+ggsave('../plots/BMP2_comp_bars_B.png')
+
+SubC <- subset(BMP2, descrip == 'C')
+ggplot(SubC) +
+  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+#theme(legend.position = 'none')
+ggsave('../plots/BMP2_comp_bars_C.png')
+
+SubEtOH <- subset(BMP2, descrip == 'Ethanol')
+ggplot(SubEtOH) +
+  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+#theme(legend.position = 'none')
+ggsave('../plots/BMP2_comp_bars_EtOH.png')
+
+

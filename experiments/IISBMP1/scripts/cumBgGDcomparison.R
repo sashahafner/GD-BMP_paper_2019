@@ -15,7 +15,7 @@ biogas.gd <- biogas[!is.na(biogas$vol) & !is.na(biogas$mass.init) & !is.na(bioga
 # !!!Delete composition to get it to calculate composition. This is not going to be included!!!
 biogas.gd <- subset(biogas.gd, select = -c(xCH4, xCH4.oa))
 
-cbg.gd1 <- cumBgGD(biogas.gd,
+cbg.gd01 <- cumBgGD(biogas.gd,
                   temp.vol = 20, pres.vol = 1.01325,
                   temp.grav = 30, pres.grav = 1.5,
                   id.name = 'id.exper', vol.name = 'vol',
@@ -27,7 +27,7 @@ cbg.gd1 <- cumBgGD(biogas.gd,
                   extrap = TRUE, 
                   addt0 = TRUE, showt0 = TRUE)
 
-cbg.gd2 <- cumBgGD(biogas.gd,
+cbg.gd02 <- cumBgGD(biogas.gd,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
@@ -39,7 +39,7 @@ cbg.gd2 <- cumBgGD(biogas.gd,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gd3 <- cumBgGD(biogas.gd,
+cbg.gd03 <- cumBgGD(biogas.gd,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
@@ -51,7 +51,7 @@ cbg.gd3 <- cumBgGD(biogas.gd,
                    extrap = TRUE, 
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gd4 <- cumBgGD(biogas.gd,
+cbg.gd04 <- cumBgGD(biogas.gd,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
@@ -63,7 +63,7 @@ cbg.gd4 <- cumBgGD(biogas.gd,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gd5 <- cumBgGD(biogas.gd,
+cbg.gd05 <- cumBgGD(biogas.gd,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
@@ -75,7 +75,7 @@ cbg.gd5 <- cumBgGD(biogas.gd,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
  
-cbg.gd6 <- cumBgGD(biogas.gd,
+cbg.gd06 <- cumBgGD(biogas.gd,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
@@ -89,7 +89,7 @@ cbg.gd6 <- cumBgGD(biogas.gd,
 
 # ------------------------
 
-cbg.gd7 <- cumBgGD(biogas.gd,
+cbg.gd07 <- cumBgGD(biogas.gd,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
@@ -101,7 +101,7 @@ cbg.gd7 <- cumBgGD(biogas.gd,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gd8 <- cumBgGD(biogas.gd, 
+cbg.gd08 <- cumBgGD(biogas.gd, 
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',
@@ -113,7 +113,7 @@ cbg.gd8 <- cumBgGD(biogas.gd,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gd9 <- cumBgGD(biogas.gd,
+cbg.gd09 <- cumBgGD(biogas.gd,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id.exper', vol.name = 'vol',

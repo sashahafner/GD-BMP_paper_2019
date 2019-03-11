@@ -43,7 +43,7 @@ source('merge.R')
 #source('numeric_comparison.R')
 
 # Graphical comparison of methods
-source('plots.R')
+# source('plots.R')
 source('plot.cumBgGD.comparison.R')
 source('xCH4.plots.R')
 

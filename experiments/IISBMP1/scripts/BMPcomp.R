@@ -13,15 +13,15 @@ when.BMP <- 30
 # cbg.man.list <- split(cbg.man, cbg.man$exper)
 cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
 # cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
-cbg.gd1.list <- split(cbg.gd1, cbg.gd1$exper)
-cbg.gd2.list <- split(cbg.gd2, cbg.gd2$exper)
-cbg.gd3.list <- split(cbg.gd3, cbg.gd3$exper)
-cbg.gd4.list <- split(cbg.gd4, cbg.gd4$exper)
-cbg.gd5.list <- split(cbg.gd5, cbg.gd5$exper)
-cbg.gd6.list <- split(cbg.gd6, cbg.gd6$exper)
-cbg.gd7.list <- split(cbg.gd7, cbg.gd7$exper)
-cbg.gd8.list <- split(cbg.gd8, cbg.gd8$exper)
-cbg.gd9.list <- split(cbg.gd9, cbg.gd9$exper)
+cbg.gd01.list <- split(cbg.gd01, cbg.gd01$exper)
+cbg.gd02.list <- split(cbg.gd02, cbg.gd02$exper)
+cbg.gd03.list <- split(cbg.gd03, cbg.gd03$exper)
+cbg.gd04.list <- split(cbg.gd04, cbg.gd04$exper)
+cbg.gd05.list <- split(cbg.gd05, cbg.gd05$exper)
+cbg.gd06.list <- split(cbg.gd06, cbg.gd06$exper)
+cbg.gd07.list <- split(cbg.gd07, cbg.gd07$exper)
+cbg.gd08.list <- split(cbg.gd08, cbg.gd08$exper)
+cbg.gd09.list <- split(cbg.gd09, cbg.gd09$exper)
 cbg.gd10.list <- split(cbg.gd10, cbg.gd10$exper)
 cbg.gd11.list <- split(cbg.gd11, cbg.gd11$exper)
 cbg.gd12.list <- split(cbg.gd12, cbg.gd12$exper)
@@ -33,13 +33,13 @@ cbg.gd12.list <- split(cbg.gd12, cbg.gd12$exper)
 # cbg.list.1 <- list(
 #   #vol = cbg.vol.list[[1]], man = cbg.man.list[[1]], grav = cbg.grav.list[[1]], 
 #   #gd = cbg.gd.list[[1]], 
-#   gd1 = cbg.gd1.list[[1]], gd2 = cbg.gd2.list[[1]], gd3 = cbg.gd3.list[[1]], 
-#   #gd4 = cbg.gd4.list[[1]], 
-#   gd5 = cbg.gd5.list[[1]], 
-#   #gd6 = cbg.gd6.list[[1]],
-#   #gd7 = cbg.gd7.list[[1]], 
-#   gd8 = cbg.gd8.list[[1]]
-#   #gd9 = cbg.gd9.list[[1]], gd10 = cbg.gd10.list[[1]], gd11 = cbg.gd11.list[[1]], gd12 = cbg.gd12.list[[1]]
+#   gd01 = cbg.gd01.list[[1]], gd02 = cbg.gd02.list[[1]], gd03 = cbg.gd03.list[[1]], 
+#   #gd04 = cbg.gd04.list[[1]], 
+#   gd05 = cbg.gd05.list[[1]], 
+#   #gd06 = cbg.gd06.list[[1]],
+#   #gd07 = cbg.gd07.list[[1]], 
+#   gd08 = cbg.gd08.list[[1]]
+#   #gd09 = cbg.gd09.list[[1]], gd10 = cbg.gd10.list[[1]], gd11 = cbg.gd11.list[[1]], gd12 = cbg.gd12.list[[1]]
 #   ) 
 # BMP1 <- summBg(cbg.list.1, setup1, id.name = "id",
 #                time.name = 'elapsed.time', descrip.name = 'descrip',
@@ -64,13 +64,13 @@ cbg.list.2 <- list(
   #vol = cbg.vol.list[[2]], man = cbg.man.list[[2]], 
   grav = cbg.grav.list[[2]], 
   #gd = cbg.gd.list[[2]], 
-  gd1 = cbg.gd1.list[[2]], gd2 = cbg.gd2.list[[2]], gd3 = cbg.gd3.list[[2]], 
-  gd4 = cbg.gd4.list[[2]],
-  gd5 = cbg.gd5.list[[2]], 
-  gd6 = cbg.gd6.list[[2]]
-  # gd7 = cbg.gd7.list[[2]],
-  # gd8 = cbg.gd8.list[[2]],
-  # gd9 = cbg.gd9.list[[2]], gd10 = cbg.gd10.list[[2]], gd11 = cbg.gd11.list[[2]], gd12 = cbg.gd12.list[[2]]
+  gd01 = cbg.gd01.list[[2]], gd02 = cbg.gd02.list[[2]], gd03 = cbg.gd03.list[[2]], 
+  gd04 = cbg.gd04.list[[2]],
+  gd05 = cbg.gd05.list[[2]], 
+  gd06 = cbg.gd06.list[[2]],
+  gd07 = cbg.gd07.list[[2]],
+  gd08 = cbg.gd08.list[[2]],
+  gd09 = cbg.gd09.list[[2]], gd10 = cbg.gd10.list[[2]], gd11 = cbg.gd11.list[[2]], gd12 = cbg.gd12.list[[2]]
 ) 
 BMP2 <- summBg(cbg.list.2, setup2, id.name = "id",
                time.name = 'elapsed.time', descrip.name = 'descrip',
