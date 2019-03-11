@@ -186,7 +186,7 @@ cumBgGD <- function(
     # Skip first obs, which should be 0 in grav method
     for(i in unique(dat[, id.name])) {
       dc <- dat[dat[, id.name]==i, ]
-      dat[dat[, id.name]==i & is.na(dat[, comp.name]), comp.name] <- interp(dc[, time.name], dc[, comp.name], time.out = dat[dat[, id.name]==i & is.na(dat[, comp.name]), time.name], method = imethod, extrap = extrap)
+      dat[dat[, id.name]==i, comp.name] <- interp(dc[, time.name], dc[, comp.name], time.out = dat[dat[, id.name]==i, time.name], method = imethod, extrap = extrap)
     }
 
  
