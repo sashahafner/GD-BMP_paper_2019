@@ -178,8 +178,12 @@ cumBgGD <- function(
   if(tolower(vmethod) %in% c('vol', 'volume')) {
     # vol dat needs id time vol
 
-    # Calculate interval (or cum if interval = FALSE) gas production
-    dat$vCH4 <- dat[, comp.name] * dat$vBg
+    # Calculate CH4 production from vBg calculated above
+    if (averaging == 'cum') {
+      dat$cvCH4 <- dat[, comp.name] * dat$cvBg
+    } else {
+      dat$vCH4 <- dat[, comp.name] * dat$vBg
+    }
 
     # Add t0 row if requested
     # Not added if there are already zeroes present!
@@ -200,14 +204,21 @@ cumBgGD <- function(
       dt <- NA
       warning('class of time column in dat data frame not recognized, so rates will not be calculated.')
     }
+
     # Set dt to NA for first observations for each reactor
     dt[c(TRUE, dat[, id.name][-1] != dat[, id.name][-nrow(dat)])] <- NA 
 
-    # Calculate cumulative production 
-    for(i in unique(dat[, id.name])) {
-      dat[dat[, id.name]==i, 'cvBg'] <- cumsum(dat[dat[, id.name]==i, 'vBg' ])
-      dat[dat[, id.name]==i, 'cvCH4'] <- cumsum(dat[dat[, id.name]==i, 'vCH4'])
-    } 
+    # Calculate cumulative or interval production 
+    if (averaging == 'cum') {
+      for(i in unique(dat[, id.name])) {
+        dat[dat[, id.name]==i, 'vCH4'] <- diff(c(0, dat[dat[, id.name]==i, 'cvCH4']))
+      }
+    } else {
+      for(i in unique(dat[, id.name])) {
+        dat[dat[, id.name]==i, 'cvBg'] <- cumsum(dat[dat[, id.name]==i, 'vBg' ])
+        dat[dat[, id.name]==i, 'cvCH4'] <- cumsum(dat[dat[, id.name]==i, 'vCH4'])
+      } 
+    }
 
     # Calculate rates for all cases 
     for(i in unique(dat[, id.name])) {
@@ -243,16 +254,34 @@ cumBgGD <- function(
       stop('Mass *gain* calculated for one or more observations. See ', paste('id.name column:', dat[whichones, id.name], ' and time.name column:', dat[whichones - 1, time.name], 'to', dat[whichones, time.name], sep = ' ', collapse = ', '), ' in dat data frame. ')
     }
 
-    dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'mass.tot'], xCH4 = dat[, comp.name], temp = dat[, temp.grav], pres = dat[, pres.grav], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
-
-    if(!is.null(headspace)) {
-      # Apply initial headspace correction only for times 1 and 2 (i.e., one mass loss measurement per reactor)
-      which1and2 <- sort(c(which(starts$start), which(starts$start) + 1) )
-      dat[which1and2, c('vBg', 'vCH4')] <- mass2vol(mass = dat$mass.tot[which1and2], xCH4 = dat[which1and2, comp.name], temp = dat[which1and2, temp.grav], pres = dat[which1and2, pres.grav], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', headspace = dat[which1and2, vol.hs.name], headcomp = 'N2', temp.init = temp.init, std.message = FALSE)[, c('vBg', 'vCH4')]
+    # Calculate CH4 production from vBg calculated above
+    if (averaging == 'cum') {
+      dat[, c('cvBg', 'cvCH4')] <- mass2vol(mass = dat[, 'cmass.tot'], xCH4 = dat[, comp.name], 
+                                          temp = dat[, temp.grav], pres = dat[, pres.grav], 
+                                          temp.std = temp.std, pres.std = pres.std, 
+                                          unit.temp = unit.temp, unit.pres = unit.pres, 
+                                          value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
+    } else {
+      dat[, c('vBg', 'vCH4')] <- mass2vol(mass = dat[, 'mass.tot'], xCH4 = dat[, comp.name], 
+                                          temp = dat[, temp.grav], pres = dat[, pres.grav], 
+                                          temp.std = temp.std, pres.std = pres.std, 
+                                          unit.temp = unit.temp, unit.pres = unit.pres, 
+                                          value = 'all', std.message = std.message)[, c('vBg', 'vCH4')]
     }
 
+
+    #if(!is.null(headspace)) {
+    #  # Apply initial headspace correction only for times 1 and 2 (i.e., one mass loss measurement per reactor)
+    #  which1and2 <- sort(c(which(starts$start), which(starts$start) + 1) )
+    #  dat[which1and2, c('vBg', 'vCH4')] <- mass2vol(mass = dat$mass.tot[which1and2], xCH4 = dat[which1and2, comp.name], temp = dat[which1and2, temp.grav], pres = dat[which1and2, pres.grav], temp.std = temp.std, pres.std = pres.std, unit.temp = unit.temp, unit.pres = unit.pres, value = 'all', headspace = dat[which1and2, vol.hs.name], headcomp = 'N2', temp.init = temp.init, std.message = FALSE)[, c('vBg', 'vCH4')]
+    #}
+
     # Set time zero volumes to zero--necessary because xCH4 is always missing
-    dat[dat$mass.tot==0, c('vBg', 'vCH4')] <- 0
+    if (averaging == 'cum') {
+      dat[dat$mass.tot==0, c('cvBg', 'cvCH4')] <- 0
+    } else {
+      dat[dat$mass.tot==0, c('vBg', 'vCH4')] <- 0
+    }
 
     # Cumulative gas production and rates
     dat <- dat[order(dat[, id.name], dat[, time.name]), ]
@@ -267,9 +296,23 @@ cumBgGD <- function(
     }
     # Set dt to NA for the first observation for each reactor
     dt[c(TRUE, dat[, id.name][-1] != dat[, id.name][-nrow(dat)])] <- NA
+
+    # Calculate cumulative or interval production 
+    if (averaging == 'cum') {
+      for(i in unique(dat[, id.name])) {
+        dat[dat[, id.name]==i, 'vCH4'] <- diff(c(0, dat[dat[, id.name]==i, 'cvCH4']))
+        dat[dat[, id.name]==i, 'vBg'] <- diff(c(0, dat[dat[, id.name]==i, 'cvBg']))
+      }
+    } else {
+      for(i in unique(dat[, id.name])) {
+        dat[dat[, id.name]==i, 'cvBg'] <- cumsum(dat[dat[, id.name]==i, 'vBg' ])
+        dat[dat[, id.name]==i, 'cvCH4'] <- cumsum(dat[dat[, id.name]==i, 'vCH4'])
+      } 
+    }
+
+    # Calculate rates for all cases 
+    # Rates (rates and v may be strange for averaging = 'cum')
     for(i in unique(dat[, id.name])) {
-      dat[dat[, id.name]==i, 'cvBg']<- cumsum(dat[dat[, id.name]==i, 'vBg' ])
-      dat[dat[, id.name]==i, 'cvCH4'] <- cumsum(dat[dat[, id.name]==i, 'vCH4'])
       dat[dat[, id.name]==i, 'rvBg']<- dat[dat[, id.name]==i, 'vBg' ]/dt[dat[, id.name]==i]
       dat[dat[, id.name]==i, 'rvCH4'] <- dat[dat[, id.name]==i, 'vCH4']/dt[dat[, id.name]==i]
     }
