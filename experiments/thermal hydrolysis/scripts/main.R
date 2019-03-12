@@ -28,7 +28,7 @@ source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo
 source('BMP.R')
-source('BMPcomp.R')
+#source('BMPcomp.R')
 
 # Clean data prior to analysis
 source('merge.R')

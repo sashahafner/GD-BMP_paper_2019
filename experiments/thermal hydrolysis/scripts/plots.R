@@ -1,5 +1,41 @@
 # Plots
 
+# Plots for R4 bad data
+BMP.gd03.06.grav <- subset(BMP, method == 'gd03' | method == 'gd06' | method == 'grav')
+BMP.gd03.06.grav$lwr <- BMP.gd03.06.grav$mean - BMP.gd03.06.grav$sd
+BMP.gd03.06.grav$upr <- BMP.gd03.06.grav$mean + BMP.gd03.06.grav$sd
+
+ggplot(BMP.gd03.06.grav) +
+  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+#theme(legend.position = 'none')
+ggsave('../plots/barplot_R3C.png')
+
+ggplot(BMP.gd03.06.grav) +
+  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggsave('../plots/Barplot2_R3C.png')
+
+# Plot with reverse of method/descrip [2]
+ggplot(BMP, aes(descrip, mean, colour = method)) +
+  geom_point() + geom_line(aes(group = method)) +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+                position=position_dodge(0.05)) +
+  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  theme_bw() +
+  theme(text = element_text(size = 10))
+
+ggsave('../plots/method_comparison_BMP_reverse.png')
+#ggsave('../plots/method_comparison_BMP_reverse_exper2_good_substrate.png')
+# ----------------------------------------
+
+
 # Plots
 ggplot(BMP, aes(method, mean), fill = method, color = method) +
   geom_bar(stat = 'identity', color = 'black') + 
