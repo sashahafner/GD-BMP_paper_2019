@@ -11,8 +11,9 @@ ggsave('../plots/GD_methods_barplot.png')
 # See how "nice" Substrate D is - which has no leaks
 
 # yld
-ggplot(yld, aes(elapsed.time, mean)) +
-  geom_line() +
+yld$pid <- interaction(yld$descrip, yld$method)
+ggplot(yld, aes(elapsed.time, mean, group = pid)) +
+  geom_line(aes(colour = method)) +
   facet_wrap(~ descrip)
 ggsave('../plots/yld.interaction.png')
 
@@ -35,7 +36,7 @@ ggplot(BMP, aes(method, mean, colour = descrip)) +
          geom_point() + geom_line(aes(group = descrip)) + 
          geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
          position=position_dodge(0.05)) + 
-         labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
+         labs(x = 'Method', y = 'BMP [mL]', colour = 'Description')  + 
          theme_bw() + 
          theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP.png')
@@ -46,13 +47,11 @@ ggplot(BMP, aes(descrip, mean, colour = method)) +
   geom_point() + geom_line(aes(group = method)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
-  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  labs(x = 'Description', y = 'BMP [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
+ggsave('../plots/method_comparison_BMP_reverse.onlyGD.png')
 ggsave('../plots/method_comparison_BMP_reverse.png')
-
-# Extra: Plot mean data for each substrate (with ino and substrate correction) - But change to get the full amount of bottles
-
 
 # ----------------------
 
