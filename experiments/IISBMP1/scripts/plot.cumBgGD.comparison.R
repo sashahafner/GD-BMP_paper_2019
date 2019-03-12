@@ -1,8 +1,11 @@
 # Plots for results 3.2
 
 # USED IN PAPER PART 3A. 
-SubC <- subset(BMP2, descrip == 'C')
-ggplot(SubC) +
+BMPSubC <- subset(BMP2, descrip == 'C')
+BMPSubC$lwr <- BMPSubC$mean - BMPSubC$sd
+BMPSubC$upr <- BMPSubC$mean + BMPSubC$sd
+
+ggplot(BMPSubC) +
   geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
   #facet_grid(. ~ exper, scales = 'free_x') +
@@ -12,16 +15,17 @@ ggplot(SubC) +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP2_comp_bars_R3C.png')
 
-# Plot with reverse of method/descrip [2]
-ggplot(BMP2, aes(descrip, mean, colour = method)) +
-  geom_point() + geom_line(aes(group = method)) +
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-                position=position_dodge(0.05)) +
-  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
-  theme_bw() +
-  theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse_exper2.png')
-#ggsave('../plots/method_comparison_BMP_reverse_exper2_good_substrate.png')
+# Same plot but only with GD3
+d <- subset(BMP2, method %in% c('grav', 'gd03'))
+d$lwr <- d$mean - d$sd
+d$upr <- d$mean + d$sd
+
+ggplot(d) +
+  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggsave('../plots/BMP2_comp_bars_good_substrate_GD03_R3.2.png')
 
 
 # ----------------------------------------------------------------------
