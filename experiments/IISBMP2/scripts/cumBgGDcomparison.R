@@ -5,8 +5,8 @@ options(unit.pres = 'hPa')
 
 # New gd function     (apply final, grav, total)
 cbg.gd <- cumBgGD(biogas, 
-                  temp.vol = 20, pres.vol = 1.01325,
-                  temp.grav = 30, pres.grav = 1.5,
+                  temp.vol = 'temp.air', pres.vol = 'pres.amb',
+                  temp.grav = 30, pres.grav = 1500,
                   id.name = 'id',vol.name = 'vol',
                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
                   comp.name = 'xCH4', time.name = 'elapsed.time', 
