@@ -1,6 +1,6 @@
 # Corrects measured masses for drift 
 
-water$mass.drift <- water$mass.init - water$mass.init[water$date == '27.09.2018']
+water$mass.drift <- water$mass.init[water$date == '27.09.2018'] - water$mass.init
 drift.dat <- water[, c('date', 'mass.drift')]
 
 biogas <- merge(biogas, drift.dat, by = 'date')
