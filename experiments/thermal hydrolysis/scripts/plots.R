@@ -4,7 +4,6 @@
 BMP.gd03.06.grav <- subset(BMP, method == 'gd03' | method == 'gd06' | method == 'grav')
 BMP.gd03.06.grav$lwr <- BMP.gd03.06.grav$mean - BMP.gd03.06.grav$sd
 BMP.gd03.06.grav$upr <- BMP.gd03.06.grav$mean + BMP.gd03.06.grav$sd
-
 ggplot(BMP.gd03.06.grav) +
   geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
@@ -23,16 +22,15 @@ ggplot(BMP.gd03.06.grav) +
 ggsave('../plots/Barplot2_R3C.png')
 
 # Plot with reverse of method/descrip [2]
-ggplot(BMP, aes(descrip, mean, colour = method)) +
-  geom_point() + geom_line(aes(group = method)) +
+ggplot(BMP, aes(method, mean, colour = descrip)) +
+  geom_point() + geom_line(aes(group = descrip)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
+ggsave('../plots/method_comparison_BMP_reverse2.png')
 
-ggsave('../plots/method_comparison_BMP_reverse.png')
-#ggsave('../plots/method_comparison_BMP_reverse_exper2_good_substrate.png')
 # ----------------------------------------
 
 
@@ -178,47 +176,47 @@ ggsave('../plots/method_comparison_BMP_reverse.png')
 
 # ----------------------
 
-# Plots for method comparison directly
-jpeg('../plots/method_comparison_to_GD.png')
-par(mfrow=c(3,1))
-plot(BMP.all$mean.gd10, BMP.all$mean.grav)         # Seems to be no relation to grav
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.man)          # Looks okay similar to man
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.vol)          # Looks okay similar to vol
-abline(0,1)
-dev.off()
-
-# Plots for comparion all methods
-jpeg('../plots/method_comparison_all_methods.png')
-par(mfrow=c(3,2))
-plot(BMP.all$mean.gd10, BMP.all$mean.grav)         # Seems to be no relation to grav
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.man)          # Looks okay similar to man
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.vol)          # Looks okay similar to vol
-abline(0,1)
-plot(BMP.all$mean.vol, BMP.all$mean.man)
-abline(0,1)
-plot(BMP.all$mean.vol, BMP.all$mean.grav)
-abline(0,1)
-plot(BMP.all$mean.man, BMP.all$mean.grav)
-abline(0,1)
-dev.off()
-
-
-jpeg('../plots/method_comparison_gd_methods.png')
-par(mfrow=c(3,2))
-plot(BMP.all$mean.gd10, BMP.all$mean.gd7)         # Seems to be no relation to grav
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.gd8)          # Looks okay similar to man
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.gd9)          # Looks okay similar to vol
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.gd11)
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.gd12)
-abline(0,1)
-plot(BMP.all$mean.gd10, BMP.all$mean.vol)
-abline(0,1)
-dev.off()
+# # Plots for method comparison directly
+# jpeg('../plots/method_comparison_to_GD.png')
+# par(mfrow=c(3,1))
+# plot(BMP.all$mean.gd10, BMP.all$mean.grav)         # Seems to be no relation to grav
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.man)          # Looks okay similar to man
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.vol)          # Looks okay similar to vol
+# abline(0,1)
+# dev.off()
+# 
+# # Plots for comparion all methods
+# jpeg('../plots/method_comparison_all_methods.png')
+# par(mfrow=c(3,2))
+# plot(BMP.all$mean.gd10, BMP.all$mean.grav)         # Seems to be no relation to grav
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.man)          # Looks okay similar to man
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.vol)          # Looks okay similar to vol
+# abline(0,1)
+# plot(BMP.all$mean.vol, BMP.all$mean.man)
+# abline(0,1)
+# plot(BMP.all$mean.vol, BMP.all$mean.grav)
+# abline(0,1)
+# plot(BMP.all$mean.man, BMP.all$mean.grav)
+# abline(0,1)
+# dev.off()
+# 
+# 
+# jpeg('../plots/method_comparison_gd_methods.png')
+# par(mfrow=c(3,2))
+# plot(BMP.all$mean.gd10, BMP.all$mean.gd7)         # Seems to be no relation to grav
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.gd8)          # Looks okay similar to man
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.gd9)          # Looks okay similar to vol
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.gd11)
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.gd12)
+# abline(0,1)
+# plot(BMP.all$mean.gd10, BMP.all$mean.vol)
+# abline(0,1)
+# dev.off()
