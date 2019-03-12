@@ -7,6 +7,15 @@ vari <- summarise(group_by(BMP, descrip),
                            min = min(mean),
                            max = max(mean), 
                            diff.perc = (max(mean)-min(mean))/max(mean)*100)
+
+vari.grav.gd3 <- summarise(group_by(BMP.gd3.grav, descrip), 
+                  mean.subs = mean(mean),
+                  stddev = mean(sd),
+                  stderr = mean(se), 
+                  min = min(mean),
+                  max = max(mean), 
+                  diff.perc = (max(mean)-min(mean))/max(mean)*100)
+
                           
 # Variations in gd methods
 gd.vari <- summarise(group_by(BMP.gd, descrip), 

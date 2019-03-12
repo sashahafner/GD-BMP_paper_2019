@@ -1,14 +1,30 @@
 # Make plots for xCH4
 
 #xCH4 all comparison
-ggplot(xCH4.all, aes(elapsed.time, xCH4, colour = descrip)) + 
+ggplot(xCH4.all, aes(elapsed.time, xCH4, color = id)) + 
   geom_point() + geom_line(aes(group = id)) + 
-  labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
-  ggtitle('Composition Comparison') +
+  labs(x = 'Time [d]', y = 'CH4 Composition')  + 
+  # ggtitle('Composition Comparison among Averaging') +
+  # geom_hline(yintercept = xCH4.gd3[1, xCH4]) +
   theme_bw() + 
   theme(text = element_text(size = 8)) +
-  facet_grid(method ~ . )   # What is the best grid after adding all (or chosen) gd methods
+  facet_wrap(method ~ . )
 ggsave('../plots/xCH4.comparison.png')
+ggsave('../plots/xCH4.comparisonR1color.png')
+ggsave('../plots/xCH4.comparisonR1nocolor.png')
+ggsave('../plots/xCH4.comparison.wrap.png')
+
+ggplot(xCH4.all, aes(elapsed.time, xCH4, color = id)) + 
+  geom_point() + geom_line(aes(group = id)) + 
+  labs(x = 'Time [d]', y = 'CH4 Composition')  + 
+  ggtitle('Composition Comparison among Averaging') +
+  # geom_hline(yintercept = xCH4.gd3[1, xCH4]) +
+  theme_bw() + 
+  theme(text = element_text(size = 8)) +
+  facet_wrap(method ~ . )
+ggsave('../plots/xCH4.comparison.png')
+ggsave('../plots/xCH4.comparisonR1.png')
+
 
 
 ggplot(xCH4.all, aes(elapsed.time, xCH4, colour = descrip)) + 

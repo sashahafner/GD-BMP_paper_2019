@@ -15,3 +15,10 @@ xCH4 <- merge(comp.gd, comp.GC, by= c('id', 'descrip', 'elapsed.time'))
 # Methane composition for rowbinded
 comp.GC$method <- 'grav.GC'
 xCH4.all <- rbind(comp.gd.all, comp.GC)
+
+# Subset for first part of results (show int averaging is bad)
+xCH4.all <- subset(xCH4.all, method == 'gd1' & descrip == 'C' | method == 'gd2' & descrip == 'C' |  method == 'grav.GC' & descrip == 'C'|  method == 'gd3' & descrip == 'C')
+xCH4.gd3 <- subset(xCH4.all, method == 'gd3')
+
+# Subset for second part of results (show gd3 is good)
+BMP.gd3.grav <- subset(BMP, method == 'gd3' | method == 'grav')
