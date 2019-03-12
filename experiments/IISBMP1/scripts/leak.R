@@ -18,49 +18,49 @@ biogas <- merge(biogas, leaks, by = c('id.exper', 'exper', 'elapsed.time'))
 leaks1 <- leaks[leaks$exper == 1, ]
 leaks2 <- leaks[leaks$exper == 2, ]
   
-# Checking leaks
-jpeg('../plots/leaks.png')
-plot(leaks$elapsed.time, 
-     leaks$mass.leak)
-abline(0, 0)
-abline(detect.lim.int, 0)
-dev.off()
-
-# Checking leaks
-jpeg('../plots/leaks1.2.png')
-par(mfrow = c(1,2))
-plot(leaks1$elapsed.time, 
-     leaks1$mass.leak)
-abline(0, 0)
-abline(detect.lim.int1, 0)
-
-plot(leaks2$elapsed.time, 
-     leaks2$mass.leak)
-abline(0, 0)
-abline(detect.lim.int2, 0)
-dev.off()
-
-# Plot leaks
-jpeg('../plots/cumleaks.png')
-par(mfrow = c(1,1))
-plot(leaks$elapsed.time, 
-     leaks$cmass.leak)
-abline(0, 0)
-abline(detect.lim.tot, 0)
-dev.off()
-
-jpeg('../plots/cumleaks1.2.png')
-par(mfrow = c(1,2))
-plot(leaks1$elapsed.time, 
-     leaks1$cmass.leak)
-abline(0, 0)
-abline(detect.lim.tot2, 0)
-
-plot(leaks2$elapsed.time, 
-     leaks2$cmass.leak)
-abline(0, 0)
-abline(detect.lim.tot2, 0)
-dev.off()
+# # Checking leaks
+# jpeg('../plots/leaks.png')
+# plot(leaks$elapsed.time, 
+#      leaks$mass.leak)
+# abline(0, 0)
+# abline(detect.lim.int, 0)
+# dev.off()
+# 
+# # Checking leaks
+# jpeg('../plots/leaks1.2.png')
+# par(mfrow = c(1,2))
+# plot(leaks1$elapsed.time, 
+#      leaks1$mass.leak)
+# abline(0, 0)
+# abline(detect.lim.int1, 0)
+# 
+# plot(leaks2$elapsed.time, 
+#      leaks2$mass.leak)
+# abline(0, 0)
+# abline(detect.lim.int2, 0)
+# dev.off()
+# 
+# # Plot leaks
+# jpeg('../plots/cumleaks.png')
+# par(mfrow = c(1,1))
+# plot(leaks$elapsed.time, 
+#      leaks$cmass.leak)
+# abline(0, 0)
+# abline(detect.lim.tot, 0)
+# dev.off()
+# 
+# jpeg('../plots/cumleaks1.2.png')
+# par(mfrow = c(1,2))
+# plot(leaks1$elapsed.time, 
+#      leaks1$cmass.leak)
+# abline(0, 0)
+# abline(detect.lim.tot2, 0)
+# 
+# plot(leaks2$elapsed.time, 
+#      leaks2$cmass.leak)
+# abline(0, 0)
+# abline(detect.lim.tot2, 0)
+# dev.off()
 
 # Make a subset where samples with high leak is removed
 large.leaks <- subset(filter(leaks, cmass.leak > detect.lim.tot))
