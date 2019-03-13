@@ -45,3 +45,6 @@ source('export_results.R')
 
 # Export manipulated results
 source('export_manipulated.R')
+
+# Compare gd methods
+source('compare.R')
