@@ -11,7 +11,7 @@ ggplot(BMP.gd3.grav, aes(method, mean, colour = descrip)) +
   labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_R2gd3grav.png')
+ggsave('../plots/scatter_R2a.png')
 
 # Plot with reverse of method/descrip
 ggplot(BMP.gd3.grav, aes(descrip, mean, colour = method)) +
@@ -21,7 +21,7 @@ ggplot(BMP.gd3.grav, aes(descrip, mean, colour = method)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse_R2.2.png')
+ggsave('../plots/scatterR2_not.used.png')
 
 # Barplot option
 BMP.gd3.grav$lwr <- BMP.gd3.grav$mean - BMP.gd3.grav$sd
@@ -34,8 +34,8 @@ ggplot(BMP.gd3.grav) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/BMP_barplot.R2.pdf', height = 6, width = 6, scale = 1.2)
-ggsave('../plots/BMP_barplot.R2.png')
+ggsave('../plots/BMP_barplot.R2b.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP_barplot.R2b.png')
 
 
 # ------------------------------------------------------------
@@ -50,7 +50,7 @@ ggplot(BMP, aes(method, mean, colour = descrip)) +
   labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
   theme_bw() + 
   theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP.png')
+ggsave('../plots/scatter_all_methods.png')
 
 
 # Plot with reverse of method/descrip
@@ -61,7 +61,7 @@ ggplot(BMP, aes(descrip, mean, colour = method)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse.png')
+#ggsave('../plots/method_comparison_BMP_reverse.png')
 
 # Barplot option
 BMP$lwr <- BMP$mean - BMP$sd
@@ -74,5 +74,5 @@ ggplot(BMP) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/BMP_barplot.pdf', height = 6, width = 6, scale = 1.2)
-ggsave('../plots/BMP_barplot.png')
+ggsave('../plots/BMP_barplot_all.methods.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP_barplot_all.methods.png')
