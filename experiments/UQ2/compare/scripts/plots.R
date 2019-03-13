@@ -9,7 +9,7 @@ ggplot(BMP.gd3.grav, aes(method, mean, colour = descrip)) +
   geom_hline(yintercept = predBg("C6H10O5"), linetype = "dashed", color = "lightblue", size = 1) +
   geom_hline(yintercept = predBg("C18H32O8N"),linetype = "dashed", color = "red", size = 1) +
   labs(x = 'Method', y = 'Mean Cumulative CH4 [mL]', colour = 'Description')  + 
-  theme_bw() + 
+  theme_bw() + ylim(0,650) +
   theme(text = element_text(size = 10))
 ggsave('../plots/scatter_R2a.png')
 
