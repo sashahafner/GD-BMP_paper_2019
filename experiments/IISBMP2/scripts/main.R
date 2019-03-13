@@ -1,6 +1,8 @@
 # Runs complete analysis of IISBMP2 AU data
 # Camilla G. Justesen
 
+# RESTART R WHEN HAVING PROBLEMS
+
 # Load functions
 source('functions.R')
 
@@ -43,3 +45,6 @@ source('export_results.R')
 
 # Export manipulated results
 source('export_manipulated.R')
+
+# Make result table for R5
+source('IISBMP2_comparison.R')
