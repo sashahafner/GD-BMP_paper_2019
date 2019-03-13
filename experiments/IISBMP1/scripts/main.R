@@ -45,7 +45,7 @@ source('merge.R')
 # Graphical comparison of methods
 # source('plots.R')
 source('plot.cumBgGD.comparison.R')
-source('xCH4.plots.R')
+#source('xCH4.plots.R')
 
 # Export results
 source('export_results.R')

@@ -13,7 +13,7 @@ ggplot(BMPSubC) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/BMP2_comp_bars_R3C.png')
+ggsave('../plots/BarplotR_3A.png')
 
 # Same plot but only with GD3
 d <- subset(BMP2, method %in% c('grav', 'gd03'))
@@ -25,7 +25,7 @@ ggplot(d) +
   geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
   labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
-ggsave('../plots/BMP2_comp_bars_good_substrate_GD03_R3.2.png')
+ggsave('../plots/Barplot_R3B.png')
 
 
 # ----------------------------------------------------------------------
@@ -75,15 +75,6 @@ ggsave('../plots/BMP2_comp_bars_good_substrate.png')
 # ggsave('../plots/BMP2_comp_bars_good_substrate.pdf', height = 6, width = 6, scale = 1.2)
 # ggsave('../plots/BMP2_comp_bars_good_substrate.png')
 
-# Same plot but only with GD3
-d <- subset(BMP2, method %in% c('grav', 'gd03'))
-ggplot(d) +
-  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
-  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
-  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
-ggsave('../plots/BMP2_comp_bars_good_substrate_GD03.png')
-
 # Barplot option
 ggplot(BMP2) +
   geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
@@ -93,7 +84,6 @@ ggplot(BMP2) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/BMP2_comp_bars_reverse.pdf', height = 6, width = 6, scale = 1.2)
 ggsave('../plots/BMP2_comp_bars_reverse.png')
 
 SubA <- subset(BMP2, descrip == 'A')
@@ -105,7 +95,6 @@ ggplot(SubA) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/BMP2_comp_bars_A.pdf', height = 6, width = 6, scale = 1.2)
 ggsave('../plots/BMP2_comp_bars_A.png')
 
 SubB <- subset(BMP2, descrip == 'B')
@@ -140,5 +129,3 @@ ggplot(SubEtOH) +
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP2_comp_bars_EtOH.png')
-
-
