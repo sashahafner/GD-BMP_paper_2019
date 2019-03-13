@@ -13,9 +13,8 @@ source('load.R')
 # Clean data
 source('clean.R')
 
-# Calculation of water detection limits 
+# Calculation of water detection limits and drift
 source('water_detect_lim.R')
-
 source('drift_correction.R')
 
 # Calculate leakage from biogas bottles
