@@ -13,6 +13,10 @@ ggplot(BMP.gd3.grav, aes(method, mean, colour = descrip)) +
   theme(text = element_text(size = 10))
 ggsave('../plots/scatter_R2a.png')
 
+# Table for BMP.gd3.grav comparison instead of a plot
+write.csv(BMP.gd3.grav[, c("method", "descrip", "mean", "sd")], '../output/BMP_grav_gd03_comparison.csv', row.names = FALSE)
+
+
 # Plot with reverse of method/descrip
 ggplot(BMP.gd3.grav, aes(descrip, mean, colour = method)) +
   geom_point() + geom_line(aes(group = method)) +
