@@ -9,7 +9,7 @@ ggplot(xCH4.all, aes(elapsed.time, xCH4)) +
   theme_bw() + 
   theme(text = element_text(size = 8)) +
   facet_grid( ~ method )
-  ggsave('../plots/xCH4.comparison_R1.png')
+  ggsave('../plots/xCH4.comparison_R1.png', width = 6, height = 3)
 # ggsave('../plots/xCH4.comparison.wrap.png')
 # , color = id
   
