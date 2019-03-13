@@ -17,7 +17,7 @@ biogas$date <- sprintf("%08i", biogas$date)
 
 # Make a date/time column for measured table and composition table
 biogas$date.time <- dmy_hm(paste0(biogas$date, biogas$time))
-sum(is.na(biogas$date.time))   # Fail in of 48 rows due to NAs
+#sum(is.na(biogas$date.time))   # Fail in of 48 rows due to NAs
 
 comp$date.time <- dmy_hm(paste0(comp$date, comp$time))
 

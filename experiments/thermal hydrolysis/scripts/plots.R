@@ -4,6 +4,7 @@
 BMP.gd03.06.grav <- subset(BMP, method == 'gd03' | method == 'gd06' | method == 'grav')
 BMP.gd03.06.grav$lwr <- BMP.gd03.06.grav$mean - BMP.gd03.06.grav$sd
 BMP.gd03.06.grav$upr <- BMP.gd03.06.grav$mean + BMP.gd03.06.grav$sd
+
 ggplot(BMP.gd03.06.grav) +
   geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
@@ -12,30 +13,30 @@ ggplot(BMP.gd03.06.grav) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/barplot_R3C.png')
+ggsave('../plots/barplot_R4A.png')
 
 ggplot(BMP.gd03.06.grav) +
   geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
   labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
-ggsave('../plots/Barplot2_R3C.png')
+ggsave('../plots/Barplot2_R4B.png')
 
 # Plot with reverse of method/descrip [2]
-ggplot(BMP, aes(method, mean, colour = descrip)) +
+ggplot(BMP.gd03.06.grav, aes(method, mean, colour = descrip)) +
   geom_point() + geom_line(aes(group = descrip)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse2.png')
+ggsave('../plots/scatter_R4C.png')
 
 # ----------------------------------------
 
 
 # Plots
-ggplot(BMP, aes(method, mean), fill = method, color = method) +
+ggplot(BMP.gd03.06.grav, aes(method, mean), fill = method, color = method) +
   geom_bar(stat = 'identity', color = 'black') + 
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2)+
   ggtitle("GD Method") +
@@ -46,17 +47,17 @@ theme_bw() +
 ggsave('../plots/GD_methods_barplot.png')
 # See how "nice" Substrate D is - which has no leaks
 
-# More interesting with yld
-yld$pid <- interaction(yld$descrip, yld$method)
-ggplot(yld, aes(elapsed.time, mean, group = pid)) +
-  geom_line(aes(colour = method)) +
-  facet_wrap(~ descrip)
-ggsave('../plots/yld.interaction.png')
-
-ggplot(yld, aes(elapsed.time, mean)) +
-  geom_line(aes(colour = method)) +
-  facet_wrap(~ descrip)
-ggsave('../plots/yld.png')
+# # More interesting with yld
+# yld$pid <- interaction(yld$descrip, yld$method)
+# ggplot(yld, aes(elapsed.time, mean, group = pid)) +
+#   geom_line(aes(colour = method)) +
+#   facet_wrap(~ descrip)
+# ggsave('../plots/yld.interaction.png')
+# 
+# ggplot(yld, aes(elapsed.time, mean)) +
+#   geom_line(aes(colour = method)) +
+#   facet_wrap(~ descrip)
+# ggsave('../plots/yld.png')
 
 
 # ----------------------
@@ -70,15 +71,15 @@ ggplot(BMP, aes(method, mean, colour = descrip)) +
   theme(text = element_text(size = 10))
 ggsave('../plots/method_comparison_BMP.png')
 
-# Plot with reverse of method/descrip
-ggplot(BMP, aes(descrip, mean, colour = method)) +
-  geom_point() + geom_line(aes(group = method)) +
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-                position=position_dodge(0.05)) +
-  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
-  theme_bw() +
-  theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse.png')
+# # Plot with reverse of method/descrip
+# ggplot(BMP, aes(descrip, mean, colour = method)) +
+#   geom_point() + geom_line(aes(group = method)) +
+#   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
+#                 position=position_dodge(0.05)) +
+#   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+#   theme_bw() +
+#   theme(text = element_text(size = 10))
+# ggsave('../plots/method_comparison_BMP_reverse.png')
 
 
 

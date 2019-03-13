@@ -2,8 +2,9 @@
 write.csv(cbg.vol, '../output/cbg.vol.csv', row.names = FALSE)
 write.csv(cbg.man, '../output/cbg.man.csv', row.names = FALSE)
 write.csv(cbg.grav, '../output/cbg.grav.csv', row.names = FALSE)
-write.csv(cbg.gd, '../output/cbg.gD.csv', row.names = FALSE)
-write.csv(cbg.all, '../output/cbg.all.csv', row.names = FALSE)
+write.csv(cbg.gd03, '../output/cbg.gd03.csv', row.names = FALSE)
+write.csv(cbg.gd06, '../output/cbg.gd06.csv', row.names = FALSE)
+# write.csv(cbg.all, '../output/cbg.all.csv', row.names = FALSE)
 
 write.csv(BMP, '../output/BMP.csv', row.names = FALSE)
 write.csv(BMPo, '../output/BMPo.csv', row.names = FALSE)
