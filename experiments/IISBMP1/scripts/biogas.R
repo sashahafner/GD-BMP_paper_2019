@@ -32,8 +32,8 @@ cbg.man <- cumBg(biogas, dat.type = 'pres', temp = 30,
 which(is.na(biogas$mass.init))
 which(is.na(biogas$mass.final))
 
-biogas.grav <- biogas[!is.na(biogas$mass.init), ]
-cbg.grav <- cumBg(biogas.grav, dat.type = 'mass', 
+#biogas.grav <- biogas[!is.na(biogas$mass.init), ]
+cbg.grav <- cumBg(biogas, dat.type = 'mass', 
                   temp = 30, pres = 1.50,
                   data.struct = 'longcombo',
                   id.name = 'id.exper', time.name = 'elapsed.time',
