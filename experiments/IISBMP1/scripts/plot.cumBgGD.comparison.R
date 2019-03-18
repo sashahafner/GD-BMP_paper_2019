@@ -75,6 +75,16 @@ ggsave('../plots/BMP2_comp_bars_good_substrate.png')
 # ggsave('../plots/BMP2_comp_bars_good_substrate.pdf', height = 6, width = 6, scale = 1.2)
 # ggsave('../plots/BMP2_comp_bars_good_substrate.png')
 
+# Barplot option for presentation
+dd <- subset(BMP2, method %in% c('grav', 'gd03'))
+dd$method <- factor(dd$method, levels = c('grav', 'gd03'), labels = c('Grav.', 'GD'))
+ggplot(dd) +
+  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggsave('../plots/BMP2_comp_bars_good_substrate_v2.png', height = 4, width = 5, scale = 0.8)
+
 # Barplot option
 ggplot(BMP2) +
   geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
