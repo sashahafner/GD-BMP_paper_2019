@@ -1,7 +1,8 @@
 # Make plots for xCH4
 # Original, but adjusted axis - Camilla!
+xCH4.all.points <- subset(xCH4.all, !method == 'gd3')
 ggplot(xCH4.all, aes(elapsed.time, xCH4)) + 
-  geom_point() + geom_line(aes(group = id)) + 
+  geom_point(data = xCH4.all.points) + geom_line(aes(group = id)) + 
   labs(x = 'Time [d]', y = 'CH4 Composition')  + 
   theme_bw() + ylim(0.3,0.8) + 
   theme(text = element_text(size = 8)) +
