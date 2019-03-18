@@ -17,8 +17,9 @@ comp.GC$method <- 'grav.GC'
 xCH4.all <- rbind(comp.gd.all, comp.GC)
 
 # Subset for first part of results (show int averaging is bad)
-xCH4.all <- subset(xCH4.all, method == 'gd1' & descrip == 'C' | method == 'gd2' & descrip == 'C' |  method == 'grav.GC' & descrip == 'C'|  method == 'gd3' & descrip == 'C')
-xCH4.gd3 <- subset(xCH4.all, method == 'gd3')
+xCH4.all <- subset(xCH4.all, method == 'gd01' & descrip == 'C' | method == 'gd02' & descrip == 'C' |  method == 'grav.GC' & descrip == 'C'|  method == 'gd03' & descrip == 'C')
+xCH4.gd3 <- subset(xCH4.all, method == 'gd03')
+xCH4.no.gd3 <- subset(xCH4.all, !method == 'gd03')
 
 # Subset for second part of results (show gd3 is good)
-BMP.gd3.grav <- subset(BMP, method == 'gd3' | method == 'grav')
+BMP.gd3.grav <- subset(BMP, method == 'gd03' | method == 'grav')

@@ -1,8 +1,7 @@
 # Make plots for xCH4
 # Original, but adjusted axis - Camilla!
-xCH4.all.points <- subset(xCH4.all, !method == 'gd3')
 ggplot(xCH4.all, aes(elapsed.time, xCH4)) + 
-  geom_point(data = xCH4.all.points) + geom_line(aes(group = id)) + 
+  geom_point(data = xCH4.no.gd3) + geom_line(aes(group = id)) + 
   labs(x = 'Time [d]', y = 'CH4 Composition')  + 
   theme_bw() + ylim(0.3,0.8) + 
   theme(text = element_text(size = 8)) +
@@ -21,7 +20,7 @@ xCH4.gd3.C3 <- subset(xCH4.gd3, id == 'C3')
 length(unique(xCH4.gd3.C3$xCH4))
 
 ggplot(xCH4.all.1, aes(elapsed.time, xCH4)) + 
-    geom_point() + geom_line(aes(group = id)) + 
+    geom_point(data = xCH4.no.gd3) + geom_line(aes(group = id)) + 
     labs(x = 'Time [d]', y = 'CH4 Composition')  + 
     theme_bw() + ylim(0.3,0.8) + 
     theme(text = element_text(size = 8)) +
@@ -69,7 +68,7 @@ ggplot(xCH4, aes(elapsed.time, xCH4, colour = descrip)) +
   ggsave('../plots/xCH4.grav.png', , width = 6, height = 3)
 
 #gd1 (int, grav, total)
-ggplot(xCH4, aes(elapsed.time, xCH4_gd1, colour = descrip)) + 
+ggplot(xCH4, aes(elapsed.time, xCH4_gd01, colour = descrip)) + 
   geom_point() + geom_line(aes(group = id)) + 
   labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
   ggtitle('Composition gd1') +
@@ -78,7 +77,7 @@ ggplot(xCH4, aes(elapsed.time, xCH4_gd1, colour = descrip)) +
 ggsave('../plots/xCH4.gd1.png', width = 6, height = 3)
 
 # gd2 (cum, grav, total)
-ggplot(xCH4, aes(elapsed.time, xCH4_gd2, colour = descrip)) + 
+ggplot(xCH4, aes(elapsed.time, xCH4_gd02, colour = descrip)) + 
   geom_point() + geom_line(aes(group = id)) + 
   labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
   ggtitle('Composition gd2') +
@@ -87,7 +86,7 @@ ggplot(xCH4, aes(elapsed.time, xCH4_gd2, colour = descrip)) +
 ggsave('../plots/xCH4.gd2.png', width = 6, height = 3)
 
 #gd3 (final, grav, total)
-ggplot(xCH4, aes(elapsed.time, xCH4_gd3, colour = descrip)) + 
+ggplot(xCH4, aes(elapsed.time, xCH4_gd03, colour = descrip)) + 
   geom_point() + geom_line(aes(group = id)) + 
   labs(x = 'Time [d]', y = 'CH4 Composition', colour = 'Substrate')  + 
   ggtitle('Composition gd3') +
