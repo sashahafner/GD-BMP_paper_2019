@@ -30,7 +30,7 @@ ggplot(q, aes(method, mean, colour = descrip)) +
   geom_point() + geom_line(aes(group = descrip)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
-  labs(x = 'Method', y = expression('Mean Cumulative CH'[4]*' [mL]'), colour = 'Method')  +
+  labs(x = 'Method', y = expression('Mean cumulative CH'[4]*' [mL]'), colour = 'Method')  +
   theme_bw() +
   theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
 ggsave('../plots/scatter_R4C.png')
