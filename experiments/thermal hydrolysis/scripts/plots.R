@@ -15,24 +15,27 @@ ggplot(BMP.gd03.06.grav) +
 #theme(legend.position = 'none')
 ggsave('../plots/barplot_R4A.png')
 
-ggplot(BMP.gd03.06.grav) +
-  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+q <- subset(BMP.gd03.06.grav, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge' | descrip == 'Sludge C1' | descrip == 'Sludge C2')
+q$method.label <- factor(q$method, levels = c('gd03', 'gd06', 'grav' ), labels = c('Total mass', 'Vented mass', 'Gravimetric'))
+ggplot(q) +
+  geom_col(aes(descrip, mean, fill = method.label), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
-  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
-ggsave('../plots/Barplot2_R4B.png')
+  labs(x = 'Substrate', y = expression('BMP [mL/g]'), fill = 'Method') + theme_bw()+ 
+  theme(axis.text.x = element_text(angle = 20, hjust = 1), legend.title = element_blank())
+ggsave('../plots/Barplot2_R4B.png', width = 5, height = 3)
 
 # Plot with reverse of method/descrip [2]
 q <- subset(BMP.gd03.06.grav, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge' | descrip == 'Sludge C1' | descrip == 'Sludge C2')
 q$method <- factor(q$me, levels = c('gd03', 'gd06', 'grav' ), labels = c('Total mass', 'Vented mass', 'Gravimetric'))
 
-ggplot(q, aes(method, mean, colour = descrip)) +
+q$method.label <- factor(q$method, levels = c('gd03', 'gd06', 'grav'), labels = c('GD (total mass)', 'GD (vented mass)', 'Gravimetric'))
+ggplot(q, aes(method.label, mean, colour = descrip)) +
   geom_point() + geom_line(aes(group = descrip)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
-  labs(x = 'Method', y = expression('Mean cumulative CH'[4]*' [mL]'), colour = 'Method')  +
+  labs(x = 'Method', y = expression('BMP CH'[4]*' [mL/g]'), colour = 'Method')  +
   theme_bw() +
-  theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
+  theme(text = element_text(size = 10), axis.text.x = element_text(angle = 90), legend.title = element_blank(), legend.position = "right" ) + 
 ggsave('../plots/scatter_R4C.png')
 
 # ----------------------------------------
