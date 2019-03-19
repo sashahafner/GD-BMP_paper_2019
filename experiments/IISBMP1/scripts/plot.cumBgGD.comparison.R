@@ -9,22 +9,21 @@ ggplot(BMPSubC) +
   geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
   #facet_grid(. ~ exper, scales = 'free_x') +
-  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
-#theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
-#theme(legend.position = 'none')
+  labs(x = 'Method', y = expression('BMP [mL/g]'), fill = 'Substrate') + theme_bw()+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  + guides(fill = FALSE) +
 ggsave('../plots/BarplotR_3A.png')
 
 # Same plot but only with GD3
 d <- subset(BMP2, method %in% c('grav', 'gd03'))
 d$lwr <- d$mean - d$sd
 d$upr <- d$mean + d$sd
+sub.lab <- c("A" = "FIA", "B" = "FIB", "C" = "FIC", "Ethanol" = "Ethanol")
 
 ggplot(d) +
   geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
-  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  labs(x = "Substrate", y =expression('BMP [mL/g]'), fill = 'Method') + theme_bw() +   scale_color_hue(labels = c("GD", "Gravimetric")) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
 ggsave('../plots/Barplot_R3B.png')
 
 
