@@ -23,13 +23,16 @@ ggplot(BMP.gd03.06.grav) +
 ggsave('../plots/Barplot2_R4B.png')
 
 # Plot with reverse of method/descrip [2]
-ggplot(BMP.gd03.06.grav, aes(method, mean, colour = descrip)) +
+q <- subset(BMP.gd03.06.grav, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge' | descrip == 'Sludge C1' | descrip == 'Sludge C2')
+q$method <- factor(q$me, levels = c('gd03', 'gd06', 'grav' ), labels = c('Total mass', 'Vented mass', 'Gravimetric'))
+
+ggplot(q, aes(method, mean, colour = descrip)) +
   geom_point() + geom_line(aes(group = descrip)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
-  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  labs(x = 'Method', y = expression('Mean Cumulative CH'[4]*' [mL]'), colour = 'Method')  +
   theme_bw() +
-  theme(text = element_text(size = 10))
+  theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
 ggsave('../plots/scatter_R4C.png')
 
 # ----------------------------------------

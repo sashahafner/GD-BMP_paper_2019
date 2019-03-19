@@ -4,7 +4,7 @@ method.lab <- c("gd01" = "No averaging, interval", "gd02" = "Cumulative average"
 
 ggplot(xCH4.all, aes(elapsed.time, xCH4)) + 
   geom_point(data = xCH4.no.gd3) + geom_line(aes(group = id)) + 
-  labs(x = 'Time [d]', y = 'CH4 Composition [mol/mol]')  + 
+  labs(x = 'Time [d]', y = expression('CH'[4]*' composition [mol/mol]'))  + 
   theme_bw() + ylim(0.3,0.8) + 
   theme(text = element_text(size = 8)) +
   facet_grid( ~ method, labeller = as_labeller(method.lab))
