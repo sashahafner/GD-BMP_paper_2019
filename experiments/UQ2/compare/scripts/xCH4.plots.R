@@ -7,7 +7,7 @@ ggplot(xCH4.all, aes(elapsed.time, xCH4)) +
   labs(x = 'Time [d]', y = expression('CH'[4]*' composition [mol/mol]'))  + 
   theme_bw() + ylim(0.3,0.8) + 
   theme(text = element_text(size = 8)) +
-  facet_grid( ~ method, labeller = as_labeller(method.lab))
+  facet_grid( ~ method, labeller = as_labeller(method.lab)) + 
 ggsave('../plots/xCH4.comparison_R1_original.png', width = 6, height = 3)
 
 
