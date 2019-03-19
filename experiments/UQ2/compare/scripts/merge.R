@@ -23,3 +23,8 @@ xCH4.no.gd3 <- subset(xCH4.all, !method == 'gd03')
 
 # Subset for second part of results (show gd3 is good)
 BMP.gd3.grav <- subset(BMP, method == 'gd03' | method == 'grav')
+
+# Bind yld for GC and gd
+yld.gd <- yld.gd[, -9]
+yld <- rbind(yld.gd, yld.grav)
+yld.gd03.grav <- subset(yld, method == 'gd03' | method == 'grav')

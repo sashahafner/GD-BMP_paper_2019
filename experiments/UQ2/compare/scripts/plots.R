@@ -80,3 +80,16 @@ ggplot(BMP) +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP_barplot_all.methods.pdf', height = 6, width = 6, scale = 1.2)
 ggsave('../plots/BMP_barplot_all.methods.png')
+
+
+# Yield plot
+sub.lab <- c("C" = "FIC", "L" = "Cellulose")
+ggplot(yld.gd03.grav, aes(elapsed.time, mean, colour = method)) +
+  geom_point() + geom_line(aes(group = method)) +
+  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  theme_bw() + 
+  scale_color_hue(labels = c("GD", "Gravimetric")) +
+  labs(x = 'Time [d]', y = expression('CH'[4]*' yield [mL]'), colour = "Method" , theme()) +
+  facet_wrap(~ descrip, labeller = as_labeller(sub.lab)) + theme_bw() +
+  theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
+ggsave('../plots/yld.png', width = 8, height = 3)

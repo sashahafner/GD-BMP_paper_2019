@@ -18,3 +18,9 @@ comp.gd.all<- as.data.frame(read.csv(gdcomp.all))
 GCcomp <- "../../man.grav/results/GCxCH4.csv"
 comp.GC <- as.data.frame(read.csv(GCcomp))
 
+# yield
+yld.gd.load <- "../../gd/output/yld.csv"
+yld.gd <- as.data.frame(read.csv(yld.gd.load))
+
+yld.grav.load <- "../../man.grav/output/yld.csv"
+yld.grav <- as.data.frame(read.csv(yld.grav.load))
