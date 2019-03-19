@@ -7,7 +7,7 @@ cumBgGD <- function(
   pres.grav,                   # Pressure for grav measurement, numeric or column name
   id.name = 'id',
   time.name = 'time',
-  vol.name = 'vol', 
+  vol.name = 'vol',        # As-measured biogas volume (not standardized)
   m.pre.name,              # Name of column with mass before venting (NTS: should not be required)
   m.post.name,             # Name of column with mass after venting
   comp.name = 'xCH4',      # Name of xCH4 column *added* to the data frame

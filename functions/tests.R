@@ -78,3 +78,28 @@ plot(vCH4 ~ time, data = cp5, type = 'b', subset = id == 'a')
 
 plot(cvCH4 ~ time, data = cp5, type = 'b', subset = id == 'a', col = 'red')
 lines(cvCH4 ~ time, data = cp4, type = 'b', subset = id == 'a')
+
+# Example calculations for paper/report
+v <- 140
+dm <- 0.3
+temp <- 20
+temp.grav <- 30
+
+0.3/140
+44/22300
+
+# Standardize volume
+vBg <- stdVol(v, temp = temp, pres = 1)
+
+pH2O <- 0.61094*exp(17.625*temp.grav/(243.04 + temp.grav))
+mH2O <- molMass('H2O') * pH2O/(150 - pH2O) * 1/22300
+mH2O
+
+dens <- dm/vBg - mH2O
+
+mmBg <- dens * 22300
+
+(molMass('CO2') - mmBg) / (molMass('CO2') - molMass('CH4'))
+
+gdComp(dm, vBg, temp = 
+       args(gdComp)
