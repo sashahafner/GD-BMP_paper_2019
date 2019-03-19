@@ -1,11 +1,13 @@
 # Make plots for xCH4
 # Original, but adjusted axis - Camilla!
+method.lab <- c("gd01" = "No averaging, interval", "gd02" = "Cumulative average", "gd03" = "Total average", "grav.GC" = "GC (grav)")
+
 ggplot(xCH4.all, aes(elapsed.time, xCH4)) + 
   geom_point(data = xCH4.no.gd3) + geom_line(aes(group = id)) + 
-  labs(x = 'Time [d]', y = 'CH4 Composition')  + 
+  labs(x = 'Time [d]', y = 'CH4 Composition [mol/mol]')  + 
   theme_bw() + ylim(0.3,0.8) + 
   theme(text = element_text(size = 8)) +
-  facet_grid( ~ method)
+  facet_grid( ~ method, labeller = as_labeller(method.lab))
 ggsave('../plots/xCH4.comparison_R1_original.png', width = 6, height = 3)
 
 
