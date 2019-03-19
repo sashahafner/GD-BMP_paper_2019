@@ -1,6 +1,6 @@
 # Make plots for xCH4
 # Original, but adjusted axis - Camilla!
-method.lab <- c("gd01" = "No averaging, interval", "gd02" = "Cumulative average", "gd03" = "Total average", "grav.GC" = "GC (grav)")
+method.lab <- c("gd01" = "GD, no averaging, interval", "gd02" = "GD, cumulative average", "gd03" = "GD, total average", "grav.GC" = "GC (grav)")
 
 ggplot(xCH4.all, aes(elapsed.time, xCH4)) + 
   geom_point(data = xCH4.no.gd3) + geom_line(aes(group = id)) + 

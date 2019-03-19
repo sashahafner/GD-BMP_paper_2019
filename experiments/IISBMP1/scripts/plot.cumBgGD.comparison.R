@@ -5,12 +5,18 @@ BMPSubC <- subset(BMP2, descrip == 'FIC')
 BMPSubC$lwr <- BMPSubC$mean - BMPSubC$sd
 BMPSubC$upr <- BMPSubC$mean + BMPSubC$sd
 
+labels <- c(gd01 = 'GD01', gd02 = 'GD02', gd03 = 'GD03', gd04 = 'GD04', gd05 = 'GD05', gd06 = 'GD06',
+            gd07 = 'GD07', gd08 = 'GD08', gd09 = 'GD09', gd10 = 'GD10', gd11 = 'GD11', gd12 = 'GD12',
+            grav = 'Gravimetric')
+BMPSubC$method.label <- labels[BMPSubC$method]
+
+
 ggplot(BMPSubC) +
-  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
-  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  geom_col(aes(method.label, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method.label, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
   #facet_grid(. ~ exper, scales = 'free_x') +
   labs(x = 'Method', y = expression('BMP [mL/g]'), fill = 'Substrate') + theme_bw()+ 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))  + guides(fill = FALSE) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))  + guides(fill = FALSE) +
 ggsave('../plots/BarplotR_3A.png')
 
 # Same plot but only with GD3

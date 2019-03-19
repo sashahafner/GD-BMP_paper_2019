@@ -83,7 +83,7 @@ ggsave('../plots/BMP_barplot_all.methods.png')
 
 
 # Yield plot
-sub.lab <- c("C" = "FIC", "L" = "Cellulose")
+sub.lab <- c("C" = "Feed ingredient C", "L" = "Cellulose")
 ggplot(yld.gd03.grav, aes(elapsed.time, mean, colour = method)) +
   geom_point() + geom_line(aes(group = method)) +
   labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
