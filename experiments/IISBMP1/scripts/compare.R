@@ -11,8 +11,8 @@ vari <- summarise(group_by(BMP2, descrip),
 # Maximum variation between grav, gd03 and gd06: 
 overall <- max(vari$diff.perc)
                           
-# Variations in gd methods
-BMP.gd03.grav <- subset(BMP2, method == 'grav' | method == 'gd03')
+# Variations in gd methods (change this back if not include vol and man)
+BMP.gd03.grav <- subset(BMP2, method == 'grav' | method == 'gd03' | method == 'vol' | method == 'man')
 vari.grav.gd03 <- summarise(group_by(BMP.gd03.grav, descrip), 
                            mean.subs = mean(mean),
                            stddev = mean(sd),

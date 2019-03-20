@@ -9,8 +9,8 @@ when.BMP <- 30
 # biogas1 <- biogas[biogas$exper == 1, ]
 
 # Make a list of each experiment for all methods 
-# cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
-# cbg.man.list <- split(cbg.man, cbg.man$exper)
+cbg.vol.list <- split(cbg.vol, cbg.vol$exper)
+cbg.man.list <- split(cbg.man, cbg.man$exper)
 cbg.grav.list <- split(cbg.grav, cbg.grav$exper)
 # cbg.gd.list <- split(cbg.gd, cbg.gd$exper)
 cbg.gd01.list <- split(cbg.gd01, cbg.gd01$exper)
@@ -61,7 +61,7 @@ cbg.gd12.list <- split(cbg.gd12, cbg.gd12$exper)
 
 # Experiment 2
 cbg.list.2 <- list(
-  #vol = cbg.vol.list[[2]], man = cbg.man.list[[2]], 
+  vol = cbg.vol.list[[2]], man = cbg.man.list[[2]], 
   grav = cbg.grav.list[[2]], 
   #gd = cbg.gd.list[[2]], 
   gd01 = cbg.gd01.list[[2]], gd02 = cbg.gd02.list[[2]], gd03 = cbg.gd03.list[[2]], 

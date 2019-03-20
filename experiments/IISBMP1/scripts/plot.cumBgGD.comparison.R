@@ -10,7 +10,7 @@ labels <- c(gd01 = 'GD01', gd02 = 'GD02', gd03 = 'GD03', gd04 = 'GD04', gd05 = '
             grav = 'Gravimetric')
 BMPSubC$method.label <- labels[BMPSubC$method]
 
-
+# Only plot with substrate C
 ggplot(BMPSubC) +
   geom_col(aes(method.label, mean, fill = descrip), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(method.label, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
@@ -24,7 +24,6 @@ d <- subset(BMP2, method %in% c('grav', 'gd03'))
 
 d$lwr <- d$mean - d$sd
 d$upr <- d$mean + d$sd
-d$method.lab <- factor(d$method.lab, levels("gd03", "grav"), labels = c("GD", "Gravimetric"))
 
 ggplot(d) +
   geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') + 
@@ -33,20 +32,6 @@ ggplot(d) +
   scale_fill_discrete(labels = c("GD", "Gravimetric")) +
   theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right") +
  ggsave('../plots/Barplot_R3B.png',width = 5, height = 3 )
-
-
-# Yield plot
-sub.lab <- c("C" = "FIC", "L" = "Cellulose")
-ggplot(yld.gd03.grav, aes(elapsed.time, mean, colour = method)) +
-  geom_point() + geom_line(aes(group = method)) +
-  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
-  theme_bw() + 
-  scale_color_(labels = c("GD", "Gravimetric")) +
-  labs(x = 'Time [d]', y = expression('CH'[4]*' yield [mL]'), colour = "Method" , theme()) +
-  facet_wrap(~ descrip, labeller = as_labeller(sub.lab)) + theme_bw() +
-  theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
-  ggsave('../plots/yld.png', width = 8, height = 3)
-
 
 
 # ----------------------------------------------------------------------

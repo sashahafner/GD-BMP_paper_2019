@@ -3,8 +3,8 @@
 #----------------
 
 # Bind by rows
-# cbg.vol$method <- 'vol'
-# cbg.man$method <- 'man'
+cbg.vol$method <- 'vol'
+cbg.man$method <- 'man'
 cbg.grav$method <- 'grav'
 # cbg.gd$method <- 'gd'
 cbg.gd01$method <- 'gd01'
@@ -20,7 +20,7 @@ cbg.gd10$method <- 'gd10'
 cbg.gd11$method <- 'gd11'
 cbg.gd12$method <- 'gd12'
 
-cbg.all <- biogas:::rbindf(#cbg.vol, cbg.man, 
+cbg.all <- biogas:::rbindf(cbg.vol, cbg.man, 
   cbg.grav, 
   # cbg.gd, 
                            cbg.gd01, cbg.gd02, cbg.gd03,
