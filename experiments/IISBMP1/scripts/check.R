@@ -10,44 +10,53 @@ source('packages.R')
 args(gdComp)
 debug(gdComp)
 
-# A1-E2, 06022017
-vol.no.correction <- 97
-temp <- 30
-pres <- 150
-vol <- stdVol(vol.no.correction, temp, pres, rh = 1, 
-        temp.std = getOption("temp.std", as.numeric(NA)), 
-        pres.std = getOption("pres.std", as.numeric(NA)), 
-        unit.temp = getOption("unit.temp", "C"), 
-        unit.pres = getOption("unit.pres", "kPa"), std.message = TRUE, warn = TRUE) 
+# UQ2, 27d, L1
+vol<- 19.1547544616042    # use of already standardized vBg
+temp <- 30                # temp.grav
+pres <- 150               # pres.grav
+m <- 0.026299999999992    # total mass loss
 
-m <- 822.9-822.8
-gdComp(m, vol, temp, pres, unit.temp = getOption("unit.temp", "C"), 
-       unit.pres = getOption("unit.pres", "kPa"), fill.value = NA)
+# xCH4:
+gdComp(m, vol, temp, pres, unit.temp = 'C', unit.pres = 'kPa' )
 
-# C1-E2, 17022017
-vol.no.correction <- 140
-temp <- 30
-pres <- 150
-vol <- stdVol(vol.no.correction, temp, pres, rh = 1, 
+
+# UQ2, 27d, L1 - including standardization
+vol.no.correction<- 21.1  # Measured biogas volume
+temp <- 30                # temp.grav
+temp.stand <- 20          # temp.vol
+pres.stand <- 101.325     # pres.vol
+pres <- 150               # pres.grav
+m <- 0.026299999999992    # total mass loss
+
+# Standardize volume
+vol <- stdVol(vol.no.correction, temp.stand, pres.stand, rh = 1, 
               temp.std = getOption("temp.std", as.numeric(NA)), 
               pres.std = getOption("pres.std", as.numeric(NA)), 
-              unit.temp = getOption("unit.temp", "C"), 
-              unit.pres = getOption("unit.pres", "kPa"), std.message = TRUE, warn = TRUE) 
-m <- 1034.30-1034.1
-gdComp(0.2, vol, temp, pres, unit.temp = getOption("unit.temp", "C"), unit.pres = getOption("unit.pres", "kPa"))
+              unit.temp = 'C',  
+              unit.pres = 'kPa')
+# xCH4:
+gdComp(m, vol, temp, pres, unit.temp = 'C', unit.pres = 'kPa' )
 
 #molMass('CH4')
 
-# Problem with defining m by m.init-m.final -> 0.200000000000045???
-l <- 0.2
-n <- 0.2
-l==n
-l==m
+# Check cumBg call: 
+options(unit.pres = 'mbar', pres.std = 1013.25)
 
-# Write tables for two examples with methane composition for grav.GC and gd01-gd12 
-# Remember to load main first
-A1 <- subset(cbg.all, id.exper == 'A1-E2' & date == '06022017')
-write.csv(A1[, c('id.exper', 'elapsed.time', 'method', 'xCH4')], '../output/A1xCH4.csv', row.names = FALSE)
-C1 <- subset(cbg.all, id.exper == 'C1-E2' & date == '17022017')
-write.csv(C1[, c('id.exper', 'elapsed.time', 'method', 'xCH4')], '../output/C1xCH4.csv', row.names = FALSE)
+# Biogas by gd
+biogas <- biogas[order(biogas$id, biogas$elapsed.time), ]
+debug(cumBgGD)
+cbg.gd3 <- cumBgGD(biogas,
+                   temp.vol = 20, pres.vol = 1013.25,
+                   temp.grav = 30, pres.grav = 1500,
+                   id.name = 'id', vol.name = 'vol',
+                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
+                   comp.name = 'xCH4', time.name = 'elapsed.time',
+                   vented.mass = FALSE, averaging = 'final', vmethod = 'grav',
+                   # temp.init = 20,
+                   # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
+                   # extrap = FALSE
+                   addt0 = TRUE, showt0 = TRUE)
 
+
+bigas[, id] <- gdComp(mass = dat[, 'mass.tot'], vol = dat[, 'vBg'], temp = dat[, 'temp.grav'], 
+                           pres = dat[, 'pres.grav'], unit.temp = 'C', unit.pres = 'mbar', fill.value = 0)
