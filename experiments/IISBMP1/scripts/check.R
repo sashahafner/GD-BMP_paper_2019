@@ -12,15 +12,23 @@ args(gdComp)
 debug(gdComp)
 
 # UQ2, 27d, L1 (after gravimetric mass2vol adjustment of volume)
-vol<- 19.1547544616042    # use of already standardized vBg
+vol<- 779.1893            # use of already standardized cvBg
 temp <- 30                # temp.grav
 pres <- 150               # pres.grav
-m <- 0.026299999999992    # total mass loss
+m <- 1.0704               # total mass loss (cumulative)
 
 # xCH4:
 gdComp(m, vol, temp, pres, unit.temp = 'C', unit.pres = 'kPa' )
 # 0.4975376 compared to the cumBgGD call for GD03 as 0.496973
 
+
+
+
+
+
+
+
+# NOT USED BELOW
 # -----------------------------------------------
 # UQ2, 27d, L1 - including standardization
 vol.no.correction<- 21.1  # Measured biogas volume
