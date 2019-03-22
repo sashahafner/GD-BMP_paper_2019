@@ -146,9 +146,12 @@ cumBgGD <- function(
 
   # Get biogas composition
   if(averaging != 'fin') {
-  dat[, comp.name] <- gdComp(mass = dat[, mass.name], vol = dat[, std.vol.name], temp = dat[, temp.grav], 
+
+    dat[, comp.name] <- gdComp(mass = dat[, mass.name], vol = dat[, std.vol.name], temp = dat[, temp.grav], 
                              pres = dat[, pres.grav], unit.temp = unit.temp, unit.pres = unit.pres, fill.value = 0)
+
   } else {
+
     for(i in unique(dat[, id.name])) {
       which.id <- which(dat[, id.name]==i)
 
