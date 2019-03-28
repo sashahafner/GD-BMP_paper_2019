@@ -95,5 +95,14 @@ no.leaks2.biogas <- merge(biogas, no.leaks2.1, by = c('id.exper', 'descrip', 'ex
 
 
 # Plots
+# Plot leaks
+jpeg('../plots/cumleaks.png')
+par(mfrow = c(1,1))
+plot(leaks2$elapsed.time, 
+     leaks2$cmass.leak)
+abline(0, 0)
+abline(detect.lim.tot, 0)
+dev.off()
+
 # plot(small.leaks1$elapsed.time, small.leaks1$mass.leak)
 # plot(large.leaks$elapsed.time, large.leaks$mass.leak)
