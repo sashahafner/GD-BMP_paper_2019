@@ -22,8 +22,8 @@ biogas <- merge(biogas, leaks, by = c('id', 'date', 'elapsed.time'), all.x = TRU
 # Checking leaks
 png('../plots/leaks.png')
 plot(leaks$elapsed.time, 
-     leaks$mass.leak)
-abline(detect.lim.int, 0)
+     leaks$mass.leak,  xlab = "Time [D]", ylab = "Cumulatie mass loss [g]")
+abline(detect.lim.int, 0, col = "red")
 
 dev.off()
 
@@ -31,9 +31,10 @@ dev.off()
 jpeg('../plots/cumleaks.png')
 par(mfrow = c(1,1))
 plot(leaks$elapsed.time, 
-     leaks$cmass.leak)
+     leaks$cmass.leak, 
+     xlab = "Time [D]", ylab = "Cumulatie mass loss [g]")
 abline(0, 0)
-abline(detect.lim.tot, 0)
+abline(detect.lim.tot, 0, col = "red")
 dev.off()
 
 

@@ -25,9 +25,10 @@ dev.off()
 jpeg('../plots/cumleaks.png')
 par(mfrow = c(1,1))
 plot(leaks$elapsed.time, 
-     leaks$cmass.leak)
+     leaks$cmass.leak, 
+     xlab = "Time [D]", ylab = "Cumulatie mass loss [g]")
 abline(0, 0)
-abline(detect.lim.tot, 0)
+abline(detect.lim.tot, 0,col = "red")
 dev.off()
 
 
