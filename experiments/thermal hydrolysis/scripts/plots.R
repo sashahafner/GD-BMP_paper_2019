@@ -5,15 +5,16 @@ BMP.gd03.06.grav <- subset(BMP, method == 'gd03' | method == 'gd06' | method == 
 BMP.gd03.06.grav$lwr <- BMP.gd03.06.grav$mean - BMP.gd03.06.grav$sd
 BMP.gd03.06.grav$upr <- BMP.gd03.06.grav$mean + BMP.gd03.06.grav$sd
 
+BMP.gd03.06.grav$method.label <- factor(BMP.gd03.06.grav$method, levels = c('gd03', 'gd06', 'grav' ), labels = c('Total mass', 'Vented mass', 'Gravimetric'))
 ggplot(BMP.gd03.06.grav) +
-  geom_col(aes(method, mean, fill = descrip), position = 'dodge', colour  = 'black') +
-  geom_errorbar(aes(method, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  geom_col(aes(descrip, mean, fill = method.label), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
   #facet_grid(. ~ exper, scales = 'free_x') +
-  labs(x = 'Method', y = expression('BMP'~(mL~g^'-1')), fill = 'Substrate') +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  labs(x = 'Substrate', y = expression('BMP [mL/g]'), fill = 'Substrate') + theme_bw()+ 
+  theme(axis.text.x = element_text(angle = 70, hjust = 1), legend.title = element_blank())
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
-ggsave('../plots/barplot_R4A.png')
+ggsave('../plots/barplot_R4A.all.png', width = 5, height = 3)
 
 q <- subset(BMP.gd03.06.grav, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge' | descrip == 'Sludge C1' | descrip == 'Sludge C2')
 q$method.label <- factor(q$method, levels = c('gd03', 'gd06', 'grav' ), labels = c('Total mass', 'Vented mass', 'Gravimetric'))
@@ -29,7 +30,7 @@ q <- subset(BMP.gd03.06.grav, descrip == 'Cellulose' | descrip == 'Ethanol' | de
 q$method <- factor(q$me, levels = c('gd03', 'gd06', 'grav' ), labels = c('Total mass', 'Vented mass', 'Gravimetric'))
 
 q$method.label <- factor(q$method, levels = c('gd03', 'gd06', 'grav'), labels = c('GD (total mass)', 'GD (vented mass)', 'Gravimetric'))
-ggplot(q, aes(method.label, mean, colour = descrip)) +
+ggplot(BMP.gd03.06.grav, aes(method, mean, colour = descrip)) +
   geom_point() + geom_line(aes(group = descrip)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
                 position=position_dodge(0.05)) +
