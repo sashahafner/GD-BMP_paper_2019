@@ -1,7 +1,7 @@
 # BMP comparison
 
 # Set BMP duration for all calls
-when.BMP <- 30
+when.BMP <- 31.07430
 # Needs to be 29 as there is no measurements above 30 for experiment 1
 
 

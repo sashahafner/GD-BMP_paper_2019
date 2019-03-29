@@ -2,6 +2,9 @@
 
 # USED IN PAPER PART 3A. 
 BMPSubC <- subset(BMP2, descrip == 'FIC')
+BMPSubC <- subset(BMPSubC, !method == 'man')
+BMPSubC <- subset(BMPSubC, !method == 'vol')
+
 BMPSubC$lwr <- BMPSubC$mean - BMPSubC$sd
 BMPSubC$upr <- BMPSubC$mean + BMPSubC$sd
 
@@ -17,7 +20,7 @@ ggplot(BMPSubC) +
   #facet_grid(. ~ exper, scales = 'free_x') +
   labs(x = 'Method', y = expression('BMP [mL/g]'), fill = 'Substrate') + theme_bw()+ 
   theme(axis.text.x = element_text(angle = 30, hjust = 1))  + guides(fill = FALSE) +
-ggsave('../plots/BarplotR_3A.png')
+ggsave('../plots/BarplotR_3A.png', height = 3, width = 5)
 
 # Same plot but only with GD3
 d <- subset(BMP2, method %in% c('grav', 'gd03'))

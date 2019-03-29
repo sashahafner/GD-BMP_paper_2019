@@ -17,7 +17,9 @@ comp <- comp[, c('exper', 'id', 'date', 'inject.date.time', 'xCH4', 'xCH4.oa')]
 # Clean biogas data
 # Discard all rows with water controls (have NAs)
 water <- subset(biogas, grepl('W', biogas$id))
+water.s2 <- subset(setup2, grepl('W', setup$id))
 biogas <- droplevels(subset(biogas, !grepl('^W', id)))
+setup2 <- droplevels(subset(setup2, !grepl('^W', id)))
 
 # Add leading zeros
 biogas$date <- sprintf('%08i', biogas$date)
