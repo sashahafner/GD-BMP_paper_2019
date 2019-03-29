@@ -26,6 +26,8 @@ comp$date.time <- dmy_hm(paste0(comp$date, comp$time))
 # Delete all water samples and samples from the first sampling
 water <- subset(biogas, grepl('^W', id))
 biogas <- droplevels(subset(biogas, !grepl('^W', id)))
+water.s <- subset(setup, grepl('W', setup$id))
+setup <- droplevels(subset(setup, !grepl('^W', id)))
 
 # Make a cummulative date.time column
 biogas <- as.data.frame(mutate(group_by(biogas, id), start.time = min(date.time)))

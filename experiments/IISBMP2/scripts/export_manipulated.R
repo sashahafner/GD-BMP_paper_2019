@@ -16,7 +16,7 @@ suppl$cvCH4 <- round(suppl$cvCH4, 0)
 suppl$cmass.tot <- round(suppl$cmass.tot, 2)
 suppl$m.tot <- round(suppl$m.tot, 2)
 suppl$xCH4 <- round(suppl$xCH4, 2)
-
+suppl$conc.sub.vs <- round(suppl$conc.sub.vs, 2)
 
 
 names(suppl) <- c("Sub. type", "ID", 
