@@ -1,7 +1,7 @@
 
 # Set BMP duration for all calls
 max(biogas$elapsed.time)
-when.BMP <- 27
+when.BMP <- 27.1458333
 # Needs to be 27 as there is no measurements above 30
 
 cbg.list <- list(man = cbg.man, grav = cbg.grav) 
