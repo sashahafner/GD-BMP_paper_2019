@@ -33,17 +33,17 @@ plot(leaks$elapsed.time,
 abline(0, 0)
 abline(detect.lim.tot, 0, col = "red")
 dev.off()
-
-# Make a subset where samples with high leak is removed
-large.leaks <- subset(filter(leaks, cmass.leak > detect.lim.tot))
-small.leaks <- subset(filter(leaks, cmass.leak < detect.lim.tot))
-
-large.leaks.int <- subset(filter(leaks, mass.leak > detect.lim.int))
-small.leaks.int <- subset(filter(leaks, mass.leak < detect.lim.int))
-
-plot(small.leaks$elapsed.time, small.leaks$mass.leak)
-abline(0, 0)
-
-##plot(large.leaks$elapsed.time, large.leaks$mass.leak)
-
-
+# 
+# # Make a subset where samples with high leak is removed
+# large.leaks <- subset(filter(leaks, cmass.leak > detect.lim.tot))
+# small.leaks <- subset(filter(leaks, cmass.leak < detect.lim.tot))
+# 
+# large.leaks.int <- subset(filter(leaks, mass.leak > detect.lim.int))
+# small.leaks.int <- subset(filter(leaks, mass.leak < detect.lim.int))
+# 
+# plot(small.leaks$elapsed.time, small.leaks$mass.leak)
+# abline(0, 0)
+# 
+# ##plot(large.leaks$elapsed.time, large.leaks$mass.leak)
+# 
+# 

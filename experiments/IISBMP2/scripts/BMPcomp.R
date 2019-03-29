@@ -1,7 +1,7 @@
 # BMP comparison
 
 # Set BMP duration for all calls
-when.BMP <- 30
+when.BMP <- 31.75764
 
 # Add it to existing at some time 
 cbg.list <- list(

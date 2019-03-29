@@ -37,8 +37,8 @@ source('BMPcomp.R')
 #source('numeric_comparison.R')
 
 # Graphical comparison of methods
-source('plots.R')
-source('xCH4.plots.R')
+# source('plots.R')
+# source('xCH4.plots.R')
 
 # Export results
 source('export_results.R')
