@@ -7,13 +7,19 @@ cbg.gd.result <- cbg.gd.result[, c('descrip', 'id',
                             'mass.init', 'mass.final', 'vol', 
                             "mass.tot", "cmass.tot", "cmass.vent", 
                             'cvBg', 'xCH4', 'cvCH4')]
+cbg.gd.result$cvBg <- round(cbg.gd.result$cvBg, 0)
+cbg.gd.result$cvCH4 <- round(cbg.gd.result$cvCH4, 0)
+cbg.gd.result$cmass.tot <- round(cbg.gd.result$cmass.tot, 2)
+cbg.gd.result$xCH4 <- round(cbg.gd.result$xCH4, 2)
 
 names(cbg.gd.result) <- c("Substrate type", "ID", 
                           'Initial mass [g]', 'Final mass [g]', 'Volume [mL]',
                           'Total mass [g]', 'Cum total mass [g]', 'Cum vented mass [g]', 
-                          'Cumulative biogas [mL]', 'xCH4 [mol/mol]', 'Cum CH4 [mL]')
+                          'Cum biogas [mL]', 'xCH4 [mol/mol]', 'Cum CH4 [mL]')
 
 write.csv(cbg.gd.result, '../results/cbg.gd.csv', row.names = FALSE)
+
+
 
 
 # Notes: 
