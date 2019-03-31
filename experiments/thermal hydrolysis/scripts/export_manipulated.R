@@ -1,19 +1,27 @@
 # Export manipulated result tables
 
 # Export tables
-cbg.gd03.result <- cbg.gd03[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4', 'rvBg', 'rvCH4')]
+cbg.gd03.result <- cbg.gd03[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
 write.csv(cbg.gd03.result, '../results/cbg.gd03.csv', row.names = FALSE)
-cbg.gd06.result <- cbg.gd06[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4', 'rvBg', 'rvCH4')]
+cbg.gd06.result <- cbg.gd06[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
 write.csv(cbg.gd06.result, '../results/cbg.gd06.csv', row.names = FALSE)
-cbg.grav.result <- cbg.grav[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4', 'rvBg', 'rvCH4')]
+cbg.grav.result <- cbg.grav[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
 write.csv(cbg.grav.result, '../results/cbg.grav.csv', row.names = FALSE)
-cbg.man.result <- cbg.man[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4', 'rvBg', 'rvCH4')]
+cbg.man.result <- cbg.man[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
 write.csv(cbg.man.result, '../results/cbg.man.csv', row.names = FALSE)
-cbg.vol.result <- cbg.vol[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4', 'rvBg', 'rvCH4')]
+cbg.vol.result <- cbg.vol[, c('id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
 write.csv(cbg.vol.result, '../results/cbg.vol.csv', row.names = FALSE)
+
+cbg.all1 <- biogas:::rbindf(
+  cbg.vol, cbg.man, 
+  cbg.grav, cbg.gd03, cbg.gd06 
+  #cbg.gd1, cbg.gd2, gbg.gd3, cbg.gd4, cbg.gd5, cbg.gd6, 
+  #cbg.gd7, cbg.gd8, cbg.gd9, cbg.gd10, cbg.gd11, cbg.gd12
+)
 
 cbg.all.result <- cbg.all[, c('method', 'id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
 write.csv(cbg.all.result, '../results/cbg.all.csv', row.names = FALSE)
+
 
 # BMP tables
 BMP.comparison <- BMP.all[, -c(grep("leak.l", colnames(BMP.all)), grep("se", colnames(BMP.all)))]
@@ -65,3 +73,36 @@ write.csv(suppl, '../results/suppl.csv', row.names = FALSE)
 # Time is approx. 28 days, air temperature 20.6 C, ambient pressure 997.15 hPa, 
 # Cum is cumulative 
 
+
+## Make method comparison tables
+cbg.all1 <- biogas:::rbindf(
+  cbg.vol, cbg.man, 
+  cbg.grav, cbg.gd03, cbg.gd06 
+  #cbg.gd1, cbg.gd2, gbg.gd3, cbg.gd4, cbg.gd5, cbg.gd6, 
+  #cbg.gd7, cbg.gd8, cbg.gd9, cbg.gd10, cbg.gd11, cbg.gd12
+)
+
+cbg.all.result1 <- cbg.all1[, c('method', 'descrip', 'id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
+cbg.gd.result1 <- subset(cbg.all.result1, elapsed.time > 30 & elapsed.time < 32)
+cbg.gd.result1 <- reshape(data = cbg.gd.result1, 
+                          idvar = c('descrip', 'id', 'elapsed.time'), 
+                          timevar = 'method',
+                          direction = 'wide') 
+cbg.all.result12 <- cbg.gd.result1[, c('descrip', 'id', 'cvCH4.gd03', 'cvCH4.gd06', 'cvCH4.grav', 'cvCH4.vol', 'cvCH4.man' , 'xCH4.gd03', 'xCH4.gd06', 'xCH4.vol')]
+
+cbg.all.result12$cvCH4.gd03 <- round(cbg.all.result12$cvCH4.gd03, 0)
+cbg.all.result12$cvCH4.gd06 <- round(cbg.all.result12$cvCH4.gd06, 0)
+cbg.all.result12$cvCH4.grav <- round(cbg.all.result12$cvCH4.grav, 0)
+cbg.all.result12$cvCH4.vol <- round(cbg.all.result12$cvCH4.vol, 0)
+cbg.all.result12$cvCH4.man <- round(cbg.all.result12$cvCH4.man, 0)
+cbg.all.result12$xCH4.vol <- round(cbg.all.result12$xCH4.vol, 2)
+cbg.all.result12$xCH4.gd06 <- round(cbg.all.result12$xCH4.gd06, 2)
+cbg.all.result12$xCH4.gd03 <- round(cbg.all.result12$xCH4.gd03, 2)
+
+# Maybe make a subset with only included substrates
+
+names(cbg.all.result12) <- c("Sub. type", "ID", 
+                  'Cum CH4 GD03 [mL]', 'Cum CH4 GD06 [mL]', 'Cum CH4 grav. [mL]', 'Cum CH4 vol. [mL]', 'Cum CH4 man. [mL]', 
+                  'xCH4 GD03 [mol/mol]','xCH4 GD06 [mol/mol]','xCH4 GC [mol/mol]') 
+
+write.csv(cbg.all.result12, '../results/method.comparison.csv', row.names = FALSE)
