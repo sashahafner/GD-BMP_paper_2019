@@ -62,7 +62,6 @@ write.csv(xCH4.all, '../results/xCH4.all.csv', row.names = FALSE)
 
 
 # Export manipulated result tables
-
 # Export tables
 cbg.gd.result <- subset(cbg.gd3, elapsed.time > 27 & elapsed.time < 30)
 setup.suppl <- setup[, c('descrip', 'id', 'm.inoc', 'm.sub', 'm.tot', 'conc.ino.vs', 'conc.sub.vs')]
@@ -72,7 +71,14 @@ cbg.gd.result <- cbg.gd.result[, c('descrip', 'id',
                                    "cmass.tot", 
                                    'cvBg', 'xCH4', 'cvCH4')]
 
-suppl <- merge(setup.suppl, cbg.gd.result, by = c('descrip', 'id') )
+x <- merge(setup.suppl, cbg.gd.result, by = c('descrip', 'id') )
+
+round_df(x, c(0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0))
+
+rounddf <- function(x, digits = rep(2, ncol(x))) {
+  for(i in 1:ncol(x)) if(class(x[, i])[1] == 'numeric') x[, i] <- signif(x[, i], digits[2])
+  return(x)
+}
 
 suppl$cvBg <- round(suppl$cvBg, 0)
 suppl$cvCH4 <- round(suppl$cvCH4, 0)
@@ -81,6 +87,10 @@ suppl$m.tot <- round(suppl$m.tot, 2)
 suppl$xCH4 <- round(suppl$xCH4, 2)
 suppl$conc.sub.vs <- round(suppl$conc.sub.vs, 2)
 
+x <-  data.frame(a = 1:10, b = rnorm(10), c = rnorm(10))
+round_df(x, c(0, 4, 1)
+library(radiant.data)
+library(dataCompareR)
 
 names(suppl) <- c("Sub. type", "ID", 
                   'Inoc. mass [g]', 'Sub. mass [g]', 'Total mass [g]',
