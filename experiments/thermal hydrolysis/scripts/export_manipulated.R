@@ -50,6 +50,7 @@ cbg.gd.result <- cbg.gd.result[, c('descrip', 'id',
                                    'cvBg', 'xCH4', 'cvCH4')]
 
 suppl <- merge(setup.suppl, cbg.gd.result, by = c('descrip', 'id') )
+suppl <- subset(suppl, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge' | descrip == 'Sludge C1' |descrip == 'Sludge C2' | descrip =='I')
 
 suppl$cvBg <- round(suppl$cvBg, 0)
 suppl$cvCH4 <- round(suppl$cvCH4, 0)
@@ -89,6 +90,8 @@ cbg.gd.result1 <- reshape(data = cbg.gd.result1,
                           timevar = 'method',
                           direction = 'wide') 
 cbg.all.result12 <- cbg.gd.result1[, c('descrip', 'id', 'cvCH4.gd03', 'cvCH4.gd06', 'cvCH4.grav', 'cvCH4.vol', 'cvCH4.man' , 'xCH4.gd03', 'xCH4.gd06', 'xCH4.vol')]
+
+cbg.all.result12 <- subset(cbg.all.result12, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge' | descrip == 'Sludge C1' |descrip == 'Sludge C2' | descrip =='I')
 
 cbg.all.result12$cvCH4.gd03 <- round(cbg.all.result12$cvCH4.gd03, 0)
 cbg.all.result12$cvCH4.gd06 <- round(cbg.all.result12$cvCH4.gd06, 0)
