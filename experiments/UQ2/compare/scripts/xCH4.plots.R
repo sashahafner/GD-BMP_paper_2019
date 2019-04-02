@@ -4,7 +4,7 @@ method.lab <- c("gd01" = "A) GD, no averaging, interval", "gd02" = "B) GD, cumul
 
 ggplot(xCH4.all, aes(elapsed.time, xCH4)) + 
   geom_point(data = xCH4.no.gd3) + geom_line(aes(group = id)) + 
-  labs(x = 'Time [d]', y = expression('CH'[4]*' mole fraction [mol/mol]'))  + 
+  labs(x = 'Time [d]', y = expression('CH'[4]*' mole fraction'))  + 
   theme_bw() + ylim(0.3,0.8) + 
   theme(text = element_text(size = 8)) +
   facet_grid( ~ method, labeller = as_labeller(method.lab)) + 
