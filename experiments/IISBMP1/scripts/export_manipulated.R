@@ -67,14 +67,7 @@ cbg.gd.result1 <- reshape(data = cbg.gd.result1,
                           direction = 'wide') 
 cbg.all.result12 <- cbg.gd.result1[, c('descrip', 'id', 'cvCH4.gd03', 'cvCH4.grav', 'cvCH4.vol', 'cvCH4.man' , 'xCH4.gd03', 'xCH4.vol')]
 
-cbg.all.result12$cvCH4.gd03 <- round(cbg.all.result12$cvCH4.gd03, 0)
-cbg.all.result12$cvCH4.grav <- round(cbg.all.result12$cvCH4.grav, 0)
-cbg.all.result12$cvCH4.vol <- round(cbg.all.result12$cvCH4.vol, 0)
-cbg.all.result12$cvCH4.man <- round(cbg.all.result12$cvCH4.man, 0)
-cbg.all.result12$xCH4.vol <- round(cbg.all.result12$xCH4.vol, 2)
-cbg.all.result12$xCH4.gd03 <- round(cbg.all.result12$xCH4.gd03, 2)
-
-# Maybe make a subset with only included substrates
+cbg.all.result12 <- rounddf(cbg.all.result12, c(0, 0, 0, 0, 0, 0, 2, 2))
 
 names(cbg.all.result12) <- c("Sub. type", "ID", 
                              'Cum CH4 GD03 [mL]', 'Cum CH4 grav. [mL]', 'Cum CH4 vol. [mL]', 'Cum CH4 man. [mL]', 
