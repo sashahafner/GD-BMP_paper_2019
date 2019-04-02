@@ -68,18 +68,31 @@ ggplot(BMP, aes(descrip, mean, colour = method)) +
 #ggsave('../plots/method_comparison_BMP_reverse.png')
 
 # Barplot option
+labels <- c(gd01 = 'GD01', gd02 = 'GD02', gd03 = 'GD03', gd04 = 'GD04', gd05 = 'GD05', gd06 = 'GD06',
+            gd07 = 'GD07', gd08 = 'GD08', gd09 = 'GD09', gd10 = 'GD10', gd11 = 'GD11', gd12 = 'GD12',
+            grav = 'Gravimetric')
+BMP$method.label <- labels[BMP$method]
 BMP$lwr <- BMP$mean - BMP$sd
 BMP$upr <- BMP$mean + BMP$sd
 ggplot(BMP) +
-  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
-  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+  geom_col(aes(descrip, mean, fill = method.label), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method.label), position = 'dodge', colour = 'gray55') +
   #facet_grid(. ~ exper, scales = 'free_x') +
-  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  labs(x = 'Substrate', y = expression('BMP (mL/g)'), fill = 'Method') + theme_bw()+ 
+  theme(legend.title = element_blank(), legend.position = "right" ) + 
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP_barplot_all.methods.pdf', height = 6, width = 6, scale = 1.2)
-ggsave('../plots/BMP_barplot_all.methods.png')
+ggsave('../plots/BMP_barplot_all.methods.png', height = 4, width = 5 )
+
+ggplot(BMPSubC) +
+  geom_col(aes(method.label, mean, fill = descrip), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(method.label, ymin = lwr, ymax = upr, group = descrip), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Method', y = expression('BMP [mL/g]'), fill = 'Substrate') + theme_bw()+ 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))  + guides(fill = FALSE) +
+  ggsave('../plots/BarplotR_3A.png', height = 3, width = 5)
+
 
 
 # Yield plot

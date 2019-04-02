@@ -69,18 +69,23 @@ ggsave('../plots/method_comparison_BMP_reverse_exper2.png')
 
 
 # Barplot option
+labels <- c(gd01 = 'GD01', gd02 = 'GD02', gd03 = 'GD03', gd04 = 'GD04', gd05 = 'GD05', gd06 = 'GD06',
+            gd07 = 'GD07', gd08 = 'GD08', gd09 = 'GD09', gd10 = 'GD10', gd11 = 'GD11', gd12 = 'GD12',
+            grav = 'Gravimetric', vol = 'Volumetric', man = 'Manometric')
+BMP2$method.label <- labels[BMP2$method]
+
 BMP2$lwr <- BMP2$mean - BMP2$sd
 BMP2$upr <- BMP2$mean + BMP2$sd
 ggplot(BMP2) +
-  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
-  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') +
+  geom_col(aes(descrip, mean, fill = method.label), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method.label), position = 'dodge', colour = 'gray55') +
   #facet_grid(. ~ exper, scales = 'free_x') +
-  labs(x = 'Substrate', y = expression('BMP'~(mL~g^'-1')), fill = 'Method') +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  labs(x = 'Substrate', y = expression('BMP [mL/g]'), fill = 'Method') + theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "right" ) + 
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP2_comp_bars_good_substrate.pdf', height = 6, width = 6, scale = 1.2)
-ggsave('../plots/BMP2_comp_bars_good_substrate.png')
+ggsave('../plots/BMP2_comp_bars_good_substrate.png', height = 6, width = 6, scale = 1.2)
 # ggsave('../plots/BMP2_comp_bars_good_substrate.pdf', height = 6, width = 6, scale = 1.2)
 # ggsave('../plots/BMP2_comp_bars_good_substrate.png')
 
