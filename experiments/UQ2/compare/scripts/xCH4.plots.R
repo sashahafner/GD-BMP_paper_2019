@@ -1,10 +1,10 @@
 # Make plots for xCH4
 # Original, but adjusted axis - Camilla!
-method.lab <- c("gd01" = "GD, no averaging, interval", "gd02" = "GD, cumulative average", "gd03" = "GD, total average", "grav.GC" = "GC (grav)")
+method.lab <- c("gd01" = "A) GD, no averaging, interval", "gd02" = "B) GD, cumulative average", "gd03" = "C) GD, total average", "grav.GC" = "D) GC (grav)")
 
 ggplot(xCH4.all, aes(elapsed.time, xCH4)) + 
   geom_point(data = xCH4.no.gd3) + geom_line(aes(group = id)) + 
-  labs(x = 'Time [d]', y = expression('CH'[4]*' composition [mol/mol]'))  + 
+  labs(x = 'Time [d]', y = expression('CH'[4]*' mole fraction [mol/mol]'))  + 
   theme_bw() + ylim(0.3,0.8) + 
   theme(text = element_text(size = 8)) +
   facet_grid( ~ method, labeller = as_labeller(method.lab)) + 
