@@ -38,14 +38,7 @@ cbg.result <- cbg.result[, c('descrip', 'id',
                                    'cvBg', 'xCH4', 'cvCH4')]
 
 suppl <- merge(setup.suppl, cbg.result, by = c('descrip', 'id') )
-
-suppl$cvBg <- round(suppl$cvBg, 0)
-suppl$cvCH4 <- round(suppl$cvCH4, 0)
-suppl$cmass.tot <- round(suppl$cmass.tot, 2)
-suppl$m.tot <- round(suppl$m.tot, 2)
-suppl$xCH4 <- round(suppl$xCH4, 2)
-suppl$conc.sub.vs <- round(suppl$conc.sub.vs, 2)
-
+suppl <- rounddf(suppl, c(0, 0, 3, 3, 3, 3, 3, 4, 4, 3, 0, 2, 0))
 
 names(suppl) <- c("Sub. type", "ID", 
                   'Inoc. mass [g]', 'Sub. mass [g]', 'Total mass [g]',
