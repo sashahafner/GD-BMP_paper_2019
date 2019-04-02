@@ -70,27 +70,8 @@ cbg.gd.result <- cbg.gd.result[, c('descrip', 'id',
                                    'mass.init', 'mass.final', 
                                    "cmass.tot", 
                                    'cvBg', 'xCH4', 'cvCH4')]
-
-x <- merge(setup.suppl, cbg.gd.result, by = c('descrip', 'id') )
-
-rounddf(x, c(0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0))
-
-rounddf <- function(x, digits = rep(2, ncol(x))) {
-  for(i in 1:ncol(x)) if(class(x[, i])[1] == 'numeric') x[, i] <- round(x[, i], digits[i])
-  return(x)
-}
-
-suppl$cvBg <- round(suppl$cvBg, 0)
-suppl$cvCH4 <- round(suppl$cvCH4, 0)
-suppl$cmass.tot <- round(suppl$cmass.tot, 2)
-suppl$m.tot <- round(suppl$m.tot, 2)
-suppl$xCH4 <- round(suppl$xCH4, 2)
-suppl$conc.sub.vs <- round(suppl$conc.sub.vs, 2)
-
-x <-  data.frame(a = 1:10, b = rnorm(10), c = rnorm(10))
-round_df(x, c(0, 4, 1)
-library(radiant.data)
-library(dataCompareR)
+suppl <- merge(setup.suppl, cbg.gd.result, by = c('descrip', 'id') )
+suppl <- rounddf(suppl, c(0, 0, 3, 3, 3, 3, 3, 4, 4, 3, 0, 2, 0))
 
 names(suppl) <- c("Sub. type", "ID", 
                   'Inoc. mass [g]', 'Sub. mass [g]', 'Total mass [g]',

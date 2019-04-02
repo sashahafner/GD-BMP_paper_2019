@@ -45,14 +45,3 @@ source('export_manipulated.R')
 
 # Calculate maximum theoretical BMP for the substrates 
 source('theoretical_BMP.R')
-
-# L1 <- subset(biogas, id == 'L1')
-# write.csv(L1, '../output/L1.csv', row.names = FALSE)
-# cbg.gd03 <- subset(cbg.gd3, id == 'L1')
-# write.csv(cbg.gd03, '../output/cbg.gd3.csv', row.names = FALSE)
-# 
-# cbg.all
-# 
-# # cumBgGD call for GD03
-# datL1 <- subset(dat, id == 'L1')
-# write.csv(datL1, '../output/datL1.csv', row.names = FALSE)
