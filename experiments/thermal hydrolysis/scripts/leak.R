@@ -8,7 +8,7 @@ leaks <- massLoss(biogas,
                 id.name = 'id')
 
 id.descrip <- setup[, c('id', 'descrip')]
-leaks <- merge(leaks, id.descrip, by = 'id', all.x = TRUE)
+leaks <- merge(leaks, id.descrip, by = c('id'), all.x = TRUE)
 
 leaks <- leaks[ , c('id', 'descrip', 'date', 'elapsed.time', 'mass.tot', 'mass.vent', 'mass.leak', "cmass.tot", "cmass.vent", "cmass.leak") ]
 biogas <- merge(biogas, leaks, by = c('id', 'date', 'elapsed.time'), all.x = TRUE)
