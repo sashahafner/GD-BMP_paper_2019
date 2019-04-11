@@ -50,10 +50,12 @@ source('export_manipulated.R')
 source('compare.R')
 
 
-# Leak perc. 
-leak.perc <- biogas[, c('id', 'elapsed.time', 'descrip', 'mass.leak')]
-leak.bg <- cbg.gd06[, c('id', 'elapsed.time', 'descrip', 'vBg')]
-leak.perc.bg <- merge(leak.perc, leak.bg, by = c('id', 'elapsed.time', 'descrip'))
-leak.perc.bg$perc <- leak.perc.bg$mass.leak/leak.perc.bg$vBg*100
-leak.perc.bg <- subset(leak.perc.bg, descrip == 'Raw sludge' | descrip == 'Sludge C1' | descrip == 'Sludge C2' | id == 'Cellulose' | id == 'Ethanol' )
-write.csv(leak.perc.bg, '../results/leak.perc.csv', row.names = FALSE)
+# Leak perc. cum for the last day!
+leak.perc <- cbg.all[, c('id', 'method', 'elapsed.time', 'descrip', 'cmass.leak', 'cmass.tot')]
+leak.perc <- subset(leak.perc, method == 'GD06' | method == 'Gravimetric')
+leak.perc <- subset(leak.perc, elapsed.time > 20 & elapsed.time < 22) 
+leak.perc <- subset(leak.perc, descrip == 'Raw sludge' | descrip == 'Sludge C1' | descrip == 'Sludge C2' | descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'I')
+leak.perc$leak.percentage <- (leak.perc$cmass.leak/leak.perc$cmass.tot)*100
+max(leak.perc$leak.percentage)
+min(leak.perc$leak.percentage)
+write.csv(leak.perc, '../results/leak.perc.csv', row.names = FALSE)

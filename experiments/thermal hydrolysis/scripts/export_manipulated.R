@@ -75,7 +75,7 @@ cbg.all1 <- biogas:::rbindf(
 )
 
 cbg.all.result1 <- cbg.all1[, c('method', 'descrip', 'id', 'elapsed.time', 'xCH4', 'vBg', 'vCH4', 'cvBg', 'cvCH4')]
-cbg.gd.result1 <- subset(cbg.all.result1, elapsed.time > 30 & elapsed.time < 32)
+cbg.gd.result1 <- subset(cbg.all.result1, elapsed.time > 20 & elapsed.time < 22)
 cbg.gd.result1 <- reshape(data = cbg.gd.result1, 
                           idvar = c('descrip', 'id', 'elapsed.time'), 
                           timevar = 'method',

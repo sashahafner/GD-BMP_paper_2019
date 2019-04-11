@@ -3,11 +3,11 @@
 #----------------
 
 # Bind by rows (cummulative biogas)
-cbg.vol$method <- 'vol'
-cbg.man$method <- 'man'
-cbg.grav$method <- 'grav'
-cbg.gd03$method <- 'gd03'
-cbg.gd06$method <- 'gd06'
+cbg.vol$method <- 'Volumetric'
+cbg.man$method <- 'Manometric'
+cbg.grav$method <- 'Gravimetric'
+cbg.gd03$method <- 'GD03'
+cbg.gd06$method <- 'GD06'
 
 # cbg.gd1$method <- 'gd1'
 # cbg.gd2$method <- 'gd2'
