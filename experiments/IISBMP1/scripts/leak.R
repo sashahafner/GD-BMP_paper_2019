@@ -99,7 +99,7 @@ no.leaks2.biogas <- merge(biogas, no.leaks2.1, by = c('id.exper', 'descrip', 'ex
 jpeg('../plots/cumleaks.png')
 par(mfrow = c(1,1))
 plot(leaks2$elapsed.time, 
-     leaks2$cmass.leak, xlab = "Time [D]", ylab = "Cumulatie mass loss [g]")
+     leaks2$cmass.leak, xlab = "Time [D]", ylab = "Cumulative mass loss [g]")
 abline(0, 0)
 abline(detect.lim.tot, 0, col = 'red')
 dev.off()
