@@ -153,3 +153,17 @@ ggplot(SubEtOH) +
 #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
 #theme(legend.position = 'none')
 ggsave('../plots/BMP2_comp_bars_EtOH.png')
+
+
+# Yield plot
+sub.lab <- c("FIC" = "D) Feed ingredient C", "FIA" = "B) Feed ingredient A", "FIB" = "C) Feed ingredient B", "Ethanol" = "A) Ethanol")
+yld2.1 <- subset(yld2, method == "gd03" | method == "grav")
+ggplot(yld2.1, aes(elapsed.time, mean, colour = method)) +
+  geom_point() + geom_line(aes(group = method)) +
+  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  theme_bw() + 
+  scale_color_hue(labels = c("GD", "Gravimetric")) +
+  labs(x = 'Time [d]', y = expression('CH'[4]*' yield [mL/g]'), colour = "Method" , theme()) +
+  facet_wrap(~ descrip, labeller = as_labeller(sub.lab)) + theme_bw() +
+  theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
+  ggsave('../plots/yld.png', width = 8, height = 6)

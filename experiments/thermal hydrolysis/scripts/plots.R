@@ -25,6 +25,40 @@ ggplot(q) +
   theme(axis.text.x = element_text(angle = 20, hjust = 1), legend.title = element_blank()) +
 ggsave('../plots/Barplot2_R4B.png', width = 5, height = 3)
 
+
+# Yield plot
+sub.lab <- c("Cellulose" = "A) Cellulose", "Ethanol" = "B) Ethanol", "Raw sludge" = "C) Raw sludge", "Sludge C1" = "D) Sludge C1", "Sludge C2" = "E) Sludge C2")
+yld.1 <- subset(yld, method == "gd03" | method == "grav")
+yld.1.2 <- subset(yld.1, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge'| descrip == 'Sludge C1' | descrip == 'Sludge C2')
+ggplot(yld.1.2, aes(elapsed.time, mean, colour = method)) +
+  geom_point() + geom_line(aes(group = method)) +
+  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
+  theme_bw() + 
+  scale_color_hue(labels = c("GD", "Gravimetric")) +
+  labs(x = 'Time [d]', y = expression('CH'[4]*' yield [mL/g]'), colour = "Method" , theme()) +
+  facet_wrap(~ descrip, labeller = as_labeller(sub.lab)) + theme_bw() +
+  theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
+  ggsave('../plots/yld.png', width = 8, height = 6)
+
+
+labels <- c(gd01 = 'GD01', gd02 = 'GD02', gd03 = 'GD03', gd04 = 'GD04', gd05 = 'GD05', gd06 = 'GD06',
+            gd07 = 'GD07', gd08 = 'GD08', gd09 = 'GD09', gd10 = 'GD10', gd11 = 'GD11', gd12 = 'GD12',
+            grav = 'Gravimetric', vol = 'Volumetric', man = 'Manometric')
+BMP$method.label <- labels[BMP$method]
+BMP <- subset(BMP, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge'| descrip == 'Sludge C1' | descrip == 'Sludge C2')
+BMP$lwr <- BMP$mean - BMP$sd
+BMP$upr <- BMP$mean + BMP$sd
+ggplot(BMP) +
+  geom_col(aes(descrip, mean, fill = method.label), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method.label), position = 'dodge', colour = 'gray55') +
+  #facet_grid(. ~ exper, scales = 'free_x') +
+  labs(x = 'Substrate', y = expression('BMP [mL/g]'), fill = 'Method') + theme_bw() +
+  theme(legend.title = element_blank(), legend.position = "right" ) + 
+  #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
+  #theme(legend.position = 'none')
+  ggsave('../plots/BMP.all.methods.appendix.pdf', height = 6, width = 6, scale = 1.2)
+ggsave('../plots/BMP.all.methods.appendix.png', height = 6, width = 6, scale = 1.2)
+
 # # Plot with reverse of method/descrip [2]
 # q <- subset(BMP.gd03.06.grav, descrip == 'Cellulose' | descrip == 'Ethanol' | descrip == 'Raw sludge' | descrip == 'Sludge C1' | descrip == 'Sludge C2')
 # q$method <- factor(q$me, levels = c('gd03', 'gd06', 'grav' ), labels = c('Total mass', 'Vented mass', 'Gravimetric'))

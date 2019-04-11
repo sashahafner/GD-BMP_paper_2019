@@ -2,6 +2,8 @@
 # Set BMP duration for all calls
 when.BMP <- 20.9194444
 cbg.list <- list(vol = cbg.vol, man = cbg.man, grav = cbg.grav, gd03 = cbg.gd03, gd06 = cbg.gd06) 
+cbg.list <- list(vol = cbg.vol, man = cbg.man, grav = cbg.grav, gd01 = cbg.gd1, gd02 = cbg.gd2, gd03 = cbg.gd3, gd04 = cbg.gd4, gd05 = cbg.gd5, gd06 = cbg.gd6, 
+                 gd07 = cbg.gd7, gd08 = cbg.gd8, gd09 = cbg.gd9, gd10 = cbg.gd10, gd11 = cbg.gd11, gd12 = cbg.gd12) 
 
 BMP <- summBg(cbg.list, setup, id.name = "id",
               time.name = 'elapsed.time', descrip.name = 'descrip',

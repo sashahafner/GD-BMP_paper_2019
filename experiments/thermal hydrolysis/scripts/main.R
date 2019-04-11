@@ -24,7 +24,7 @@ source('export.R')
 
 # Calculate biogas production
 source('biogas.R')
-#source('cumBgGDcomparison.R')
+source('cumBgGDcomparison.R')
 
 # Calculate BMP, yld and BMPo
 source('BMP.R')
