@@ -1,7 +1,7 @@
 # Plots for paper
 
 # Yield curves
-d <- yldo[yldo$method %in% c('grav', 'gd03') & 
+d <- yldo[yldo$method %in% c('grav', 'gdt') & 
          yldo$descrip %in% c('Ethanol', 'FI1') , ]
 d$method2 <- ifelse(d$method == 'grav', 'Gravimetric', 'GD')
 ggplot(d, aes(time.d, cvCH4, lty = method2, pch = method2, group = interaction(id, method2))) + 
@@ -17,10 +17,10 @@ ggsave('../plots_paper/yield_curves.pdf', height = 5, width = 3.3)
 
 
 # xCH4
-d01 <- cbg.gd01
+d01 <- cbg.gdi
 d01 <- merge(setup, d01, by = 'id')
 d01 <- d01[d01$descrip %in% c('FI1') & d01$time.d > 0 & !is.na(d01$xCH4.GC), ]
-d03 <- cbg.gd03
+d03 <- cbg.gdt
 d03 <- merge(setup, d03, by = 'id')
 d03 <- d03[d03$descrip %in% c('FI1') & d03$time.d > 0 , ]
 dv <- cbg.vol
