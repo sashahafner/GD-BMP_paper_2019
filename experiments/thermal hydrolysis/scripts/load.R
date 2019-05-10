@@ -1,4 +1,4 @@
-# Reads in data
+# Read in data
 
 fp <- '../data/BMP2.xlsx'
 setup <- as.data.frame(read_xlsx(fp, sheet = 1, skip = 1))
