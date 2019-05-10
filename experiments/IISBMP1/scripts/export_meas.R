@@ -1,4 +1,4 @@
-# Export data
+# Export measurement data
 
 # Composition data
 write.csv(comp, '../output/comp.csv', row.names = FALSE)

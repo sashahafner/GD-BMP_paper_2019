@@ -1,58 +1,34 @@
 # Cleaning of data and organizing for analysis 
 
-# Make id a factor instead of a character
+# Make id and experiment factors
 biogas$id <- factor(biogas$id)
 setup$id <- factor(setup$id)
-setup1$id <- factor(setup1$id)
-setup2$id <- factor(setup2$id)
-biogas$exper <- factor(biogas$exper)
 setup$exper <- factor(setup$exper)
-setup1$exper <- factor(setup1$exper)
-setup2$exper <- factor(setup2$exper)
+biogas$exper <- factor(biogas$exper)
 
 # Clean comp data
-## Delete extra columns
+# Drop extra columns
 comp <- comp[, c('exper', 'id', 'date', 'inject.date.time', 'xCH4', 'xCH4.oa')]
+# Rename xCH4 (because cumBgGD() will return xCH4)
+comp$xCH4.GC <- comp$xCH4
+comp$xCH4 <- NULL
 
 # Clean biogas data
 # Discard all rows with water controls (have NAs)
 water <- subset(biogas, grepl('W', biogas$id))
-water.s2 <- subset(setup2, grepl('W', setup$id))
 biogas <- droplevels(subset(biogas, !grepl('^W', id)))
-setup2 <- droplevels(subset(setup2, !grepl('^W', id)))
 
 # Add leading zeros
 biogas$date <- sprintf('%08i', biogas$date)
 biogas$time <- sprintf('%04i', biogas$time)   
 
-#-----------
 # Merge composition data with biogas data by id and date
-# Problem with two B3 measurements one day - note from Sasha
 biogas <- merge(biogas, comp, by = c('exper', 'id', 'date'), all.x = TRUE)
 
 # Make a date/time column
 biogas$date.time <- dmy_hm(paste0(biogas$date, biogas$time))
-sum(is.na(biogas$date.time))  
+if (sum(is.na(biogas$date.time)) > 0) stop('Date/time error date652')
 
 # Make a cummulative date.time column
 biogas <- as.data.frame(mutate(group_by(biogas, exper, id), start.time = min(date.time)))
-biogas$elapsed.time <- as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days'))
-
-# Check times
-# print(sort(unique(biogas$elapsed.time)))
-
-# Making a column with id + exper for comparison
-biogas$id.exper <- paste0(biogas$id, "-E", biogas$exper)
-setup$id.exper <- paste0(setup$id, "-E", setup$exper)
-setup1$id.exper <- paste0(setup1$id, "-E", setup1$exper)
-setup2$id.exper <- paste0(setup2$id, "-E", setup2$exper)
-
-# Comp data set - Is this relevant if it is merged correctly into the biogas frame??
-# Use start time from biogas for all calculations (min date.time in comp is not trial start)
-#starts <- summarise(group_by(biogas, id), start.time = min(date.time))
-#comp <- merge(comp, starts, by = "id")
-#comp$elapsed.time <- difftime(comp$date.time, comp$start.time, units = 'days')
-
-# Make data set for composition plots 
-comp1 <- biogas[, c('id', 'exper', 'id.exper', 'elapsed.time', 'date', 'inject.date.time', 'xCH4', 'xCH4.oa')]
-# comp1 <- comp1[!is.na(comp1$xCH4), ]
+biogas$time.d <- round(as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days')), 1)

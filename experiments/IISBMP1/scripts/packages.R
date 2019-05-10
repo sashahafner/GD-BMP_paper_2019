@@ -5,6 +5,7 @@ library(biogas)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(reshape2)
 
-# Check which packages is actually used later
+# NTS: Check which packages are actually used later
 
