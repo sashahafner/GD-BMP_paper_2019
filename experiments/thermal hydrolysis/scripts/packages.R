@@ -6,6 +6,7 @@ library(dplyr)
 library(ggplot2)
 library(lubridate)
 library(reshape2)
+library(multcomp)
 
 # Check which packages are actually used later
 

@@ -1,8 +1,5 @@
 # Plots (not for paper)
 
-BMP$lwr <- BMP$mean - BMP$sd
-BMP$upr <- BMP$mean + BMP$sd
-
 ggplot(BMP) + 
   geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') 
