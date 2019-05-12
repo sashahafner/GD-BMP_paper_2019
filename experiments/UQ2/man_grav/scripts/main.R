@@ -1,5 +1,5 @@
-# Runs complete analysis of UQ2gd data
-# Camilla G. Justesen
+# Runs complete analysis of UQ2 data (man_grav)
+# Camilla G. Justesen and Sasha Hafner
 
 options(width = 70)
 rm(list = ls())

@@ -1,0 +1,12 @@
+
+> # Comparison with lm()
+> 
+> mod <- aov(cvCH4 ~ descrip + method, data = BMPo)
+
+> summary(mod)
+            Df Sum Sq Mean Sq  F value Pr(>F)    
+descrip      1  94017   94017 2917.312 <2e-16 ***
+method       2     31      15    0.474  0.632    
+Residuals   14    451      32                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

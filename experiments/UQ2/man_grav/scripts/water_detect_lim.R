@@ -1,4 +1,4 @@
-# Detection limits for leaks
+# Leakage detection limits
 
 # Three sets of bottles (W1, W2, W3)
 

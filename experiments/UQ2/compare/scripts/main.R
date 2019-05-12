@@ -1,21 +1,16 @@
-# Runs complete comparision of UQ2gd data and UQ2man.grav
-# Camilla G. Justesen
+# Runs complete comparision of GD and man/grav results
+# Camilla G. Justesen and Sasha Hafner
 
-# Load packages
+options(width = 70)
+rm(list = ls())
+
 source('packages.R')
-
-# Load data 
+source('functions.R')
 source('load.R')
-
-# Bind dataset to one
-source('merge.R')
- 
-# Graphical comparison of methods
-source('plots.R')
-source('xCH4.plots.R')
-
-# Export results
+source('BMP_comp.R')
+sink('../output/stats.txt')
+  source('stats.R')
+sink()
 source('export_results.R')
-
-# Calculate the variations in percentage
-source('compare.R')
+source('plots.R')
+source('plots_paper.R')

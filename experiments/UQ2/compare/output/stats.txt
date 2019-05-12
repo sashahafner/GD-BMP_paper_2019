@@ -1,0 +1,53 @@
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+descrip      1 160394  160394 1582.57  < 2e-16 ***
+method       4   4267    1067   10.53 4.53e-05 ***
+Residuals   24   2432     101                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	 Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Dunnett Contrasts
+
+
+Fit: aov(formula = cvCH4 ~ descrip + method, data = BMPo)
+
+Linear Hypotheses:
+                Estimate Std. Error t value Pr(>|t|)    
+man - grav == 0  -34.774      5.812  -5.983   <0.001 ***
+gdi - grav == 0   -9.110      5.812  -1.567    0.352    
+gdt - grav == 0   -9.110      5.812  -1.567    0.352    
+gdv - grav == 0   -6.345      5.812  -1.092    0.652    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+(Adjusted p values reported -- single-step method)
+
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = cvCH4 ~ descrip + method, data = BMPo)
+
+$method
+               diff        lwr        upr     p adj
+man-grav -34.773674 -51.897060 -17.650287 0.0000326
+gdi-grav  -9.110140 -26.233526   8.013246 0.5312767
+gdt-grav  -9.110140 -26.233526   8.013246 0.5312767
+gdv-grav  -6.345414 -23.468801  10.777972 0.8090085
+gdi-man   25.663534   8.540147  42.786920 0.0015722
+gdt-man   25.663534   8.540147  42.786920 0.0015722
+gdv-man   28.428260  11.304873  45.551646 0.0004826
+gdt-gdi    0.000000 -17.123386  17.123386 1.0000000
+gdv-gdi    2.764726 -14.358661  19.888112 0.9888718
+gdv-gdt    2.764726 -14.358661  19.888112 0.9888718
+
+Tables of effects
+
+ descrip 
+descrip
+     C      L 
+ 73.12 -73.12 
+
+ method 
+method
+   grav     man     gdi     gdt     gdv 
+ 11.868 -22.906   2.758   2.758   5.522 
