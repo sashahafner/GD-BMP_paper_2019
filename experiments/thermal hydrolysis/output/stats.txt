@@ -1,0 +1,65 @@
+             Df  Sum Sq Mean Sq F value   Pr(>F)    
+descrip       9 2305013  256113 265.455  < 2e-16 ***
+method        4  103956   25989  26.937 8.20e-16 ***
+id           20   72004    3600   3.732 3.68e-06 ***
+Residuals   116  111918     965                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	 Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Dunnett Contrasts
+
+
+Fit: aov(formula = cvCH4 ~ descrip + method + id, data = BMPo)
+
+Linear Hypotheses:
+                Estimate Std. Error t value Pr(>|t|)    
+gdt - grav == 0  -62.168      8.020  -7.752   <0.001 ***
+gdv - grav == 0   -6.922      8.020  -0.863   0.8021    
+man - grav == 0  -60.776      8.020  -7.578   <0.001 ***
+vol - grav == 0  -22.783      8.020  -2.841   0.0189 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+(Adjusted p values reported -- single-step method)
+
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = cvCH4 ~ descrip + method + id, data = BMPo)
+
+$method
+               diff       lwr         upr     p adj
+gdt-grav -62.168039 -84.39270 -39.9433736 0.0000000
+gdv-grav  -6.921989 -29.14665  15.3026759 0.9097276
+man-grav -60.775723 -83.00039 -38.5510575 0.0000000
+vol-grav -22.782726 -45.00739  -0.5580607 0.0416069
+gdv-gdt   55.246050  33.02138  77.4707148 0.0000000
+man-gdt    1.392316 -20.83235  23.6169814 0.9997937
+vol-gdt   39.385313  17.16065  61.6099782 0.0000293
+man-gdv  -53.853733 -76.07840 -31.6290681 0.0000000
+vol-gdv  -15.860737 -38.08540   6.3639287 0.2834215
+vol-man   37.992997  15.76833  60.2176621 0.0000601
+
+Tables of effects
+
+ descrip 
+descrip
+        A        C3        C4        C5        C6 Cellulose   Ethanol 
+    -41.6     -75.2     -46.6     -78.7     -65.8      42.1     356.9 
+      HS1       HS2        RS 
+      1.1     -36.7     -55.6 
+
+ method 
+method
+  grav    gdt    gdv    man    vol 
+ 30.53 -31.64  23.61 -30.25   7.75 
+
+ id 
+id
+    A1     A2     A3     B1     B2     B3   C1-1   C1-2   C1-3   C2-1 
+  4.17  -9.45   5.28  -8.29  12.09  -3.80  22.59   0.79 -23.38  19.97 
+  C2-2   C2-3   C3-1   C3-2   C3-3   C4-1   C4-2   C4-3   C5-1   C5-2 
+-30.57  10.60 -13.31  12.89   0.42   6.08   5.88 -11.96  -6.03   5.83 
+  C5-3   C6-1   C6-2   C6-3     E1     E2     E3     L1     L2     L3 
+  0.20 -48.55  28.93  19.62   2.56   7.38  -9.94  34.18  34.94 -69.12 
