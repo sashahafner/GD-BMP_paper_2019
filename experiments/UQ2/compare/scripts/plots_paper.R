@@ -13,3 +13,4 @@ ggplot(d, aes(time.d, cvCH4, lty = method2, pch = method2, group = interaction(i
   theme(legend.position = c(0.79, 0.12)) 
   #theme(legend.position = 'none') 
 ggsave('../plots_paper/yield_curves_UQ2.pdf', height = 5, width = 3.3)
+ggsave('../plots_paper/yield_curves_UQ2.png', height = 5, width = 3.3)

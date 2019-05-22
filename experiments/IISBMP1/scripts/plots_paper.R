@@ -14,6 +14,7 @@ ggplot(d, aes(time.d, cvCH4, lty = method2, pch = method2, group = interaction(i
   theme(legend.position = c(0.79, 0.12)) 
   #theme(legend.position = 'none') 
 ggsave('../plots_paper/yield_curves_S1.pdf', height = 5, width = 3.3)
+ggsave('../plots_paper/yield_curves_S1.png', height = 5, width = 3.3)
 
 
 # xCH4
@@ -35,7 +36,8 @@ dg <- merge(setup, dg, by = 'id')
 dg <- dg[dg$descrip %in% c('FI1') & dg$time.d > 0 , ]
 dg$xCH4.GC.cum <- dg$cvCH4/dg$cvBg
 
-pdf('../plots_paper/xCH4_comp_S1.pdf', height = 4, width = 3.8)
+#pdf('../plots_paper/xCH4_comp_S1.pdf', height = 4, width = 3.8)
+png('../plots_paper/xCH4_comp_S1.png', height = 4, width = 3.8, units = 'in', res = 600)
 
   plot(xCH4 ~ time.d, data = d01, type = 'n', las = 1,
        xlab = 'Incubation time (d)', ylab = expression('CH'[4]~'conc. (mol. frac.)')) 
@@ -59,7 +61,8 @@ pdf('../plots_paper/xCH4_comp_S1.pdf', height = 4, width = 3.8)
 dev.off()
 
 
-pdf('../plots_paper/xCH4_comp_cum_S1.pdf', height = 4, width = 3.8)
+#pdf('../plots_paper/xCH4_comp_cum_S1.pdf', height = 4, width = 3.8)
+png('../plots_paper/xCH4_comp_cum_S1.png', height = 4, width = 3.8, units = 'in', res = 600)
 
   plot(xCH4.GC.cum ~ time.d, data = d01, type = 'n', las = 1, ylim = c(0.52, 0.57),
        xlab = 'Incubation time (d)', ylab = expression('CH'[4]~'conc. (mol. frac.)')) 
