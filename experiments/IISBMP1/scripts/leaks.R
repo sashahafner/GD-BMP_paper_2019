@@ -1,7 +1,7 @@
 # Calculate leakage from biogas bottles
 
 # Add leakage info
-leaks <- massLoss(biogas, time.name = 'time.d', m.pre.name = 'mass.init', m.post.name = 'mass.final',
+leaks <- biogas:::massLoss(biogas, time.name = 'time.d', m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    id.name = 'id')
 
 # Extract total trial leakage info (last observation)

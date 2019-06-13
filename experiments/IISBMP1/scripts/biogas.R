@@ -36,59 +36,65 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol',
                  extrap = TRUE) 
 
 # GD calculations
-cbg.gdv <- cumBgGD(biogas,
+cbg.gdv <- biogas:::cumBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'time.d',
                    vented.mass = TRUE, averaging = 'final', vmethod = 'grav',
-                   # temp.init = 20,
-                   # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdi <- cumBgGD(biogas,
+cbg.gdi <- biogas:::cumBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'time.d',
                    vented.mass = FALSE, averaging = 'int', vmethod = 'vol',
-                   # temp.init = 20,
-                   # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdc <- cumBgGD(biogas, 
+cbg.gdc <- biogas:::cumBgGD(biogas, 
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'time.d', 
                    vented.mass = FALSE, averaging = 'cumulative', vmethod = 'vol',
-                   # temp.init = 20, 
-                   # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdt <- cumBgGD(biogas,
+cbg.gdt <- biogas:::cumBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
                    m.pre.name = 'mass.init', m.post.name = 'mass.final',
                    comp.name = 'xCH4', time.name = 'time.d',
                    vented.mass = FALSE, averaging = 'final', vmethod = 'vol',
-                   # temp.init = 20,
-                   # headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
+
+# With headspace correction
+cbg.gdt.hc <- biogas:::cumBgGD(biogas,
+                   temp.vol = 20, pres.vol = 1.01325,
+                   temp.grav = 30, pres.grav = 1.5,
+                   id.name = 'id', vol.name = 'vol',
+                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
+                   comp.name = 'xCH4', time.name = 'time.d',
+                   vented.mass = FALSE, averaging = 'final', vmethod = 'vol',
+                   temp.init = 20, pres.init = 1.01325, headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
+                   extrap = TRUE,
+                   addt0 = TRUE, showt0 = TRUE)
+
 
 # Combine all cbg data together
 cbg.list <- list(man = cbg.man,
                  vol = cbg.vol,
                  grav = cbg.grav,
                  gdt = cbg.gdt,
+                 gdt.hc = cbg.gdt.hc,
                  gdv = cbg.gdv,
                  gdi = cbg.gdi,
                  gdc = cbg.gdc
