@@ -1,10 +1,4 @@
 # Cleaning of data and organizing for analysis 
-#which(is.na(biogas$mass.init))
-#which(is.na(biogas$mass.final))
-
-# Clean biogas data
-# Change from characters to numeric 
-biogas$mass.init <- as.numeric(biogas$mass.init)
 
 # Make id a factor instead of a character
 biogas$id <- factor(biogas$id)
@@ -21,7 +15,4 @@ setup <- droplevels(subset(setup, !grepl('^W', id)))
 
 # Make a cummulative date.time column
 biogas <- as.data.frame(mutate(group_by(biogas, id), start.time = min(date.time)))
-biogas$elapsed.time <- as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days'))
-
-# Fill in missing pressure - Not nessecary
-# biogas$pres.amb[is.na(biogas$pres.amb)] <- 1013.25
+biogas$time.d <- as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days'))

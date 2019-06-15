@@ -1,5 +1,5 @@
 # Runs complete analysis of IISBMP1 data
-# Camilla G. Justesen & Sasha Hafner
+# Camilla G. Justesen & Sasha D. Hafner
 
 rm(list = ls())
 options(width = 70)

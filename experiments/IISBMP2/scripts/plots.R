@@ -1,106 +1,34 @@
-# Plots
-# Yield plot
-sub.lab <- c("Cellulose" = "A) Cellulose", "FIC" = "B) Feed ingredient C", "LBD" = "C) Lignocellulosic biomass")
-yld.1 <- subset(yld, method == "gd03" | method == "grav")
-ggplot(yld.1, aes(elapsed.time, mean, colour = method)) +
-  geom_point() + geom_line(aes(group = method)) +
-  labs(x = 'Description', y = 'Mean Cumulative CH4 [mL]', colour = 'Method')  +
-  theme_bw() + 
-  scale_color_hue(labels = c("GD", "Gravimetric")) +
-  labs(x = 'Time [d]', y = expression('CH'[4]*' yield [mL/g]'), colour = "Method" , theme()) +
-  facet_wrap(~ descrip, labeller = as_labeller(sub.lab)) + theme_bw() +
-  theme(text = element_text(size = 10), legend.title = element_blank(), legend.position = "right" ) + 
-  ggsave('../plots/yld.png', width = 8, height = 3)
+# Plots (not for paper)
 
-# Bar plot with all methods
-
-labels <- c(gd01 = 'GD01', gd02 = 'GD02', gd03 = 'GD03', gd04 = 'GD04', gd05 = 'GD05', gd06 = 'GD06',
-           gd07 = 'GD07', gd08 = 'GD08', gd09 = 'GD09', gd10 = 'GD10', gd11 = 'GD11', gd12 = 'GD12',
-           grav = 'Gravimetric', vol = 'Volumetric', man = 'Manometric')
-BMP$method.label <- labels[BMP$method]
 BMP$lwr <- BMP$mean - BMP$sd
 BMP$upr <- BMP$mean + BMP$sd
-ggplot(BMP) +
-  geom_col(aes(descrip, mean, fill = method.label), position = 'dodge', colour  = 'black') +
-  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method.label), position = 'dodge', colour = 'gray55') +
-  #facet_grid(. ~ exper, scales = 'free_x') +
-  labs(x = 'Substrate', y = expression('BMP [mL/g]'), fill = 'Method') + theme_bw() +
-  theme(legend.title = element_blank(), legend.position = "right" ) + 
-  #theme_bw() + scale_fill_manual(values = c('gray65', 'gray95'))  +
-  #theme(legend.position = 'none')
-  ggsave('../plots/BMP.all.methods.appendix.pdf', height = 6, width = 6, scale = 1.2)
-ggsave('../plots/BMP.all.methods.appendix.png', height = 6, width = 6, scale = 1.2)
 
+ggplot(BMP) + 
+  geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
+  geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') 
+ggsave('../plots/BMP.png')
 
-
-ggplot(BMP, aes(method, mean), fill = method, color = method) +
-  geom_bar(stat = 'identity', color = 'black') + 
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2)+
-  ggtitle("GD Method") +
-  labs(x = "Method", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  facet_grid(~ descrip) + 
-  theme_bw() + 
-  theme(text = element_text(size = 10))
-ggsave('../plots/GD_methods_barplot.png')
-# See how "nice" Substrate D is - which has no leaks
-
-# yld
-yld$pid <- interaction(yld$descrip, yld$method)
-ggplot(yld, aes(elapsed.time, mean, group = pid)) +
-  geom_line(aes(colour = method)) +
+d <- merge(cbg.gdt, setup, by = 'id')
+ggplot(d, aes(time.d, xCH4, group = id)) + 
+  geom_line() +
   facet_wrap(~ descrip)
-ggsave('../plots/yld.interaction.png')
+ggsave('../plots/xCH4_GDt.png')
 
-# Plot of data before corrected for inoculum (GD)
-ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id )) +
+ggplot(yld, aes(time.d, mean, colour = method)) + 
+  geom_line() +
   geom_point() +
-  geom_line() + 
-  ggtitle("GD Method") +
-  labs(x = "Elapsed Time [hr]", y = "Cumulative CH4 [mL]", colour = "Substrate")  + 
-  theme_bw() + 
-  theme(text = element_text(size = 10))
-ggsave('../plots/GD_biogas.png')
+  facet_wrap(~ descrip)
+ggsave('../plots/yield.png')
 
+d <- merge(leaks, setup, by = 'id')
+ggplot(d, aes(time.d, mass.leak, group = id, colour = descrip)) + 
+  geom_line() +
+  geom_hline(yintercept = detect.lim.int, colour = 'gray45') +
+  facet_wrap(~ descrip)
+ggsave('../plots/leaks.png')
 
-# ----------------------
-
-# Plot mean data for each substrate (with ino and substrate correction) 
-
-ggplot(BMP, aes(method, mean, colour = descrip)) + 
-         geom_point() + geom_line(aes(group = descrip)) + 
-         geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-         position=position_dodge(0.05)) + 
-         labs(x = 'Method', y = 'BMP [mL]', colour = 'Description')  + 
-         theme_bw() + 
-         theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP.png')
-
-
-# Plot with reverse of method/descrip
-ggplot(BMP, aes(descrip, mean, colour = method)) +
-  geom_point() + geom_line(aes(group = method)) +
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2,
-                position=position_dodge(0.05)) +
-  labs(x = 'Description', y = 'BMP [mL]', colour = 'Method')  +
-  theme_bw() +
-  theme(text = element_text(size = 10))
-ggsave('../plots/method_comparison_BMP_reverse.onlyGD.png')
-ggsave('../plots/method_comparison_BMP_reverse.png')
-
-# ----------------------
-
-# # Plots
-# ggplot(cbg.gd, aes(elapsed.time, cvCH4, colour = id)) + 
-#   geom_line() + geom_point()  
-# ggsave('../plots/cvCH4_gd.png')
-# 
-# ggplot(yld, aes(time.d, cvCH4, colour = substrate, group = id)) + 
-#   geom_line() + geom_point() + labs(x = 'Time (d)', y = 'CH4 yield (mL/g)', colour = 'Substrate')
-# ggsave('../plots/yield_gd.png')
-# 
-# ggplot(rates, aes(time.d, log10(rrvCH4), colour = id)) + 
-#   geom_line() + geom_point()  + geom_hline(yintercept = log10(c(1, 0.5)))
-# ggsave('../plots/rrates.png')
-
-ggplot(yld, aes(elapsed.time, mean, colour = descrip))  + geom_point() + labs(x = 'Time (d)', y = 'CH4 yield (mL/g)', colour = 'descrip')
-ggsave('../plots/yield_gd.png')
+ggplot(d, aes(time.d, cmass.leak, group = id, colour = descrip)) + 
+  geom_line() +
+  geom_hline(yintercept = detect.lim.tot, colour = 'gray45') +
+  facet_wrap(~ descrip)
+ggsave('../plots/leaks_tot.png')

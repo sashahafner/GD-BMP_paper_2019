@@ -88,6 +88,9 @@ cbg.gdt.hc <- biogas:::cumBgGD(biogas,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
+# Get inoculum-only values from uncorrected results (corrected results probably not correct for inoculum)
+cbg.gdt.hc <- cbg.gdt.hc[!cbg.gdt.hc$id %in% c('I1', 'I2', 'I3'), ] 
+cbg.gdt.hc <- rbindf(cbg.gdt.hc, cbg.gdt[cbg.gdt$id %in% c('I1', 'I2', 'I3'), ])
 
 # Combine all cbg data together
 cbg.list <- list(man = cbg.man,
