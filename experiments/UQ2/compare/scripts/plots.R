@@ -12,5 +12,3 @@ ggplot(yld, aes(time.d, mean, group = interaction(descrip, method), colour = met
   geom_line() +
   facet_wrap(~ descrip)
 ggsave('../plots/yield.png')
-
-

@@ -70,6 +70,11 @@ cbg.gdv.hc <- biogas:::cumBgGD(biogas,
 cbg.gdv.hc <- cbg.gdv.hc[!cbg.gdv.hc$id %in% c('I1', 'I2', 'I3'), ] 
 cbg.gdv.hc <- rbindf(cbg.gdv.hc, cbg.gdv[cbg.gdv$id %in% c('I1', 'I2', 'I3'), ])
 
+# For evaluating headspace correction
+cbg.hc.comp <- merge(cbg.gdv.hc, cbg.gdv, by = c('id', 'date.time', 'start.time', 'time.d', 'temp.vol',
+                                                 'pres.vol', 'pres.grav', 'mass.tot'),
+                     suffixes = c('.hc', '.nc'))
+
 # Combine all cbg data together
 cbg.list <- list(man = cbg.man,
                  vol = cbg.vol,

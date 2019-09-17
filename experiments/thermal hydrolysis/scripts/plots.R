@@ -40,3 +40,10 @@ ggplot(d, aes(time.d, cmass.leak, group = id, colour = descrip)) +
   geom_hline(yintercept = detect.lim.tot, colour = 'gray45') +
   facet_wrap(~ descrip)
 ggsave('../plots/leaks_tot.png')
+
+d <- merge(cbg.hc.comp, setup, by = 'id')
+ggplot(d, aes(cvCH4.nc, cvCH4.hc, colour = descrip)) + 
+  geom_point()
+
+ggplot(d, aes(cvCH4.nc, cvCH4.hc, colour = descrip, shape = vol.hs.x/cvCH4.nc > 1)) + 
+  geom_point()
