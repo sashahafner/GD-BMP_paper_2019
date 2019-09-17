@@ -60,36 +60,44 @@ png('../plots_paper/xCH4_comp_S1.png', height = 4, width = 3.8, units = 'in', re
          col = c('black', 'gray65'), bty = 'n')
 dev.off()
 
+ggplot(cbg.comb) +
+       geom_abline(intercept = 0, slope = 1) + 
+       geom_abline(intercept = c(-0.05, 0.05), slope = 1, lty = 2, colour = 'gray45') + 
+       geom_point(aes(xCH4c.grav, xCH4c.gdt.hc, shape = descrip), colour = 'gray45') +
+       geom_point(aes(xCH4c.grav, xCH4c.gdt, shape = descrip)) +
+       theme_bw()
+ggsave('../plots_paper/xCH4_comp_final_S1.pdf', height = 4, width = 3.8)
 
-#pdf('../plots_paper/xCH4_comp_cum_S1.pdf', height = 4, width = 3.8)
-png('../plots_paper/xCH4_comp_cum_S1.png', height = 4, width = 3.8, units = 'in', res = 600)
 
-  plot(xCH4.GC.cum ~ time.d, data = d01, type = 'n', las = 1, ylim = c(0.52, 0.57),
-       xlab = 'Incubation time (d)', ylab = expression('CH'[4]~'conc. (mol. frac.)')) 
-  grid()
-
-  dv <- dv[order(dv$time.d), ]
-  for (i in unique(d01$id)) {
-    dd <- dv[dv$id == i, ]
-    lines(xCH4.GC.cum ~ time.d, data = dd, type = 'o', pch = 1, col = 'black', lty = 2)
-  }
-
-  #dg <- dg[order(dg$time.d), ]
-  #for (i in unique(d01$id)) {
-  #  dd <- dg[dg$id == i, ]
-  #  lines(xCH4.GC.cum ~ time.d, data = dd, type = 'o', pch = 1, col = 'red', lty = 2)
-  #}
-
-  for (i in unique(d03$id)) {
-    dd <- d03[d03$id == i, ]
-    lines(xCH4 ~ time.d, data = dd, col = 'black', lty = 1, lwd = 2)
-  }
-
-  legend('topright', c('GC', expression('GD'[t])), 
-         pch = c(1, -1), 
-         lty = c(2, 1),
-         lwd = c(1, 2),
-         col = c('black', 'black'), bty = 'n')
-
-dev.off()
-
+##pdf('../plots_paper/xCH4_comp_cum_S1.pdf', height = 4, width = 3.8)
+#png('../plots_paper/xCH4_comp_cum_S1.png', height = 4, width = 3.8, units = 'in', res = 600)
+#
+#  plot(xCH4.GC.cum ~ time.d, data = d01, type = 'n', las = 1, ylim = c(0.52, 0.57),
+#       xlab = 'Incubation time (d)', ylab = expression('CH'[4]~'conc. (mol. frac.)')) 
+#  grid()
+#
+#  dv <- dv[order(dv$time.d), ]
+#  for (i in unique(d01$id)) {
+#    dd <- dv[dv$id == i, ]
+#    lines(xCH4.GC.cum ~ time.d, data = dd, type = 'o', pch = 1, col = 'black', lty = 2)
+#  }
+#
+#  #dg <- dg[order(dg$time.d), ]
+#  #for (i in unique(d01$id)) {
+#  #  dd <- dg[dg$id == i, ]
+#  #  lines(xCH4.GC.cum ~ time.d, data = dd, type = 'o', pch = 1, col = 'red', lty = 2)
+#  #}
+#
+#  for (i in unique(d03$id)) {
+#    dd <- d03[d03$id == i, ]
+#    lines(xCH4 ~ time.d, data = dd, col = 'black', lty = 1, lwd = 2)
+#  }
+#
+#  legend('topright', c('GC', expression('GD'[t])), 
+#         pch = c(1, -1), 
+#         lty = c(2, 1),
+#         lwd = c(1, 2),
+#         col = c('black', 'black'), bty = 'n')
+#
+#dev.off()
+#

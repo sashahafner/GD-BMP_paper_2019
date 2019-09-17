@@ -23,15 +23,22 @@ cbg.comb <- merge(setup, cbg.comb, by = c('exper', 'id'))
 cbg.comb$aerr1 <- cbg.comb$xCH4c.gdt - cbg.comb$xCH4c.grav
 cbg.comb$aerr2 <- cbg.comb$xCH4c.gdt.hc - cbg.comb$xCH4c.grav
 
-ggplot(cbg.comb, aes(xCH4c.grav, xCH4c.gdt.hc, colour = descrip)) +
-       geom_point() +
-       geom_abline(intercept = 0, slope = 1)
+ggplot(cbg.comb) +
+       geom_abline(intercept = 0, slope = 1) + 
+       geom_abline(intercept = c(-0.05, 0.05), slope = 1, lty = 2, colour = 'gray45') + 
+       geom_point(aes(xCH4c.grav, xCH4c.gdt.hc, shape = descrip), colour = 'gray45') +
+       geom_point(aes(xCH4c.grav, xCH4c.gdt, shape = descrip)) +
+       theme_bw()
 
 ggplot(cbg.comb, aes(cvBg.grav/vol.hs, aerr1, colour = descrip)) +
        geom_point(shape = 19) +
        geom_point(aes(cvBg.grav/vol.hs, aerr2), shape = 2) +
        geom_abline(intercept = 0, slope = 1)
 
+
+x <- subset(cbg.comb, descrip != 'I')
+t.test(x$aerr1)
+t.test(x$aerr2)
 
 plot(xCH4c.grav ~ xCH4c.gdt, data = cbg.comb)
 abline(0, 1)
