@@ -1,0 +1,154 @@
+
+> # Exploring data
+> 
+> # Check ratio of cvBg to headspace
+> 
+> x <- subset(cbg.comb, id %in% c('I1', 'I2', 'I3'))
+
+> x
+   exper id descrip descrip1 substrate   tare m.inoc m.sub m.tot1
+13     2 I1       I        I      <NA> 539.15 419.34    NA  959.9
+14     2 I2       I        I      <NA> 538.97 449.12    NA  989.9
+   m.tot2 m.tot m.tot.sd m.gained c.sub.vs c.inoc.vs m.sub.vs
+13     NA 959.9       NA     1.41       NA     19.86       NA
+14     NA 989.9       NA     1.81       NA     19.86       NA
+   m.inoc.vs ISR vol.tot vol.hs notes.x     date time.orig time
+13  8.328092  NA    1120 703.66    <NA> 17022017      1726 1707
+14  8.919523  NA    1120 673.88    <NA> 17022017      1728 1707
+   sheet.order mass.init pres.init vol mass.final notes.y
+13         403     959.1     0.129  80        959    <NA>
+14         404     989.1     0.224 140        989    <NA>
+      inject.date.time xCH4.oa xCH4.GC           date.time
+13 27-02-2017 11:07:48  0.6334  0.6334 2017-02-17 17:07:00
+14 27-02-2017 15:42:45  0.6402  0.6402 2017-02-17 17:07:00
+            start.time time.d vol.hs.gdt temperature pressure
+13 2017-01-17 15:20:00   31.1     703.66          30      1.5
+14 2017-01-17 15:20:00   31.1     673.88          30      1.5
+   massloss cmassloss  vBg.grav vCH4.grav cvBg.grav cvCH4.grav
+13      0.2       0.9 166.48688 105.62176  805.5093   418.2172
+14      0.1       0.9  83.84046  53.75907  809.9092   405.6992
+   rvBg.grav rvCH4.grav xCH4c.grav temp.vol.gdt temp.grav.gdt
+13  15.13517   9.601978  0.5191960           20            30
+14   7.62186   4.887188  0.5009193           20            30
+   pres.vol.gdt pres.grav.gdt mass.tot.gdt cmass.tot.gdt   vBg.gdt
+13      1.01325           1.5          0.2           0.9  72.81633
+14      1.01325           1.5          0.1           0.9 127.42857
+   cvBg.gdt xCH4.GD.gdt xCH4.GD.lim.flag.gdt vCH4.gdt cvCH4.gdt
+13 637.1428   0.4660197                      33.93384  296.9211
+14 755.4694   0.6424261                      81.86344  485.3333
+    rvBg.gdt rvCH4.gdt xCH4c.gdt vol.hsgdthc temp.volgdthc
+13  6.619666  3.084895 0.4660197          NA            20
+14 11.584415  7.442131 0.6424261          NA            20
+   temp.gravgdthc pres.volgdthc pres.gravgdthc mass.totgdthc
+13             30       1.01325            1.5           0.2
+14             30       1.01325            1.5           0.1
+   cmass.totgdthc mass.vent mass.leak cmass.vent cmass.leak  vBggdthc
+13            0.9        NA        NA         NA         NA  72.81633
+14            0.9        NA        NA         NA         NA 127.42857
+   cvBggdthc xCH4.GDHC xCH4.GDHC.lim.flag vCH4gdthc cvCH4gdthc
+13  637.1428        NA               <NA>  33.93384   296.9211
+14  755.4694        NA               <NA>  81.86344   485.3333
+   rvBggdthc rvCH4gdthc xCH4.GDgdthc xCH4.GD.lim.flaggdthc
+13  6.619666   3.084895    0.4660197                      
+14 11.584415   7.442131    0.6424261                      
+   xCH4c.gdt.hc       aerr1       aerr2
+13    0.4660197 -0.05317631 -0.05317631
+14    0.6424261  0.14150679  0.14150679
+
+> x$cvBg.grav/x$vol.hs
+[1] 1.144742 1.201860
+
+> # Total volumes
+> summarise(group_by(cbg.grav, id), vsum = sum(vol), cvBg = max(cvBg))
+# A tibble: 16 x 3
+   id     vsum  cvBg
+   <fct> <dbl> <dbl>
+ 1 A1     2988 2711.
+ 2 A2     2995 2713.
+ 3 A3     2714 2483.
+ 4 B1     3322 2996.
+ 5 B2     3019 2777.
+ 6 B3     2802 2689.
+ 7 C1     3162 3009.
+ 8 C2     3420 3094.
+ 9 C3     3092 2766.
+10 E1     1962 1848.
+11 E2     2064 1863.
+12 E3     2165 2032.
+13 I1      700  806.
+14 I2      830  810.
+15 L1     1717 1642.
+16 L3     1922 1803.
+
+> # Look at mass loss
+> table(round(cbg.gdt$mass.tot, 1))
+
+  0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9   1 1.1 1.2 
+ 21  45  37  18   7   6   6   3   4   4   4   2   3 
+
+> median(round(cbg.gdt$mass.tot, 1))
+[1] 0.2
+
+> # Total mass loss
+> summarise(group_by(cbg.gdt, id), vsum = sum(vol), cvBg = max(cvBg), cmass.tot = max(cmass.tot))
+# A tibble: 16 x 4
+   id     vsum  cvBg cmass.tot
+   <fct> <dbl> <dbl>     <dbl>
+ 1 A1     2988 2720.     3.6  
+ 2 A2     2995 2726.     3.6  
+ 3 A3     2714 2470.     3.30 
+ 4 B1     3322 3024.     4    
+ 5 B2     3019 2748.     3.7  
+ 6 B3     2802 2550.     3.6  
+ 7 C1     3162 2878.     3.7  
+ 8 C2     3420 3113.     3.8  
+ 9 C3     3092 2814.     3.40 
+10 E1     1962 1786.     2.1  
+11 E2     2064 1879.     2.1  
+12 E3     2165 1971.     2.3  
+13 I1      700  637.     0.900
+14 I2      830  755.     0.900
+15 L1     1717 1563.     2.10 
+16 L3     1922 1749.     2.30 
+
+> # Error in GDt
+> cbg.comb$aerr1
+ [1] -0.005403591 -0.006883711 -0.021315714  0.018474542 -0.001150623
+ [6] -0.065508801 -0.065923744 -0.013315093 -0.008480743 -0.069534729
+[11] -0.018491846 -0.063605219 -0.053176313  0.141506792  0.022789042
+[16]  0.043562334
+
+> cbg.comb$aerr2
+ [1] -0.0289016298 -0.0287898424 -0.0519823045 -0.0009820754
+ [5] -0.0301110771 -0.1202055078 -0.0730124441 -0.0077151915
+ [9]  0.0001160573 -0.0257597557  0.0541597069 -0.0240142327
+[13] -0.0531763135  0.1415067922 -0.0491499732  0.0055712442
+
+> range(cbg.comb$aerr1)
+[1] -0.06953473  0.14150679
+
+> range(cbg.comb$aerr2)
+[1] -0.1202055  0.1415068
+
+> sort(cbg.comb$aerr1)
+ [1] -0.069534729 -0.065923744 -0.065508801 -0.063605219 -0.053176313
+ [6] -0.021315714 -0.018491846 -0.013315093 -0.008480743 -0.006883711
+[11] -0.005403591 -0.001150623  0.018474542  0.022789042  0.043562334
+[16]  0.141506792
+
+> sort(cbg.comb$aerr2)
+ [1] -0.1202055078 -0.0730124441 -0.0531763135 -0.0519823045
+ [5] -0.0491499732 -0.0301110771 -0.0289016298 -0.0287898424
+ [9] -0.0257597557 -0.0240142327 -0.0077151915 -0.0009820754
+[13]  0.0001160573  0.0055712442  0.0541597069  0.1415067922
+
+> mean(abs(cbg.comb$aerr1) < 0.05)
+[1] 0.625
+
+> setup$m.tot
+ [1]  959.9  989.9  986.5  826.2  842.7  839.3  845.4  853.2  847.9
+[10] 1037.8 1022.1 1049.3  951.5  858.0  847.3  838.3  852.1  863.3
+[19]  851.1  841.2  871.6  826.9 1073.6
+
+> range(setup$m.tot)
+[1]  826.2 1073.6

@@ -36,4 +36,3 @@ comp$time.d <- as.numeric(difftime(comp$date.time, comp$start.time, units = 'day
 
 # Drop data after 21 d (cellulose and ethanol did not have 31 d meas)
 biogas <- biogas[biogas$time.d <= 21, ]
-

@@ -3,25 +3,29 @@
 BMP$lwr <- BMP$mean - BMP$sd
 BMP$upr <- BMP$mean + BMP$sd
 
+ggplot(cbg.comb, aes(cvCH4.grav, aerr1)) + 
+  geom_point()
+ggsave('../plots/aerr_v_cvBg.png')
+
 ggplot(BMP) + 
   geom_col(aes(descrip, mean, fill = method), position = 'dodge', colour  = 'black') +
   geom_errorbar(aes(descrip, ymin = lwr, ymax = upr, group = method), position = 'dodge', colour = 'gray55') 
 ggsave('../plots/BMP.png')
 
 d <- merge(cbg.gdv, setup, by = 'id')
-ggplot(d, aes(time.d, xCH4, group = id)) + 
+ggplot(d, aes(time.d, xCH4.GD, group = id)) + 
   geom_line() +
   facet_wrap(~ descrip)
 ggsave('../plots/xCH4_GDv.png')
 
 d <- merge(cbg.gdt, setup, by = 'id')
-ggplot(d, aes(time.d, xCH4, group = id)) + 
+ggplot(d, aes(time.d, xCH4.GD, group = id)) + 
   geom_line() +
   facet_wrap(~ descrip)
 ggsave('../plots/xCH4_GDt.png')
 
 d <- merge(cbg.gdi, setup, by = 'id')
-ggplot(d, aes(time.d, xCH4, group = id)) + 
+ggplot(d, aes(time.d, xCH4.GD, group = id)) + 
   geom_line() +
   facet_wrap(~ descrip)
 ggsave('../plots/xCH4_GDi.png')

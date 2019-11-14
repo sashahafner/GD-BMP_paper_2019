@@ -47,3 +47,8 @@ ggplot(d, aes(cvCH4.nc, cvCH4.hc, colour = descrip)) +
 
 ggplot(d, aes(cvCH4.nc, cvCH4.hc, colour = descrip, shape = vol.hs.x/cvCH4.nc > 1)) + 
   geom_point()
+
+ggplot(cbg.comb, aes(cvBg.grav, aerr1)) + 
+  geom_point()
+ggsave('../plots/aerr_v_cvBg.png')
+

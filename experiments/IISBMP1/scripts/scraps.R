@@ -1,4 +1,110 @@
 
+x$cvBg.grav
+x$cvBg.grav/x$cmass.tot.
+x$cmass.tot.
+
+
+x <- subset(cbg.gdt, id == 'I1')
+x <- subset(cbg.gdt, id == 'I2')
+x
+x$vol
+x$vol/x$mass.tot
+x$date.time
+
+x <- subset(cbg.grav,  id %in% c('I1', 'I2', 'I3'))
+library(dplyr)
+
+
+BMPo$fv.inoc
+mean(BMPo$fv.inoc)
+median(BMPo$fv.inoc)
+head(BMPo)
+
+ggplot(cbg.comb) +
+       geom_abline(intercept = 0, slope = 1) + 
+       geom_abline(intercept = c(-0.05, 0.05), slope = 1, lty = 2, colour = 'gray45') + 
+       geom_point(aes(xCH4c.grav, xCH4c.gdt.hc, shape = descrip), colour = 'gray45') +
+       geom_point(aes(xCH4c.grav, xCH4c.gdt, shape = descrip)) +
+       theme_bw()
+
+ggplot(cbg.comb, aes(cvBg.grav/vol.hs, aerr1, colour = descrip)) +
+       geom_point(shape = 19) +
+       geom_point(aes(cvBg.grav/vol.hs, aerr2), shape = 2) +
+       geom_abline(intercept = 0, slope = 1)
+
+
+x <- subset(cbg.comb, descrip != 'I')
+t.test(x$aerr1)
+t.test(x$aerr2)
+
+plot(xCH4c.grav ~ xCH4c.gdt, data = cbg.comb)
+abline(0, 1)
+abline(0.1, 1)
+abline(-0.1, 1)
+
+table(cbg.comb$id, cbg.comb$time.d)
+dim(cbg.comb)
+head(cbg.comb)
+
+head(cbg.comb)
+dfsumm(cbg.comb)
+
+x <- subset(cbg.comb, is.na(xCH4.GD))
+head(x)
+
+xCH4.comp <- as.data.frame(summarise(group_by(cbg.comb, id), xCH4.gdt = xCH4[method == 'gdt' & time.d == max(time.d)],
+                                     xCH4.gc = cvCH4[method == 'grav' & time.d == max(time.d)]/
+                                     cvBg[method == 'grav' & time.d == max(time.d)],
+                                     adiff = xCH4.gdt - xCH4.gc))
+
+
+head(d01)
+d03 <- cbg.gdt
+d03 <- merge(setup, d03, by = 'id')
+d03 <- d03[d03$descrip %in% c('FI1') & d03$time.d > 0 , ]
+dv <- cbg.vol
+dv <- merge(setup, dv, by = 'id')
+dv <- dv[dv$descrip %in% c('FI1') & dv$time.d > 0 , ]
+dv$xCH4.GC.cum <- dv$cvCH4/dv$cvBg
+
+dg <- cbg.grav
+dg <- merge(setup, dg, by = 'id')
+dg <- dg[dg$descrip %in% c('FI1') & dg$time.d > 0 , ]
+dg$xCH4.GC.cum <- dg$cvCH4/dg$cvBg
+
+##pdf('../plots_paper/xCH4_comp_cum_S1.pdf', height = 4, width = 3.8)
+#png('../plots_paper/xCH4_comp_cum_S1.png', height = 4, width = 3.8, units = 'in', res = 600)
+#
+#  plot(xCH4.GC.cum ~ time.d, data = d01, type = 'n', las = 1, ylim = c(0.52, 0.57),
+#       xlab = 'Incubation time (d)', ylab = expression('CH'[4]~'conc. (mol. frac.)')) 
+#  grid()
+#
+#  dv <- dv[order(dv$time.d), ]
+#  for (i in unique(d01$id)) {
+#    dd <- dv[dv$id == i, ]
+#    lines(xCH4.GC.cum ~ time.d, data = dd, type = 'o', pch = 1, col = 'black', lty = 2)
+#  }
+#
+#  #dg <- dg[order(dg$time.d), ]
+#  #for (i in unique(d01$id)) {
+#  #  dd <- dg[dg$id == i, ]
+#  #  lines(xCH4.GC.cum ~ time.d, data = dd, type = 'o', pch = 1, col = 'red', lty = 2)
+#  #}
+#
+#  for (i in unique(d03$id)) {
+#    dd <- d03[d03$id == i, ]
+#    lines(xCH4 ~ time.d, data = dd, col = 'black', lty = 1, lwd = 2)
+#  }
+#
+#  legend('topright', c('GC', expression('GD'[t])), 
+#         pch = c(1, -1), 
+#         lty = c(2, 1),
+#         lwd = c(1, 2),
+#         col = c('black', 'black'), bty = 'n')
+#
+#dev.off()
+#
+
 ggplot() +
   geom_line(data = d01, aes(time.d, xCH4.GC, group = id)) + 
   geom_line(data = d01, aes(time.d, xCH4, group = id), col = 'gray45', lty = 2) +

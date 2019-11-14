@@ -5,6 +5,11 @@ BMP <- summBg(cbg.list, setup, id.name = "id",
                inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
                when = 'end', extrap = TRUE, set.name = 'method')
 
+BMP1p <- summBg(cbg.list, setup, id.name = "id",
+               time.name = 'time.d', descrip.name = 'descrip',
+               inoc.name = "I", inoc.m.name = "m.inoc", norm.name = "m.sub.vs",
+               when = '1p3d', extrap = TRUE, set.name = 'method')
+
 # o for "obs" = one value for each bottle
 BMPo <- summBg(cbg.list, setup, id.name = "id",
                 time.name = 'time.d', descrip.name = 'descrip',

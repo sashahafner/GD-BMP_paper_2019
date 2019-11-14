@@ -7,6 +7,8 @@ write.csv(leaks, '../output/leaks.csv', row.names = FALSE)
 write.csv(cbg.gdt, '../output/cbg_gdt.csv', row.names = FALSE)
 write.csv(cbg.gdt, '../output/cbg_gdt_hc.csv', row.names = FALSE)
 
+write.csv(detect.limits, '../output/detect_lim.csv', row.names = FALSE)
+
 # BMP
 write.csv(BMP, '../output/BMP.csv', row.names = FALSE)
 write.csv(BMPo, '../output/BMPo.csv', row.names = FALSE)

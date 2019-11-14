@@ -36,7 +36,7 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol',
                  extrap = TRUE) 
 
 # GD calculations
-cbg.gdv <- biogas:::cumBgGD(biogas,
+cbg.gdv <- cumBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
@@ -46,17 +46,18 @@ cbg.gdv <- biogas:::cumBgGD(biogas,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdi <- biogas:::cumBgGD(biogas,
+# Note that m.pre.name is not required unless vented.mass is used
+cbg.gdi <- cumBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
-                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
+                   m.post.name = 'mass.final',
                    comp.name = 'xCH4.GD', time.name = 'time.d',
                    vented.mass = FALSE, averaging = 'int', vmethod = 'vol',
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdc <- biogas:::cumBgGD(biogas, 
+cbg.gdc <- cumBgGD(biogas, 
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
@@ -66,18 +67,19 @@ cbg.gdc <- biogas:::cumBgGD(biogas,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdt <- biogas:::cumBgGD(biogas,
+# comp.sub needed here because of leakage
+cbg.gdt <- cumBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
-                   m.pre.name = 'mass.init', m.post.name = 'mass.final',
+                   m.post.name = 'mass.final',
                    comp.name = 'xCH4.GD', time.name = 'time.d',
                    vented.mass = FALSE, averaging = 'final', vmethod = 'vol',
                    extrap = TRUE,
-                   addt0 = TRUE, showt0 = TRUE)
+                   addt0 = TRUE, showt0 = TRUE, comp.sub = 'lim')
 
 # With headspace correction
-cbg.gdt.hc <- biogas:::cumBgGD(biogas,
+cbg.gdt.hc <- cumBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
@@ -86,7 +88,7 @@ cbg.gdt.hc <- biogas:::cumBgGD(biogas,
                    vented.mass = FALSE, averaging = 'final', vmethod = 'vol',
                    temp.init = 20, pres.init = 1.01325, headspace = setup, vol.hs.name = 'vol.hs', headcomp = 'N2',
                    extrap = TRUE,
-                   addt0 = TRUE, showt0 = TRUE)
+                   addt0 = TRUE, showt0 = TRUE, comp.sub = 'lim')
 
 # Get inoculum-only values from uncorrected results (corrected results probably not correct for inoculum)
 cbg.gdt.hc <- cbg.gdt.hc[!cbg.gdt.hc$id %in% c('I1', 'I2', 'I3'), ] 

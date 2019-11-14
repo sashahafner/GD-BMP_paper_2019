@@ -1,9 +1,23 @@
+
+> # Comparison with lm()
+> 
+> BMPo$method <- factor(BMPo$method)
+
+> BMPo$method <- relevel(BMPo$method, ref = 'grav')
+
+> BMPo$descrip <- factor(BMPo$descrip)
+
+> mod <- aov(cvCH4 ~ descrip + method, data = BMPo)
+
+> print(summary(mod))
             Df Sum Sq Mean Sq F value   Pr(>F)    
-descrip      1 160394  160394 1582.57  < 2e-16 ***
-method       4   4267    1067   10.53 4.53e-05 ***
-Residuals   24   2432     101                     
+descrip      1 196492  196492 2091.37  < 2e-16 ***
+method       5   4844     969   10.31 9.36e-06 ***
+Residuals   29   2725      94                     
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> print(summary(glht(mod, linfct = mcp(method = 'Dunnett'))))
 
 	 Simultaneous Tests for General Linear Hypotheses
 
@@ -13,41 +27,51 @@ Multiple Comparisons of Means: Dunnett Contrasts
 Fit: aov(formula = cvCH4 ~ descrip + method, data = BMPo)
 
 Linear Hypotheses:
-                Estimate Std. Error t value Pr(>|t|)    
-man - grav == 0  -34.774      5.812  -5.983   <0.001 ***
-gdi - grav == 0   -9.110      5.812  -1.567    0.352    
-gdt - grav == 0   -9.110      5.812  -1.567    0.352    
-gdv - grav == 0   -6.345      5.812  -1.092    0.652    
+                 Estimate Std. Error t value Pr(>|t|)    
+man - grav == 0   -34.717      5.596  -6.204   <0.001 ***
+gdi - grav == 0    -8.737      5.596  -1.561     0.40    
+gdt - grav == 0    -8.737      5.596  -1.561     0.40    
+gdtc - grav == 0   -1.226      5.596  -0.219     1.00    
+gdv - grav == 0    -5.972      5.596  -1.067     0.73    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 (Adjusted p values reported -- single-step method)
 
+
+> print(TukeyHSD(mod, 'method'))
   Tukey multiple comparisons of means
     95% family-wise confidence level
 
 Fit: aov(formula = cvCH4 ~ descrip + method, data = BMPo)
 
 $method
-               diff        lwr        upr     p adj
-man-grav -34.773674 -51.897060 -17.650287 0.0000326
-gdi-grav  -9.110140 -26.233526   8.013246 0.5312767
-gdt-grav  -9.110140 -26.233526   8.013246 0.5312767
-gdv-grav  -6.345414 -23.468801  10.777972 0.8090085
-gdi-man   25.663534   8.540147  42.786920 0.0015722
-gdt-man   25.663534   8.540147  42.786920 0.0015722
-gdv-man   28.428260  11.304873  45.551646 0.0004826
-gdt-gdi    0.000000 -17.123386  17.123386 1.0000000
-gdv-gdi    2.764726 -14.358661  19.888112 0.9888718
-gdv-gdt    2.764726 -14.358661  19.888112 0.9888718
+                diff        lwr        upr     p adj
+man-grav  -34.716872 -51.776917 -17.656826 0.0000127
+gdi-grav   -8.736654 -25.796700   8.323391 0.6292543
+gdt-grav   -8.736654 -25.796700   8.323391 0.6292543
+gdtc-grav  -1.225828 -18.285874  15.834217 0.9999225
+gdv-grav   -5.971929 -23.031975  11.088117 0.8902874
+gdi-man    25.980217   8.920171  43.040263 0.0008861
+gdt-man    25.980217   8.920171  43.040263 0.0008861
+gdtc-man   33.491043  16.430997  50.551089 0.0000229
+gdv-man    28.744943  11.684897  45.804989 0.0002317
+gdt-gdi     0.000000 -17.060046  17.060046 1.0000000
+gdtc-gdi    7.510826  -9.549220  24.570872 0.7596130
+gdv-gdi     2.764726 -14.295320  19.824771 0.9960125
+gdtc-gdt    7.510826  -9.549220  24.570872 0.7596130
+gdv-gdt     2.764726 -14.295320  19.824771 0.9960125
+gdv-gdtc   -4.746100 -21.806146  12.313945 0.9555979
 
+
+> print(model.tables(mod), type = 'means')
 Tables of effects
 
  descrip 
 descrip
      C      L 
- 73.12 -73.12 
+ 73.88 -73.88 
 
  method 
 method
-   grav     man     gdi     gdt     gdv 
- 11.868 -22.906   2.758   2.758   5.522 
+   grav     man     gdi     gdt    gdtc     gdv 
+  9.898 -24.819   1.161   1.161   8.672   3.926 

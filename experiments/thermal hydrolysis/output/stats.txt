@@ -17,9 +17,9 @@ Linear Hypotheses:
                    Estimate Std. Error t value Pr(>|t|)    
 gdt - grav == 0     -62.168      8.027  -7.745   <0.001 ***
 gdv - grav == 0      -6.922      8.027  -0.862   0.8580    
-gdv.hc - grav == 0   10.953      8.027   1.365   0.5151    
+gdv.hc - grav == 0   10.953      8.027   1.365   0.5152    
 man - grav == 0     -60.776      8.027  -7.571   <0.001 ***
-vol - grav == 0     -22.783      8.027  -2.838   0.0225 *  
+vol - grav == 0     -22.783      8.027  -2.838   0.0223 *  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 (Adjusted p values reported -- single-step method)
