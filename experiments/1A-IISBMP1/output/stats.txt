@@ -1,3 +1,18 @@
+
+> # Comparison of methods
+> 
+> # First approach
+> BMPo$method <- factor(BMPo$method)
+
+> BMPo$method <- relevel(BMPo$method, ref = 'grav')
+
+> BMPo$descrip <- factor(BMPo$descrip)
+
+> BMPo$id <- factor(BMPo$id)
+
+> mod <- aov(cvCH4 ~ descrip + method + id, data = BMPo)
+
+> print(summary(mod))
             Df  Sum Sq Mean Sq F value   Pr(>F)    
 descrip      4 1898049  474512 464.225  < 2e-16 ***
 method       7   32863    4695   4.593 0.000197 ***
@@ -5,6 +20,8 @@ id           9   48094    5344   5.228 1.01e-05 ***
 Residuals   91   93017    1022                     
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> print(summary(glht(mod, linfct = mcp(method = 'Dunnett'))))
 
 	 Simultaneous Tests for General Linear Hypotheses
 
@@ -15,7 +32,7 @@ Fit: aov(formula = cvCH4 ~ descrip + method + id, data = BMPo)
 
 Linear Hypotheses:
                    Estimate Std. Error t value Pr(>|t|)    
-gdc - grav == 0     -16.149     12.084  -1.336    0.629    
+gdc - grav == 0     -16.149     12.084  -1.336    0.628    
 gdi - grav == 0      -6.070     12.084  -0.502    0.996    
 gdt - grav == 0     -21.250     12.084  -1.759    0.342    
 gdt.hc - grav == 0  -26.002     12.084  -2.152    0.163    
@@ -26,6 +43,8 @@ vol - grav == 0       6.649     12.084   0.550    0.993
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 (Adjusted p values reported -- single-step method)
 
+
+> print(TukeyHSD(mod, 'method'))
   Tukey multiple comparisons of means
     95% family-wise confidence level
 
@@ -62,6 +81,8 @@ man-gdv      47.025949   9.534111  84.517787 0.0045150
 vol-gdv      57.560859  20.069021  95.052697 0.0001879
 vol-man      10.534910 -26.956928  48.026748 0.9878486
 
+
+> print(model.tables(mod), type = 'means')
 Tables of effects
 
  descrip 
@@ -81,3 +102,38 @@ rep 8.000 8.000   8.00  8.0 8.000   8.00   8.00  8.00  8.00   8.0
        E2    E3      L1     L3
     18.53 6.367 -0.5221 0.5221
 rep  8.00 8.000  8.0000 8.0000
+
+> coef(mod)
+   (Intercept) descripEthanol     descripFI1     descripFI2 
+   395.5017533    322.5798375     -3.5135624    -53.3120767 
+    descripFI3      methodgdc      methodgdi      methodgdt 
+   142.9814486    -16.1487338     -6.0699111    -21.2499378 
+  methodgdt.hc      methodgdv      methodman      methodvol 
+   -26.0024173    -50.9113716     -3.8854223      6.6494873 
+          idA2           idA3           idB1           idB2 
+     0.6583681    -19.8568617     68.7707448     39.4418274 
+          idC1           idC2           idE1           idE2 
+   -61.1077111     -3.5455122    -31.2687316     12.1672984 
+          idL1 
+    -1.0442620 
+
+> # Second, simpler, more powerful approach
+> x <- BMPo[BMPo$method %in% c('gdt', 'grav'), c('method', 'id', 'cvCH4')]
+
+> BMPow <- spread(x, method, cvCH4)
+
+> BMPow$res <- log10(BMPow$gdt/BMPow$grav)
+
+> t.test(BMPow$res)
+
+	One Sample t-test
+
+data:  BMPow$res
+t = -1.403, df = 13, p-value = 0.1841
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.040764623  0.008664646
+sample estimates:
+  mean of x 
+-0.01604999 
+

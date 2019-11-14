@@ -36,7 +36,7 @@ cbg.vol <- cumBg(biogas, dat.type = 'vol',
                  extrap = TRUE) 
 
 # GD calculations
-cbg.gdv <- cumBgGD(biogas,
+cbg.gdv <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
@@ -47,7 +47,7 @@ cbg.gdv <- cumBgGD(biogas,
                    addt0 = TRUE, showt0 = TRUE)
 
 # Note that m.pre.name is not required unless vented.mass is used
-cbg.gdi <- cumBgGD(biogas,
+cbg.gdi <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
@@ -57,7 +57,7 @@ cbg.gdi <- cumBgGD(biogas,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdc <- cumBgGD(biogas, 
+cbg.gdc <- calcBgGD(biogas, 
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
@@ -68,7 +68,7 @@ cbg.gdc <- cumBgGD(biogas,
                    addt0 = TRUE, showt0 = TRUE)
 
 # comp.sub needed here because of leakage
-cbg.gdt <- cumBgGD(biogas,
+cbg.gdt <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',
@@ -79,7 +79,7 @@ cbg.gdt <- cumBgGD(biogas,
                    addt0 = TRUE, showt0 = TRUE, comp.sub = 'lim')
 
 # With headspace correction
-cbg.gdt.hc <- cumBgGD(biogas,
+cbg.gdt.hc <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1.01325,
                    temp.grav = 30, pres.grav = 1.5,
                    id.name = 'id', vol.name = 'vol',

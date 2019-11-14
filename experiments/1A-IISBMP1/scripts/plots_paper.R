@@ -14,7 +14,6 @@ ggplot(d, aes(time.d, cvCH4, lty = method2, pch = method2, group = interaction(i
   theme(legend.position = c(0.77, 0.11)) 
   #theme(legend.position = 'none') 
 ggsave('../plots_paper/yield_curves_S1.pdf', height = 5, width = 3.3)
-ggsave('../plots_paper/yield_curves_S1.png', height = 5, width = 3.3)
 
 
 # xCH4
@@ -27,7 +26,6 @@ subset(d01, time.d < 1.5)
 options(width = 65)
 
 pdf('../plots_paper/xCH4_comp_S1.pdf', height = 4, width = 3.8)
-#png('../plots_paper/xCH4_comp_S1.png', height = 4, width = 3.8, units = 'in', res = 600)
 
   plot(xCH4.GD ~ time.d, data = d01, type = 'n', las = 1,
        xlab = 'Incubation time (d)', ylab = expression('CH'[4]~'conc. (mol. frac.)')) 

@@ -10,6 +10,7 @@ print(summary(mod))
 print(summary(glht(mod, linfct = mcp(method = 'Dunnett'))))
 print(TukeyHSD(mod, 'method'))
 print(model.tables(mod), type = 'means')
+coef(mod)
 
 # Second, simpler, more powerful approach
 x <- BMPo[BMPo$method %in% c('gdt', 'grav'), c('method', 'id', 'cvCH4')]

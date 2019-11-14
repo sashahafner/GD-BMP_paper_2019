@@ -1,11 +1,8 @@
-# Runs complete analysis of IISBMP1 data
+# Runs complete analysis of IISBMP1 (1A) data
 # Camilla G. Justesen & Sasha D. Hafner
 
 rm(list = ls())
 options(width = 70)
-
-ff <- list.files('~/biogas-package-GH/biogas/R', full.names = TRUE)
-for (i in ff) source(i)
 
 source('functions.R')
 source('packages.R')
@@ -19,7 +16,7 @@ source('BMP.R')
 source('BMP_comp.R')
 source('xCH4_comp.R')
 sink('../output/stats.txt')
-  source('stats.R')
+  source('stats.R', echo = TRUE)
 sink()
 sink('../output/explore.txt')
   source('explore.R', echo = TRUE)
