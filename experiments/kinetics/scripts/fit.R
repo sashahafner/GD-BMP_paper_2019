@@ -15,7 +15,6 @@ for(i in unique(yldo$exper.id)) {
   for(j in unique(dd$method)) {
 
     ddd <- dd[dd$method == j, ]
-plot(cvCH4 ~ time.d, data = ddd)
 
     fit[[i]][[j]] <- ff <-  fitFOM(ddd, n.pool = 1, fit.to = 'rate',
                        method = 'LM', abs.err = FALSE,

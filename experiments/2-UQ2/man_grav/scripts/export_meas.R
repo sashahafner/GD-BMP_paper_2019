@@ -8,6 +8,6 @@ write.csv(water, '../output/water.csv', row.names = FALSE)
 gccomp <- biogas[, c('id', 'time.d', 'xCH4')]
 id.descrip <- setup[, c('id', 'descrip')]
 
-gccomp.GC <- merge(gccomp, id.descrip, by = 'id')
+gccomp <- merge(gccomp, id.descrip, by = 'id')
 
-write.csv(gccomp.GC, '../output/GCxCH4.csv', row.names = FALSE)
+write.csv(gccomp, '../output/GCxCH4.csv', row.names = FALSE)

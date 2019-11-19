@@ -16,3 +16,7 @@ setup <- droplevels(subset(setup, !grepl('^W', id)))
 # Make a cummulative date.time column
 biogas <- as.data.frame(mutate(group_by(biogas, id), start.time = min(date.time)))
 biogas$time.d <- as.numeric(difftime(biogas$date.time, biogas$start.time, units = 'days'))
+
+# This experiment ran for nearly 200 d
+# Drop later times to avoid leak issues
+biogas <- biogas[biogas$time.d < 35, ]

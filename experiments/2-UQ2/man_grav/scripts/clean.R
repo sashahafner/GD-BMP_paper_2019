@@ -24,3 +24,6 @@ biogas$time.d <- as.numeric(difftime(biogas$date.time, biogas$start.time, units 
 
 # Check if day and time.d is equal - as it is time.d is not needed in water data set to be comparable
 all.equal(biogas$day, biogas$time.d)
+
+# Set initial xCH4 to zero so row does not need to be dropped
+biogas[biogas$time.d == 0, 'xCH4'] <- 0

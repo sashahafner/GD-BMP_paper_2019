@@ -6,7 +6,7 @@ plot(cvCH4 ~ time.d, data = d, type = 'o', xlab = '', ylab = '', axes = FALSE, p
 box()
 dev.off()
 
-ggplot(d, aes(time.d, cvCH4, lty = method2, pch = method2, group = interaction(id, method2))) + 
+ggplot(d, aes(time.d, cvCH4, lty = method, pch = method, group = interaction(id, method))) + 
   geom_line() + geom_point() +
   facet_wrap(~ descrip2, ncol = 1, scales = 'free') +
   labs(x = 'Incubation time (d)', y = expression('Specific'~CH[4]~'production'~(mL~g^'-1')), lty = 'Method', 

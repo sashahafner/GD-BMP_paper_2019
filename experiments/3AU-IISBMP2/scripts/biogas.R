@@ -3,7 +3,7 @@
 # Set biogas options
 options(unit.pres = 'hPa')
 
-cbg.gdt <- biogas:::cumBgGD(biogas, 
+cbg.gdt <- calcBgGD(biogas, 
                          temp.vol = 'temp.air', pres.vol = 'pres.amb',
                          temp.grav = 30, pres.grav = 1500,
                          id.name = 'id', vol.name = 'vol',
@@ -14,7 +14,7 @@ cbg.gdt <- biogas:::cumBgGD(biogas,
                          addt0 = TRUE, showt0 = TRUE)
 
 
-cbg.gdt.hc <- biogas:::cumBgGD(biogas,
+cbg.gdt.hc <- calcBgGD(biogas,
                                temp.vol = 'temp.air', pres.vol = 'pres.amb',
                                temp.grav = 30, pres.grav = 1500,
                                id.name = 'id', vol.name = 'vol',

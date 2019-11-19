@@ -1,5 +1,5 @@
 # Runs complete comparision of GD and man/grav results
-# Camilla G. Justesen and Sasha Hafner
+# Camilla G. Justesen and Sasha D. Hafner
 
 options(width = 70)
 rm(list = ls())

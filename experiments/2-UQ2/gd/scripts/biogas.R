@@ -1,10 +1,10 @@
-# Calculate different methods of cumBgGD
+# Calculate different methods of calcBgGD
 
 # Set biogas options
 options(unit.pres = 'mbar', pres.std = 1013.25)
 
 # GD calculations
-cbg.gdv <- biogas:::cumBgGD(biogas,
+cbg.gdv <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1013.25,
                    temp.grav = 30, pres.grav = 1500,
                    id.name = 'id', vol.name = 'vol',
@@ -16,7 +16,7 @@ cbg.gdv <- biogas:::cumBgGD(biogas,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdi <- biogas:::cumBgGD(biogas,
+cbg.gdi <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1013.25,
                    temp.grav = 30, pres.grav = 1500,
                    id.name = 'id', vol.name = 'vol',
@@ -28,7 +28,7 @@ cbg.gdi <- biogas:::cumBgGD(biogas,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdt <- biogas:::cumBgGD(biogas,
+cbg.gdt <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1013.25,
                    temp.grav = 30, pres.grav = 1500,
                    id.name = 'id', vol.name = 'vol',
@@ -40,7 +40,7 @@ cbg.gdt <- biogas:::cumBgGD(biogas,
                    extrap = TRUE,
                    addt0 = TRUE, showt0 = TRUE)
 
-cbg.gdtc <- biogas:::cumBgGD(biogas,
+cbg.gdtc <- calcBgGD(biogas,
                    temp.vol = 20, pres.vol = 1013.25,
                    temp.grav = 30, pres.grav = 1500,
                    id.name = 'id', vol.name = 'vol',
